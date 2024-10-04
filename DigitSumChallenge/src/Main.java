@@ -15,10 +15,19 @@ public class Main {
         if (number < 0){
             return -1;
         }
-        while (number > 0) {
-            sum += number % 10; // sum the last digit
-            number /= 10; // remove the last digit
+//        while (number > 0) {
+//            sum += number % 10; // sum the last digit
+//            number /= 10; // remove the last digit
+//        }
+//        return sum;
+
+        // more efficient from course
+        while (number > 9) {
+            sum += number % 10;
+            number /= 10;
         }
+
+        sum += number % 10;
         return sum;
     }
 }
