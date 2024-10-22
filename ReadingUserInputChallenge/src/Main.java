@@ -4,20 +4,18 @@ public class Main {
 
     public static void main(String[] args) {
 
+        Scanner scanner = new Scanner(System.in);
+
         int validInput = 1;
-        int sum = 0;
+        double sum = 0;
         do{
-
-            int numberInput = 0;
-
+            double numberInput = 0;
             System.out.println("Enter number #" + validInput +":");
 
-            Scanner scanner = new Scanner(System.in);
             try {
-                numberInput = Integer.parseInt(scanner.nextLine());
+                numberInput = Double.parseDouble(scanner.nextLine());
                 sum += numberInput;
                 validInput++;
-
             } catch (NumberFormatException e){
                 System.out.println("Invalid number");
             }
