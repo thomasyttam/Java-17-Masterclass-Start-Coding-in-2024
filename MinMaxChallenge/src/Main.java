@@ -10,12 +10,11 @@ public class Main {
         int loopCount = 0;
 
         do {
-            double numberInput = 0;
 
             System.out.println("Please enter a number or any character to quit: ");
 
             try {
-                numberInput = Double.parseDouble(scanner.nextLine());
+                double numberInput = Double.parseDouble(scanner.nextLine());
                 if (loopCount == 0 || numberInput > maxNumber){
                     maxNumber = numberInput;
                 }
