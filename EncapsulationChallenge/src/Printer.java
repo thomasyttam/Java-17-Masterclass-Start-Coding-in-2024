@@ -16,29 +16,43 @@ public class Printer {
     }
 
     public int addToner(int tonerAmount) {
-        if ((this.tonerLevel + tonerAmount) > 100 || (this.tonerLevel + tonerAmount) < 0) {
+//        if (tonerAmount > 100 || tonerAmount < 0)
+//            return -1;
+//        if ((this.tonerLevel + tonerAmount) > 100 || (this.tonerLevel + tonerAmount) < 0) {
+//            return -1;
+//        }
+//        tonerLevel += tonerAmount;
+//        return tonerLevel;
+        if (tonerAmount > 100 || tonerAmount <= 0)
+            return -1;
+        if ((this.tonerLevel + tonerAmount) > 100) {
             return -1;
         }
-        tonerLevel += tonerAmount;
+        this.tonerLevel += tonerAmount;
         return tonerLevel;
     }
 
     public int printPages(int pages) {
-        int pagesNeeded = 0;
-        if (duplex) {
-            System.out.println("It's a duplex printer");
-            if (pages % 2 == 0) {
-                pagesNeeded = pages / 2;
-            }
-            else {
-                pagesNeeded = pages / 2 + 1;
-            }
-            pagesPrinted += pagesNeeded;
-            return pagesNeeded;
-        } else {
-            pagesPrinted += pages;
-            return pages;
-        }
+//        int pagesNeeded = 0;
+//        if (duplex) {
+//            System.out.println("It's a duplex printer");
+//            if (pages % 2 == 0) {
+//                pagesNeeded = pages / 2;
+//            }
+//            else {
+//                pagesNeeded = pages / 2 + 1;
+//            }
+//            pagesPrinted += pagesNeeded;
+//            return pagesNeeded;
+//        } else {
+//            pagesPrinted += pages;
+//            return pages;
+//        }
+        // Better solution from course
+        int pagesToPrint = (duplex) ? pages/2 + pages%2 : pages;
+        pagesPrinted += pagesToPrint;
+        return pagesToPrint;
+
     }
 
     public int getPagesPrinted() {
