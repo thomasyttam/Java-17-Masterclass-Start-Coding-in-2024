@@ -4,8 +4,6 @@ public class Item {
     private double price;
     private String size = "MEDIUM";
 
-
-
     public Item(String type, String name, Double price) {
         this.type = type.toUpperCase();
         this.name = name.toUpperCase();
@@ -44,4 +42,3 @@ public class Item {
     }
 
 }
-
