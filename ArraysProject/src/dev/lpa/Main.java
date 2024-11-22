@@ -1,5 +1,7 @@
 package dev.lpa;
 
+import java.util.Arrays;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -25,6 +27,40 @@ public class Main {
         newArray = new int[] {5, 4, 3, 2, 1};
         for (int i = 0; i < newArray.length; i++) {
             System.out.print(newArray[i] + " ");
+        }
+        System.out.println();
+        int[] newSecondArray;
+        newSecondArray = new int[5];
+        for (int i = 0; i < newSecondArray.length; i++) {
+            newSecondArray[i] = newSecondArray.length - i;
+        }
+        for (int i = 0; i < newSecondArray.length; i++) {
+            System.out.print(newSecondArray[i] + " ");
+        }
+        System.out.println();
+        for(int element : newSecondArray) {
+            System.out.print(element + " ");
+        }
+        System.out.println();
+        System.out.println(newSecondArray);
+        System.out.println(Arrays.toString(newSecondArray));
+
+        Object objectArray = newSecondArray;
+        if (objectArray instanceof int[]){
+            System.out.println("objectArray is really an int array");
+        }
+        
+        // Object array can store different type of each elements
+        Object[] diffArray = new Object[4];
+        diffArray[0] = "Hello";
+        diffArray[1] = new StringBuilder("World");
+        diffArray[2] = newArray;
+        diffArray[3] = 10;
+        for (int i = 0; i < diffArray.length; i++) {
+            System.out.println(diffArray[i]);
+        }
+        for(Object element : diffArray) {
+            System.out.print(element + " ");
         }
     }
 }
