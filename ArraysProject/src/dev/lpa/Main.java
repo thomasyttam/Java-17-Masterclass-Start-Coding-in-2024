@@ -49,7 +49,7 @@ public class Main {
         if (objectArray instanceof int[]){
             System.out.println("objectArray is really an int array");
         }
-        
+
         // Object array can store different type of each elements
         Object[] diffArray = new Object[4];
         diffArray[0] = "Hello";
