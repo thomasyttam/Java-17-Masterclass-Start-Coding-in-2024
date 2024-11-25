@@ -12,7 +12,7 @@ public class Main {
         System.out.println("New Array: " + Arrays.toString(newArray));
 
         int[] sortedArray = Arrays.copyOf(newArray,newArray.length);
-        Arrays.sort(newArray);
+        Arrays.sort(sortedArray);
         System.out.println("Sorted Array: " + Arrays.toString(sortedArray));
         for (int i = 0; i < sortedArray.length / 2; i++) {
             int tempInt = 0;
