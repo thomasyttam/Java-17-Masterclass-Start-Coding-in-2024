@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
 
         // My solution
-        int[] newArray = getRandomIntArray(3);
+        int[] newArray = getRandomIntArray(5);
         System.out.println("New Array: " + Arrays.toString(newArray));
 
         int[] sortedArray = Arrays.copyOf(newArray,newArray.length);
