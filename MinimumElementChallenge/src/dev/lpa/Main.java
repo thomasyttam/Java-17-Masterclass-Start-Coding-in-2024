@@ -11,12 +11,26 @@ public class Main {
         System.out.println(Arrays.toString(userArray));
         System.out.println("min = " + myFindMind(userArray));
 
+        int[] returnArray = myReverseArray(userArray);
+        System.out.println("Reversed array = " + Arrays.toString(returnArray));
+
+        int[] returnArraytwo = myReverseCopy(userArray);
+        System.out.println("Reversed array = " + Arrays.toString(returnArraytwo));
+        System.out.println("Original array = " + Arrays.toString(userArray));
+
         // Course solutions
         int[] returnedArray = readIntegers();
         System.out.println(Arrays.toString(returnedArray));
 
         int returnMin = findMin(returnedArray);
         System.out.println("min = " + returnMin);
+
+        reverse(returnedArray);
+
+        int[] returnedArraytwo = reverseCopy(userArray);
+        System.out.println("Reversed array = " + Arrays.toString(returnedArraytwo));
+        System.out.println("Original array = " + Arrays.toString(returnedArray));
+
     }
 
     // My solutions
@@ -43,9 +57,30 @@ public class Main {
                 minValue = userArray[i];
             }
         }
-
         return minValue;
     }
+
+    private static int[] myReverseArray(int[] initArray){
+        System.out.println("Original array = " + Arrays.toString(initArray));
+        for (int i = 0; i < initArray.length / 2 ; i++) {
+            int temp = initArray[i];
+            initArray[i] = initArray[initArray.length - 1 - i];
+            initArray[initArray.length -1 - i] = temp;
+        }
+        return initArray;
+    }
+
+    private static int[] myReverseCopy(int[] initArray){
+        System.out.println("Original array = " + Arrays.toString(initArray));
+        int[] reverseCopyArray = Arrays.copyOf(initArray, initArray.length);
+        for (int i = 0; i < reverseCopyArray.length / 2 ; i++) {
+            int temp = reverseCopyArray[i];
+            reverseCopyArray[i] = reverseCopyArray[reverseCopyArray.length - 1 - i];
+            reverseCopyArray[reverseCopyArray.length -1 - i] = temp;
+        }
+        return reverseCopyArray;
+    }
+
     //
 
     // Course solution
@@ -72,5 +107,27 @@ public class Main {
             }
         }
         return min;
+    }
+
+    private static void reverse(int[] array) {
+        int maxIndex = array.length - 1;
+        int halfLength = array.length / 2;
+
+        for (int i = 0; i < halfLength; i++) {
+            int temp = array[i];
+            array[i] = array[maxIndex - i];
+            array[maxIndex - i] = temp;
+            System.out.println("--> " + Arrays.toString(array));
+        }
+    }
+
+    private static int[] reverseCopy(int[] array) {
+
+        int[] reversedArray = new int[array.length];
+        int maxIndex = array.length - 1;
+        for(int el : array) {
+            reversedArray[maxIndex--] = el;
+        }
+        return reversedArray;
     }
 }
