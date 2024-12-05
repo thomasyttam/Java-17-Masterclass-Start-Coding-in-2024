@@ -28,7 +28,13 @@ public class Main {
         groceryArray[2] = new GroceryItem("orange","PRODUCE", 5);
         System.out.println(Arrays.toString(groceryArray));
 
+        // General list can add any type
         ArrayList objectList = new ArrayList();
-        
+        objectList.add(new GroceryItem("Butter"));
+        objectList.add("Yogurt");
+
+        // Specify the type in the array list
+        ArrayList<GroceryItem> groceryList = new ArrayList<>();
+        groceryList.add(new GroceryItem("Butter"));
     }
 }
