@@ -50,10 +50,14 @@ public class Main {
         // groceryList.add("Yogurt"); -> cannot work, need GroceryItem
         groceryList.add(new GroceryItem("Milk"));
         groceryList.add(new GroceryItem("Oranges", "PRODUCE", 5));
+        System.out.println(groceryList);
+        // add method add item at position 0
         groceryList.add(0,
                 new GroceryItem("Apples", "PRODUCE", 6));
+        System.out.println(groceryList);
+        // set method replace the item of position 0
         groceryList.set(0,
-                new GroceryItem("Apples", "PRODUCE", 6));
+                new GroceryItem("Banana", "PRODUCE", 6));
         System.out.println(groceryList);
         groceryList.remove(1); // remove the item in index 1
         System.out.println(groceryList);
