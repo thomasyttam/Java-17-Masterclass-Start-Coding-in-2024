@@ -26,5 +26,8 @@ public class Main {
         List<String> newList = Arrays.asList("Sunday", "Monday", "Tuesday");
         System.out.println(newList);
 
+        newList.set(0, "ABC");
+        System.out.println(newList);
+
     }
 }
