@@ -25,6 +25,14 @@ public class Main {
         printItinerary(placeToVisit);
         printItinerary2(placeToVisit);
         printItinerary3(placeToVisit);
+
+        var placeToVisit2 = new LinkedList<>(placeToVisit);
+
+        System.out.println(placeToVisit); // iterator
+        testIterator(placeToVisit);
+
+        System.out.println(placeToVisit2); // listIterator
+        testIterator2(placeToVisit2);
     }
 
     private static void addMoreElements(LinkedList<String> list){
@@ -123,5 +131,45 @@ public class Main {
             previousTown = town;
         }
         System.out.println("Trip ends at " + list.getLast());
+    }
+
+    private static void testIterator(LinkedList<String> list) {
+
+        var iterator = list.iterator();
+        while (iterator.hasNext()){
+//            System.out.println(iterator.next());
+            if(iterator.next().equals("Brisbane")) {
+//                list.remove(); --> cannot use list method in iterator
+                iterator.remove();
+            }
+        }
+        System.out.println(list);
+    }
+
+    private static void testIterator2(LinkedList<String> list) {
+
+        var iterator = list.listIterator();
+        while (iterator.hasNext()){
+//            System.out.println(iterator.next());
+            if(iterator.next().equals("Brisbane")) {
+//                list.remove(); --> cannot use list method in iterator
+                //iterator.remove();
+                iterator.add("Lake Wivenhoe");
+            }
+        } // iterator go beyond last element after while loop
+
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next()); // nothing print out since the iterator go beyond the last element
+        }
+
+        while (iterator.hasPrevious()) {
+            System.out.println(iterator.previous());
+        } // iterator go before first element after while loop
+
+        System.out.println(list);
+
+        var iterator2 = list.listIterator(3);
+        System.out.println(iterator2.next());
+        System.out.println(iterator2.previous());
     }
 }
