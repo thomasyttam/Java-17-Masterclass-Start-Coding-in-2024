@@ -28,5 +28,17 @@ public class Main {
         placeToVisit.add(new TownDistance("Melbourne", 877));
         placeToVisit.add(new TownDistance("Perth", 3923));
 
+        for (var place : placeToVisit) {
+            System.out.println(place);
+        }
+
+        System.out.println("""
+                Available actions (select word or letter):
+                (F)orward
+                (B)ackward
+                (L)ist Places
+                (M)enu
+                (Q)uit""");
+
     }
 }
