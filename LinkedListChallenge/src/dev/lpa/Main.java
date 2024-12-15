@@ -1,6 +1,7 @@
 package dev.lpa;
 
 import java.util.LinkedList;
+import java.util.Scanner;
 
 record TownDistance(String town, int distanceFromSyd) {
 
@@ -58,5 +59,26 @@ public class Main {
                 (M)enu
                 (Q)uit""");
 
+        var iterator = placeToVisit.listIterator();
+        // Get user input
+        Scanner scanner = new Scanner(System.in);
+        String userInput = scanner.nextLine();
+
+
+        switch (userInput.charAt(0)){
+            case 'F' -> iterator.next();
+            default -> {
+                System.out.println("Invalid input");
+                // loop = true;
+            }
+        }
+
+
+
     }
+
+
+
+
+
 }
