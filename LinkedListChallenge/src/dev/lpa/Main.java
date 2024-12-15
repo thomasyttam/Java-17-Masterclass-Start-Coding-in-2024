@@ -32,6 +32,24 @@ public class Main {
             System.out.println(place);
         }
 
+        // Sort the linked list
+        boolean needSort = true;
+        while(needSort){
+            needSort = false;
+            for (int i = 0; i < placeToVisit.size() - 1; i++) {
+                if(placeToVisit.get(i).distanceFromSyd() > placeToVisit.get(i + 1).distanceFromSyd()){
+                    TownDistance tempTown = placeToVisit.get(i);
+                    placeToVisit.set(i, placeToVisit.get(i + 1));
+                    placeToVisit.set(i + 1, tempTown);
+                    needSort = true;
+                }
+            }
+        }
+
+        for (var place : placeToVisit) {
+            System.out.println(place);
+        }
+
         System.out.println("""
                 Available actions (select word or letter):
                 (F)orward
