@@ -62,11 +62,26 @@ public class Main {
         var iterator = placeToVisit.listIterator();
         // Get user input
         Scanner scanner = new Scanner(System.in);
-        String userInput = scanner.nextLine();
+        String userInput = scanner.nextLine().toUpperCase();
 
 
         switch (userInput.charAt(0)){
-            case 'F' -> iterator.next();
+            case 'F' -> {
+                if(placeToVisit.listIterator().hasNext()){
+                    System.out.println(iterator.next());
+                } else {
+                    System.out.println("Already in the last place, no next place is found.");
+                }
+
+            }
+            case 'B' -> {
+                // Check if in the first place
+                if(placeToVisit.listIterator().hasPrevious()){
+                    System.out.println(iterator.previous());
+                } else {
+                    System.out.println("Already in the first place, no previous place is found.");
+                }
+            }
             default -> {
                 System.out.println("Invalid input");
                 // loop = true;
