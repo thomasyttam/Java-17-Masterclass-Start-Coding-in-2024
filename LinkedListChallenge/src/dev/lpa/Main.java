@@ -5,13 +5,13 @@ import java.util.Scanner;
 
 record TownDistance(String town, int distanceFromSyd) {
 
-    public TownDistance(String town, int distanceFromSyd){
+    public TownDistance(String town, int distanceFromSyd) {
         this.town = town;
         this.distanceFromSyd = distanceFromSyd;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return String.format("%s is %dkm distance from Sydney", town, distanceFromSyd);
     }
 }
@@ -35,10 +35,10 @@ public class Main {
 
         // Sort the linked list
         boolean needSort = true;
-        while(needSort){
+        while (needSort) {
             needSort = false;
             for (int i = 0; i < placeToVisit.size() - 1; i++) {
-                if(placeToVisit.get(i).distanceFromSyd() > placeToVisit.get(i + 1).distanceFromSyd()){
+                if (placeToVisit.get(i).distanceFromSyd() > placeToVisit.get(i + 1).distanceFromSyd()) {
                     TownDistance tempTown = placeToVisit.get(i);
                     placeToVisit.set(i, placeToVisit.get(i + 1));
                     placeToVisit.set(i + 1, tempTown);
@@ -51,49 +51,71 @@ public class Main {
             System.out.println(place);
         }
 
-        System.out.println("""
-                Available actions (select word or letter):
-                (F)orward
-                (B)ackward
-                (L)ist Places
-                (M)enu
-                (Q)uit""");
 
         var iterator = placeToVisit.listIterator();
+        boolean quitMenu = false;
+
         // Get user input
         Scanner scanner = new Scanner(System.in);
-        String userInput = scanner.nextLine().toUpperCase();
 
+        while (!quitMenu) {
+            System.out.println("""
+                    Available actions (select word or letter):
+                    (F)orward
+                    (B)ackward
+                    (L)ist Places
+                    (M)enu
+                    (Q)uit""");
 
-        switch (userInput.charAt(0)){
-            case 'F' -> {
-                if(placeToVisit.listIterator().hasNext()){
-                    System.out.println(iterator.next());
-                } else {
-                    System.out.println("Already in the last place, no next place is found.");
+            String userInput = scanner.nextLine().toUpperCase();
+
+            switch (userInput.charAt(0)) {
+                case 'F' -> {
+                    if (iterator.hasNext()) {
+                        System.out.println(iterator.next());
+                        scanner.nextLine();
+                    } else {
+                        System.out.println("Already in the last place, no next place is found.");
+                        scanner.nextLine();
+                    }
+                    quitMenu = false;
                 }
+                case 'B' -> {
+                    // Check if in the first place
+                    if (placeToVisit.listIterator().hasPrevious()) {
+                        System.out.println(iterator.previous());
+                        scanner.nextLine();
 
-            }
-            case 'B' -> {
-                // Check if in the first place
-                if(placeToVisit.listIterator().hasPrevious()){
-                    System.out.println(iterator.previous());
-                } else {
-                    System.out.println("Already in the first place, no previous place is found.");
+                    } else {
+                        System.out.println("Already in the first place, no previous place is found.");
+                        scanner.nextLine();
+                    }
+                    quitMenu = false;
                 }
-            }
-            default -> {
-                System.out.println("Invalid input");
-                // loop = true;
+                case 'L' -> {
+                    if (iterator.hasPrevious()){
+                        iterator.previous();
+                        System.out.println(iterator.next());
+                        scanner.nextLine();
+                    } else {
+                        System.out.println(iterator.next());
+                        iterator.previous();
+                        scanner.nextLine();
+                    }
+                    quitMenu = false;
+                }
+                case 'M' -> {
+                    quitMenu = false;
+                }
+                case 'Q' -> {
+                    quitMenu = true;
+                }
+                default -> {
+                    System.out.println("Invalid input");
+                    scanner.nextLine();
+                    quitMenu = false;
+                }
             }
         }
-
-
-
     }
-
-
-
-
-
 }
