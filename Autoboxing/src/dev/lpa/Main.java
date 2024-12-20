@@ -14,4 +14,8 @@ public class Main {
         System.out.println(autoBoxed.getClass().getName());
 //        System.out.println(autoUnboxed.getClass().getName());
     }
+
+    private static Double getDoubleObject() {
+        return Double.valueOf(100.00);
+    }
 }
