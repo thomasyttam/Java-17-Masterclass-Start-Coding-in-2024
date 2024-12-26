@@ -27,4 +27,23 @@ class Bank {
     public Bank(String name) {
         this.name = name;
     }
+
+    private Customer getCustomer(String customerName){
+        for(var customer : customers) {
+            if(customer.name().equalsIgnoreCase(customerName)) {
+                return customer;
+            }
+        }
+        System.out.printf("Customer (%s) was not found.%n", customerName);
+
+        return null;
+    }
+
+    private void addNewCustomer(String customerName, double initialDeposit) {
+        if(getCustomer(customerName) == null){
+            Customer customer = new Customer(customerName, initialDeposit);
+            customers.add(customer);
+            System.out.println("New customer added: " + customer);
+        }
+    }
 }
