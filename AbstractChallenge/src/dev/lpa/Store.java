@@ -15,6 +15,16 @@ public abstract class Store {
         productsOfSales.add(new ArtObject("Oil Painting", 1350,
                 "Impressionistic work by ABF in 2010"));
         productsOfSales.add(new ArtObject("Sculpture", 2000,
-                "Brozne work by JKF, produced in 1950"));
+                "Bronze work by JKF, produced in 1950"));
+
+        listProduct();
+    }
+
+    public static void listProduct() {
+
+        for(var item : productsOfSales) {
+            System.out.println("-".repeat(30));
+            item.showDetails();
+        }
     }
 }
