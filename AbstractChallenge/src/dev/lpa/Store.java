@@ -2,6 +2,8 @@ package dev.lpa;
 
 import java.util.ArrayList;
 
+record OrderItem(int quantity, ProductOfSale product){}
+
 public abstract class Store {
 
     private static ArrayList<ProductOfSale> productsOfSales = new ArrayList<>();
@@ -18,6 +20,8 @@ public abstract class Store {
                 "Bronze work by JKF, produced in 1950"));
 
         listProduct();
+
+        System.out.println("\nOrder 1");
     }
 
     public static void listProduct() {
@@ -26,5 +30,21 @@ public abstract class Store {
             System.out.println("-".repeat(30));
             item.showDetails();
         }
+    }
+
+    public static void addItemToOrder(ArrayList<OrderItem> order, int orderIndex, int quantity) {
+
+        order.add(new OrderItem(quantity, productsOfSales.get(orderIndex)));
+    }
+
+    public static void printOrder(ArrayList<OrderItem> order) {
+
+        double salesTotal = 0;
+        for(var item : order) {
+            item.product().printPricedItem(item.quantity());
+            salesTotal += item.product().getSalesPrice(item.quantity());
+        }
+
+        System.out.printf("Sales Total = $%6.2f.%n", salesTotal);
     }
 }
