@@ -22,6 +22,10 @@ public abstract class Store {
         listProduct();
 
         System.out.println("\nOrder 1");
+        var order1 = new ArrayList<OrderItem>();
+        addItemToOrder(order1, 1, 2);
+        addItemToOrder(order1, 0, 1);
+        printOrder(order1);
     }
 
     public static void listProduct() {
