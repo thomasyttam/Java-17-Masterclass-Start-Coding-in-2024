@@ -18,6 +18,11 @@ public abstract class Store {
                 "Impressionistic work by ABF in 2010"));
         productsOfSales.add(new ArtObject("Sculpture", 2000,
                 "Bronze work by JKF, produced in 1950"));
+        productsOfSales.add(new Furniture("Desk", 500,
+                "Mahogany Desk"));
+        productsOfSales.add(new Furniture("Lamp", 200,
+                "Tiffany Lamp with Hummingbirds"));
+
 
         listProduct();
 
@@ -26,6 +31,13 @@ public abstract class Store {
         addItemToOrder(order1, 1, 2);
         addItemToOrder(order1, 0, 1);
         printOrder(order1);
+
+        System.out.println("\nOrder 2");
+        var order2 = new ArrayList<OrderItem>();
+        addItemToOrder(order2, 3, 5);
+        addItemToOrder(order2, 0, 1);
+        addItemToOrder(order2, 2, 1);
+        printOrder(order2);
     }
 
     public static void listProduct() {
