@@ -75,8 +75,11 @@ interface FlightEnabled {
 //    FlightStages transition(FlightStages stage);
 
     default FlightStages transition(FlightStages stage) {
-        System.out.println("transition not implemented on " + getClass().getSimpleName());
-        return null;
+//        System.out.println("transition not implemented on " + getClass().getSimpleName());
+//        return null;
+        FlightStages nexStage = stage.getNextStage();
+        System.out.println("Transition from " + stage + " to " + nexStage);
+        return nexStage;
     }
 }
 
