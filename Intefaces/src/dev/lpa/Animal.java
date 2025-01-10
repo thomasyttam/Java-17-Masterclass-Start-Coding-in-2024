@@ -1,5 +1,33 @@
 package dev.lpa;
 
+enum FlightStages implements Trackable {GROUND, LAUNCH, CRUISE, DATA_COLLECTION;
+
+    @Override
+    public void track() {
+
+        if (this != GROUND){
+            System.out.println("Monitoring " + this);
+        }
+    }
+}
+
+record DragonFly(String name, String type) implements FlightEnabled {
+
+    @Override
+    public void takeOff() {
+
+    }
+
+    @Override
+    public void land() {
+
+    }
+
+    @Override
+    public void fly() {
+
+    }
+}
 
 class Satellite implements OrbitEarth {
 
@@ -9,7 +37,7 @@ class Satellite implements OrbitEarth {
 
     @Override
     public void takeOff() {
-        
+
     }
 
     @Override
