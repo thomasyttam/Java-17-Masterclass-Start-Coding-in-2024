@@ -6,7 +6,8 @@ public class Test {
 
         inFlight(new Jet());
 
-        OrbitEarth.log("Testing " + new Satellite());
+//        OrbitEarth.log("Testing " + new Satellite());
+        orbit(new Satellite());
     }
 
     private static void inFlight(FlightEnabled flier) {
@@ -16,6 +17,12 @@ public class Test {
         if(flier instanceof Trackable tracked) {
             tracked.track();
         }
+        flier.land();
+    }
+
+    private static void orbit(OrbitEarth flier) {
+        flier.takeOff();
+        flier.fly();
         flier.land();
     }
 }
