@@ -8,4 +8,11 @@ public interface Mappable {
     String getLabel();
     Geometry getShape();
     String getMarker();
+
+    default String toJSON() {
+
+        return """
+                "type": "%s", lab
+                """;
+    }
 }
