@@ -1,5 +1,7 @@
 package dev.lpa;
 
+import java.awt.*;
+
 enum UsageType {ENTERTAINMENT, GOVERNMENT, RESIDENTIAL, SPORTS }
 
 public class Building implements Mappable{
@@ -24,6 +26,12 @@ public class Building implements Mappable{
 
     @Override
     public String getMarker() {
-        return "";
+        return switch (usage){
+            case ENTERTAINMENT -> Color.GREEN + " " + PointMarker.TRIANGLE;
+            case GOVERNMENT -> Color.RED + " " + PointMarker.STAR;
+            case RESIDENTIAL -> Color.BLUE + " " + PointMarker.SQUARE;
+            case SPORTS -> Color.ORANGE + " " + PointMarker.PUSH_PIN;
+            default -> Color.BLACK + " " + PointMarker.CIRCLE;
+        };
     }
 }
