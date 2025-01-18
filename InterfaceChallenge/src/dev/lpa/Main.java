@@ -12,5 +12,9 @@ public class Main {
         mappables.add(new Building("Sydney Opera House",
                 UsageType.ENTERTAINMENT));
         mappables.add(new Building("Stadium Australia", UsageType.SPORTS));
+
+        for(var m : mappables) {
+            Mappable.mapIt(m);
+        }
     }
 }
