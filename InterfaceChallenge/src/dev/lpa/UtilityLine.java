@@ -1,5 +1,7 @@
 package dev.lpa;
 
+import java.awt.*;
+
 enum UtilityType {ELECTRICAL, FIBER_OPTIC, GAS, WATER}
 
 public class UtilityLine implements Mappable{
@@ -14,16 +16,28 @@ public class UtilityLine implements Mappable{
 
     @Override
     public String getLabel() {
-        return "";
+        return name + " (" + type +")";
     }
 
     @Override
     public Geometry getShape() {
-        return null;
+        return Geometry.LINE;
     }
 
     @Override
     public String getMarker() {
-        return "";
+        return switch (type) {
+            case ELECTRICAL -> Color.RED + " "  + LineMarker.DASHED;
+            case FIBER_OPTIC -> Color.GREEN + " " + LineMarker.DOTTED;
+            case GAS -> Color.ORANGE + " " + LineMarker.SOLID;
+            case WATER -> Color.BLUE + " " + LineMarker.SOLID;
+            default -> Color.BLACK + " " + LineMarker.SOLID;
+        };
+    }
+
+    @Override
+    public String toJSON() {
+        return Mappable.super.toJSON() + """
+                , "name": "%s", "utility": "%s" """.formatted(name, type);
     }
 }
