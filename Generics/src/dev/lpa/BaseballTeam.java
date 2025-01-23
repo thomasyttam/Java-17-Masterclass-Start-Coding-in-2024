@@ -20,4 +20,13 @@ public class BaseballTeam {
             teamMembers.add(player);
         }
     }
+
+    public void printTeamMembers() {
+        System.out.println(teamName + " Roaster:");
+        System.out.println(teamMembers);
+    }
+
+    public int ranking() {
+        return (totalLosses * 2) + totalTies + 1;
+    }
 }
