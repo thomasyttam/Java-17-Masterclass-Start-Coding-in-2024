@@ -22,7 +22,7 @@ public class SportsTeam {
         }
     }
 
-    public void printTeamMembers() {
+    public void listTeamMembers() {
 
         System.out.println(teamName + " Roaster:");
         System.out.println(teamMembers);
