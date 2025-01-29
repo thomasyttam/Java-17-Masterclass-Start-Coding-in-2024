@@ -48,6 +48,9 @@ public class Main {
         canberra.addTeamMember("B Black");
         canberra.listTeamMembers();
         scoreResult(canberra, 0 , adelaide, 1);
+
+//        Team<int> melbourneVB = new Team<>("Melbourne Vipers");
+        Team<Integer> melbourneVB = new Team<>("Melbourne Vipers");
     }
 
     public static void scoreResult(SportsTeam team1, int t1_score,
