@@ -3,7 +3,8 @@ package dev.lpa;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Team<T> {
+// T extends Player means T to be a Player or subtype of Player
+public class Team<T extends Player> {
 
     private String teamName;
     private List<T> teamMembers = new ArrayList<>();
