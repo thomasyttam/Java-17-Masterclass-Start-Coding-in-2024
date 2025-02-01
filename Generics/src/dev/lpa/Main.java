@@ -7,6 +7,7 @@ interface Player {
 
 record BaseballPlayer(String name, String position) implements Player{}
 record FootballPlayer(String name, String position) implements Player{}
+record VolleyballPlayer(String name, String position) implements Player{}
 
 public class Main {
 
@@ -22,8 +23,8 @@ public class Main {
 
 //        Team phillies = new Team("Philadelphia Phillies");
 //        Team astros = new Team("Huston Astros");
-        Team<BaseballPlayer> phillies = new Team("Philadelphia Phillies");
-        Team<BaseballPlayer> astros = new Team("Huston Astros");
+        Team<BaseballPlayer, Affiliation> phillies = new Team("Philadelphia Phillies");
+        Team<BaseballPlayer, Affiliation> astros = new Team("Huston Astros");
         scoreResult(phillies, 3, astros, 5);
 
         var harper = new BaseballPlayer("B Harper", "Right Fielder");
@@ -35,7 +36,7 @@ public class Main {
         phillies.listTeamMembers();
 
         SportsTeam afc1 = new SportsTeam("Adelaide Crows");
-        Team<FootballPlayer> afc = new Team<>("Adelaide Crows");
+        Team<FootballPlayer, Affiliation> afc = new Team<>("Adelaide Crows");
         var tex = new FootballPlayer("Tex Walker", "Centre half forward");
         afc.addTeamMember(tex);
 //        var guthrie = new BaseballPlayer("D Guthrie", "Centre Fielder");
@@ -44,17 +45,17 @@ public class Main {
         afc.addTeamMember(rory);
         afc.listTeamMembers();
 
-        Team<String> adelaide = new Team<>("Adelaide Storm");
-        adelaide.addTeamMember("N Roberts");
+        Team<VolleyballPlayer, Affiliation> adelaide = new Team<>("Adelaide Storm");
+        adelaide.addTeamMember(new VolleyballPlayer("N Roberts", "Setter"));
         adelaide.listTeamMembers();
 
-        var canberra = new Team<String>("Canberra Heat");
-        canberra.addTeamMember("B Black");
+        var canberra = new Team<VolleyballPlayer, Affiliation>("Canberra Heat");
+        canberra.addTeamMember(new VolleyballPlayer("B Black", "Opposite"));
         canberra.listTeamMembers();
         scoreResult(canberra, 0 , adelaide, 1);
 
 //        Team<int> melbourneVB = new Team<>("Melbourne Vipers");
-        Team<Integer> melbourneVB = new Team<>("Melbourne Vipers");
+//        Team<Integer> melbourneVB = new Team<>("Melbourne Vipers");
     }
 
     public static void scoreResult(SportsTeam team1, int t1_score,
