@@ -1,6 +1,10 @@
 package dev.lpa;
 
-interface Player {}
+interface Player {
+    String name();
+}
+
+
 record BaseballPlayer(String name, String position) implements Player{}
 record FootballPlayer(String name, String position) implements Player{}
 

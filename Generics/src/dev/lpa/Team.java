@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 // T extends Player means T to be a Player or subtype of Player
-public class Team<T extends Player> {
+// public class Team<T extends Player> {
+public class Team<T> {
 
     private String teamName;
     private List<T> teamMembers = new ArrayList<>();
@@ -26,7 +27,10 @@ public class Team<T extends Player> {
     public void listTeamMembers() {
 
         System.out.println(teamName + " Roaster:");
-        System.out.println(teamMembers);
+//        System.out.println(teamMembers);
+        for(T t : teamMembers) {
+            System.out.println(t);
+        }
     }
 
     public int ranking() {
