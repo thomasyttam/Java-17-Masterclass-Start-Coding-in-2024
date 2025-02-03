@@ -13,6 +13,9 @@ public class Main {
 
     public static void main(String[] args) {
 
+        var philly = new Affiliation("city", "Philadelphia, PA",
+                "US");
+
         BaseballTeam phillies1 = new BaseballTeam("Philadelphia Phillies");
         BaseballTeam astros1 = new BaseballTeam("Huston Astros");
         scoreResult(phillies1, 3, astros1, 5);
@@ -23,8 +26,9 @@ public class Main {
 
 //        Team phillies = new Team("Philadelphia Phillies");
 //        Team astros = new Team("Huston Astros");
-        Team<BaseballPlayer, Affiliation> phillies = new Team("Philadelphia Phillies");
-        Team<BaseballPlayer, Affiliation> astros = new Team("Huston Astros");
+        Team<BaseballPlayer, Affiliation> phillies =
+                new Team<>("Philadelphia Phillies", philly);
+        Team<BaseballPlayer, Affiliation> astros = new Team<>("Huston Astros");
         scoreResult(phillies, 3, astros, 5);
 
         var harper = new BaseballPlayer("B Harper", "Right Fielder");
@@ -36,7 +40,8 @@ public class Main {
         phillies.listTeamMembers();
 
         SportsTeam afc1 = new SportsTeam("Adelaide Crows");
-        Team<FootballPlayer, Affiliation> afc = new Team<>("Adelaide Crows");
+        Team<FootballPlayer, String> afc = new Team<>("Adelaide Crows",
+                "City of Adelaide, South Australia, in AU");
         var tex = new FootballPlayer("Tex Walker", "Centre half forward");
         afc.addTeamMember(tex);
 //        var guthrie = new BaseballPlayer("D Guthrie", "Centre Fielder");

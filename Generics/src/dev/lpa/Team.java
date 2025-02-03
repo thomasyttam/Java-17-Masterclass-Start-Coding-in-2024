@@ -26,9 +26,9 @@ public class Team<T extends Player, S> {
         this.teamName = teamName;
     }
 
-    public Team(S affiliation, String teamName) {
-        this.affiliation = affiliation;
+    public Team(String teamName, S affiliation) {
         this.teamName = teamName;
+        this.affiliation = affiliation;
     }
 
     public void addTeamMember(T t) {
