@@ -14,6 +14,9 @@ public class Main {
         parkLayer.renderLayer();
 
         var majorUSRivers = new River[]{
+                new River("Mississippi",
+                        "47.2160, -95.2348", "29.1566, -89.2495",
+                        "35.1556, -90.0658"),
 
         };
     }
