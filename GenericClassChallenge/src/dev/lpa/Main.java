@@ -20,5 +20,14 @@ public class Main {
                 new River("Missouri",
                         "45.9239, -111.4983", "38.1846, -90.1218")
         };
+
+        Layer<River> riverLayer = new Layer<>(majorUSRivers);
+
+        riverLayer.addElements(
+                new River("Colorado",
+                        "40.4708, -105.8286", "31.7811, -114.7724"),
+                new River("Delaware", "" +
+                        "42.2026, -75.00836", "39.4955, -75.5592"));
+        riverLayer.renderLayer();
     }
 }
