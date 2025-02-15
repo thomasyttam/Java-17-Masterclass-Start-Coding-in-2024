@@ -1,5 +1,7 @@
 package dev.lpa;
 
+import java.util.Arrays;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -15,5 +17,14 @@ public class Main {
 
         String banana = "banana";
         String[] fruit = {"apple", "banana", "pear", "BANANA"};
+
+        for(String s : fruit) {
+            int val = banana.compareTo(s);
+            System.out.printf("%s %s %s: compareTo=%d%n", banana,
+                    (val == 0 ? "==" : (val < 0) ? "<" : ">"), s, val);
+        }
+
+        Arrays.sort(fruit);
+        System.out.println(Arrays.toString(fruit));
     }
 }
