@@ -26,5 +26,9 @@ public class Main {
 
         Arrays.sort(fruit);
         System.out.println(Arrays.toString(fruit));
+
+        System.out.println("A:" + (int)'A' + " " + "a:" + (int)'a');
+        System.out.println("B:" + (int)'B' + " " + "b:" + (int)'b');
+        System.out.println("P:" + (int)'P' + " " + "p:" + (int)'p');
     }
 }
