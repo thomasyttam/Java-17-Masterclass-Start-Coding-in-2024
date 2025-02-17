@@ -30,5 +30,23 @@ public class Main {
         System.out.println("A:" + (int)'A' + " " + "a:" + (int)'a');
         System.out.println("B:" + (int)'B' + " " + "b:" + (int)'b');
         System.out.println("P:" + (int)'P' + " " + "p:" + (int)'p');
+
+        Student tim = new Student("Tim");
+        Student [] students = {new Student("Zach"), new Student("Tim"),
+                new Student("Ann")};
+    }
+}
+
+class Student {
+
+    private String name;
+
+    public Student(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
