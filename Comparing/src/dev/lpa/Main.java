@@ -40,7 +40,7 @@ public class Main {
     }
 }
 
-class Student {
+class Student implements Comparable{
 
     private String name;
 
@@ -51,5 +51,11 @@ class Student {
     @Override
     public String toString() {
         return name;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Student other = (Student) o;
+        return name.compareTo(other.name);
     }
 }
