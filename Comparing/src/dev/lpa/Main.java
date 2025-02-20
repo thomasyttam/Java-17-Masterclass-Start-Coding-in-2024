@@ -37,10 +37,14 @@ public class Main {
 
         Arrays.sort(students);
         System.out.println(Arrays.toString(students));
+
+
+        System.out.println("result = " + tim.compareTo(new Student("TIM")));
+
     }
 }
 
-class Student implements Comparable{
+class Student implements Comparable<Student>{
 
     private String name;
 
@@ -54,8 +58,13 @@ class Student implements Comparable{
     }
 
     @Override
-    public int compareTo(Object o) {
-        Student other = (Student) o;
-        return name.compareTo(other.name);
+    public int compareTo(Student o) {
+        return name.compareTo(o.name);
     }
+
+//    @Override
+//    public int compareTo(Object o) {
+//        Student other = (Student) o;
+//        return name.compareTo(other.name);
+//    }
 }
