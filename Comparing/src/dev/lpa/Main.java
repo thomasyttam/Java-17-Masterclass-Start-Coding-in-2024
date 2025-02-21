@@ -1,6 +1,7 @@
 package dev.lpa;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Random;
 
 public class Main {
@@ -39,9 +40,17 @@ public class Main {
         Arrays.sort(students);
         System.out.println(Arrays.toString(students));
 
-
         System.out.println("result = " + tim.compareTo(new Student("TIM")));
 
+        Comparator<Student> gpaSorter = new StudentGPAComparator();
+    }
+}
+
+class StudentGPAComparator implements Comparator<Student>{
+
+    @Override
+    public int compare(Student o1, Student o2) {
+        return (o1.gpa + o1.name).compareTo(o2.gpa + o2.name);
     }
 }
 
@@ -49,7 +58,8 @@ class Student implements Comparable<Student>{
 
     private static int LAST_ID = 1000;
     private static Random random = new Random();
-    private String name;
+
+    String name;
     private int id;
     protected double gpa;
 
@@ -61,7 +71,7 @@ class Student implements Comparable<Student>{
 
     @Override
     public String toString() {
-        return name;
+        return "%d - %s (%.2f)".formatted(id, name, gpa);
     }
 
     @Override
