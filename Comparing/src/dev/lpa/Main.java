@@ -43,6 +43,8 @@ public class Main {
         System.out.println("result = " + tim.compareTo(new Student("TIM")));
 
         Comparator<Student> gpaSorter = new StudentGPAComparator();
+        Arrays.sort(students, gpaSorter.reversed());
+        System.out.println(Arrays.toString(students));
     }
 }
 
@@ -50,7 +52,10 @@ class StudentGPAComparator implements Comparator<Student>{
 
     @Override
     public int compare(Student o1, Student o2) {
+//        Sort low to high
         return (o1.gpa + o1.name).compareTo(o2.gpa + o2.name);
+//        Sort high to low
+//        return (o2.gpa + o2.name).compareTo(o1.gpa + o1.name);
     }
 }
 
