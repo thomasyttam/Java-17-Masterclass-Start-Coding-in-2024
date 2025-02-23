@@ -35,7 +35,7 @@ public class Main {
 
         Student tim = new Student("Tim");
         Student [] students = {new Student("Zach"), new Student("Tim"),
-                new Student("Ann")};
+                new Student("Ann"), new Student("Brian")};
 
         Arrays.sort(students);
         System.out.println(Arrays.toString(students));
