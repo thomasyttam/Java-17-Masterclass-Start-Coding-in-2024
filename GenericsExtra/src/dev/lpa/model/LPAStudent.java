@@ -12,4 +12,8 @@ public class LPAStudent extends Student{
     public String toString() {
         return "%s %8.1f%%".formatted(super.toString(), percentComplete);
     }
+
+    public double getPercentComplete() {
+        return percentComplete;
+    }
 }
