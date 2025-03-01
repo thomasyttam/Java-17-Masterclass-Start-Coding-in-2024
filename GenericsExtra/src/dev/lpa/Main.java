@@ -2,6 +2,7 @@ package dev.lpa;
 
 import dev.lpa.model.LPAStudent;
 import dev.lpa.model.Student;
+import dev.lpa.util.QueryList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,14 @@ public class Main {
         testList(new ArrayList<String >(List.of("Able", "Barry", "Charlie")));
         testList(new ArrayList<Integer>(List.of(1, 2, 3)));
 
+        var queryList = new QueryList<>(lpaStudents);
+        var matches = queryList.getMatches("Course", "Python");
+        printMoreList(matches);
+
+//        var student2021 = QueryList.getMatches(new ArrayList<>(), "YearStarted", "2021"); -> error, not know the type
+//        var student2021 = QueryList.<Student>getMatches(new ArrayList<>(), "YearStarted", "2021");
+        var student2021 = QueryList.getMatches(students, "YearStarted", "2021");
+        printMoreList(student2021);
     }
 
     public static void printMoreList(List<? extends Student> students) {

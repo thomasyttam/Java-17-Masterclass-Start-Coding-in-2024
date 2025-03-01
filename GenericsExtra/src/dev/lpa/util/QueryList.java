@@ -11,6 +11,18 @@ public class QueryList <T extends QueryItem> {
         this.items = items;
     }
 
+    public static <T extends QueryItem> List<T> getMatches(
+            List<T> items, String field, String value) {
+
+        List <T> matches = new ArrayList<>();
+        for (var item : items) {
+            if(item.matchFieldValue(field, value)) {
+                matches.add(item);
+            }
+        }
+        return matches;
+    }
+
     public List<T> getMatches(String field, String value) {
 
         List <T> matches = new ArrayList<>();
