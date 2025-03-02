@@ -2,10 +2,19 @@ package dev.lpa;
 
 import dev.lpa.model.LPAStudent;
 import dev.lpa.model.Student;
+import dev.lpa.util.QueryItem;
 import dev.lpa.util.QueryList;
 
 import java.util.ArrayList;
 import java.util.List;
+
+record Employee(String name) implements QueryItem {
+
+    @Override
+    public boolean matchFieldValue(String fieldName, String value) {
+        return false;
+    }
+}
 
 public class Main {
 
@@ -39,6 +48,8 @@ public class Main {
 //        var student2021 = QueryList.<Student>getMatches(new ArrayList<>(), "YearStarted", "2021");
         var student2021 = QueryList.getMatches(students, "YearStarted", "2021");
         printMoreList(student2021);
+
+//        QueryList<Employee> employeeList = new QueryList<>(); -> not in Student class;
     }
 
     public static void printMoreList(List<? extends Student> students) {

@@ -1,9 +1,11 @@
 package dev.lpa.util;
 
+import dev.lpa.model.Student;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class QueryList <T extends QueryItem> {
+public class QueryList <T extends Student & QueryItem> {
 
     private List<T> items;
 
@@ -11,10 +13,10 @@ public class QueryList <T extends QueryItem> {
         this.items = items;
     }
 
-    public static <T extends QueryItem> List<T> getMatches(
-            List<T> items, String field, String value) {
+    public static <S extends QueryItem> List<S> getMatches(
+            List<S> items, String field, String value) {
 
-        List <T> matches = new ArrayList<>();
+        List <S> matches = new ArrayList<>();
         for (var item : items) {
             if(item.matchFieldValue(field, value)) {
                 matches.add(item);
