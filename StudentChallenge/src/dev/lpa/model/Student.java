@@ -48,6 +48,6 @@ public class Student implements QueryItem, Comparable<Student> {
 
     @Override
     public int compareTo(Student o) {
-        return Integer.valueOf((studendId).compareTo.(o.studendId);
+        return Integer.valueOf(studendId).compareTo(o.studendId);
     }
 }
