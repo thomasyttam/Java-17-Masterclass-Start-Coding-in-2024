@@ -1,7 +1,6 @@
 package dev.lpa;
 
 import dev.lpa.domain.Employee;
-import dev.lpa.domain.EmployeeComparator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +16,10 @@ public class Main {
                 new Employee(13151, "Laura", 2020),
                 new Employee(10050, "Jim", 2018)));
 
-        var comparator = new EmployeeComparator<>();
-        employees.sort(comparator);
+//        var comparator = new EmployeeComparator<>();
+//        employees.sort(comparator);
+
+        employees.sort(new Employee.EmployeeComparator<>());
 
         for (Employee e : employees) {
             System.out.println(e);
