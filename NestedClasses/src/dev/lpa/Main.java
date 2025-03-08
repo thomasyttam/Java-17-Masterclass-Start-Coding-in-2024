@@ -19,6 +19,13 @@ public class Main {
 //        var comparator = new EmployeeComparator<>();
 //        employees.sort(comparator);
 
+        employees.sort(new Employee.EmployeeComparator<>("yearStarted").reversed());
+
+        for (Employee e : employees) {
+            System.out.println(e);
+        }
+
+        System.out.println("-".repeat(30));
         employees.sort(new Employee.EmployeeComparator<>());
 
         for (Employee e : employees) {
