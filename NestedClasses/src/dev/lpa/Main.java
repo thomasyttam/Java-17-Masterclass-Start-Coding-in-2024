@@ -1,6 +1,7 @@
 package dev.lpa;
 
 import dev.lpa.domain.Employee;
+import dev.lpa.domain.StoreEmployee;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,33 @@ public class Main {
         employees.sort(new Employee.EmployeeComparator<>());
 
         for (Employee e : employees) {
+            System.out.println(e);
+        }
+
+        System.out.println("Store Members");
+
+        List<StoreEmployee> storeEmployees = new ArrayList<>(List.of(
+                new StoreEmployee(10015, "Mag", 2019,
+                        "Target"),
+                new StoreEmployee(10515, "Joe", 2021,
+                        "Walmart"),
+                new StoreEmployee(10105, "Tom", 2020,
+                        "Macys"),
+                new StoreEmployee(10215, "Marty", 2018,
+                        "Walmart"),
+                new StoreEmployee(10322, "Bud", 2016,
+                        "Target")));
+
+        for (StoreEmployee e : storeEmployees) {
+            System.out.println(e);
+        }
+
+        System.out.println("-".repeat(30));
+
+        var comparator = new Employee.EmployeeComparator<>();
+        storeEmployees.sort(comparator);
+
+        for (StoreEmployee e : storeEmployees) {
             System.out.println(e);
         }
     }
