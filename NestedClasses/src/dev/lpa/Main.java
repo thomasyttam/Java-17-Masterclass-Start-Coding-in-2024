@@ -53,7 +53,12 @@ public class Main {
 
         System.out.println("-".repeat(30));
 
-        var comparator = new Employee.EmployeeComparator<>();
+//        var comparator = new StoreEmployee.StoreComparator<>(); -> not work
+//        var genericEmployee = new StoreEmployee();
+//        var comparator = genericEmployee.new StoreComparator<>();
+//        below code replace two line of code above
+        var comparator = new StoreEmployee().new StoreComparator<>();
+        // var comparator = new Employee.EmployeeComparator<>();
         storeEmployees.sort(comparator);
 
         for (StoreEmployee e : storeEmployees) {
