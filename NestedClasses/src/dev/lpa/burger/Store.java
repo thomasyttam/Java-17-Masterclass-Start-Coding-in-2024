@@ -6,5 +6,8 @@ public class Store {
 
         Meal regularMeal = new Meal();
         System.out.println(regularMeal);
+
+        Meal USregularMeal = new Meal(0.68);
+        System.out.println(USregularMeal);
     }
 }
