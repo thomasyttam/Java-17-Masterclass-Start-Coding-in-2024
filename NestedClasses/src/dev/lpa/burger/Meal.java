@@ -37,6 +37,10 @@ public class Meal {
                 "Total Due: ", getTotal());
     }
 
+    public void addToppings(String... selectedToppings) {
+        burger.addToppings(selectedToppings);
+    }
+
     private class Item{
 
         private String name;
@@ -68,7 +72,16 @@ public class Meal {
 
     private class Burger extends Item {
 
-        private enum Extra {AVOCADO, BACON, CHEESE, KETCHUP, MAYO, MUSTARD, PICKLES}
+        private enum Extra {AVOCADO, BACON, CHEESE, KETCHUP, MAYO, MUSTARD, PICKLES;
+
+            private double getPrice() {
+                return switch (this) {
+                    case AVOCADO -> 1.0;
+                    case BACON, CHEESE -> 1.5;
+                    default -> 0;
+                };
+            }
+        }
 
         private List<Item> toppings = new ArrayList<>();
         Burger(String name) {
@@ -79,5 +92,13 @@ public class Meal {
             return super.price;
         }
 
+        private void addToppings (String... selectedToppings) {
+
+            for (String selectedTopping : selectedToppings) {
+                Extra topping = Extra.valueOf(selectedTopping.toUpperCase());
+                toppings.add(new Item(topping.name(),"TOPPING",
+                         topping.getPrice()));
+            }
+        }
     }
 }
