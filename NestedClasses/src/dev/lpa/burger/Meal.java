@@ -89,7 +89,11 @@ public class Meal {
         }
 
         public double getPrice() {
-            return super.price;
+            double total = super.price;
+            for (Item topping : toppings) {
+                total += topping.price;
+            }
+            return total;
         }
 
         private void addToppings (String... selectedToppings) {
@@ -99,6 +103,17 @@ public class Meal {
                 toppings.add(new Item(topping.name(),"TOPPING",
                          topping.getPrice()));
             }
+        }
+
+        @Override
+        public String toString() {
+
+            StringBuilder itemized = new StringBuilder(super.toString());
+            for(Item topping : toppings) {
+                itemized.append("\n");
+                itemized.append(topping);
+            }
+            return itemized.toString();
         }
     }
 }
