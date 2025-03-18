@@ -65,4 +65,13 @@ public class Main {
             System.out.println(e);
         }
     }
+
+    public static void addPigLatinName(List<? extends StoreEmployee> list) {
+
+        class DecoratedEmployee extends StoreEmployee {
+
+            private String pigLatinName;
+            private Employee originalInstance;
+        }
+    }
 }
