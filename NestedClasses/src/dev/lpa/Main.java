@@ -64,6 +64,9 @@ public class Main {
         for (StoreEmployee e : storeEmployees) {
             System.out.println(e);
         }
+
+        System.out.println("With Pig Latin Names");
+        addPigLatinName(storeEmployees);
     }
 
     public static void addPigLatinName(List<? extends StoreEmployee> list) {
