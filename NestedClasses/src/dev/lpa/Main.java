@@ -71,19 +71,28 @@ public class Main {
 
     public static void addPigLatinName(List<? extends StoreEmployee> list) {
 
-        class DecoratedEmployee extends StoreEmployee {
+        String lastName = "Piggy"; // need to final or effective final as use in the case, mean lastName cannot assign new value
+
+        class DecoratedEmployee extends StoreEmployee
+                implements Comparable<DecoratedEmployee> {
 
             private String pigLatinName;
             private Employee originalInstance;
 
             public DecoratedEmployee(String pigLatinName, Employee originalInstance) {
-                this.pigLatinName = pigLatinName;
+//                this.pigLatinName = pigLatinName;
+                this.pigLatinName = pigLatinName + " " + lastName;
                 this.originalInstance = originalInstance;
             }
 
             @Override
             public String toString(){
                 return originalInstance.toString() + " " + pigLatinName;
+            }
+
+            @Override
+            public int compareTo(DecoratedEmployee o) {
+                return pigLatinName.compareTo(o.pigLatinName);
             }
         }
 
@@ -95,8 +104,11 @@ public class Main {
             newList.add(new DecoratedEmployee(pigLatin, employee));
         }
 
+        newList.sort(null);
         for (var dEmployee : newList) {
-            System.out.println(dEmployee);
+//            System.out.println(dEmployee);
+            System.out.println(dEmployee.originalInstance.getName() + " "
+                    + dEmployee.pigLatinName);
         }
     }
 }
