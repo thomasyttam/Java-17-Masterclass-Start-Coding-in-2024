@@ -1,5 +1,7 @@
 package dev.lpa;
 
+import dev.lpa.domain.Employee;
+import dev.lpa.domain.EmployeeComparator;
 import dev.lpa.domain.StoreEmployee;
 
 import java.util.ArrayList;
@@ -21,10 +23,34 @@ public class RunMethods {
                         "Walmart"),
                 new StoreEmployee(10322, "Bud", 2016,
                         "Target")));
+
+        var c0 = new EmployeeComparator<StoreEmployee>();
+        var c1 = new Employee.EmployeeComparator<StoreEmployee>();
+        var c2 = new StoreEmployee().new StoreComparator<StoreEmployee>();
+
+        // Using local class
+        class NameSort<T> implements Comparator<StoreEmployee> {
+
+            @Override
+            public int compare(StoreEmployee o1, StoreEmployee o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        }
+
+        var c3 = new NameSort<StoreEmployee>();
+
+        sortIt(storeEmployees, c0);
+        sortIt(storeEmployees, c1);
+        sortIt(storeEmployees, c2);
+        sortIt(storeEmployees, c3);
     }
 
-    public static <T> void sortIt (List<T> list,
+    public static <T> void sortIt(List<T> list,
                                    Comparator<? super T> comparator){
         System.out.println("Sorting with Comparator: " + comparator.toString());
+        list.sort(comparator);
+        for (var employee : list) {
+            System.out.println(employee);
+        }
     }
 }

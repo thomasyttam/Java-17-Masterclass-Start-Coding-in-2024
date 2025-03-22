@@ -30,7 +30,6 @@ public class StoreEmployee extends Employee{
                 return new Employee.EmployeeComparator<>(
                         "yearStarted").compare(o1,o2);
             }
-
             return result;
         }
     }
