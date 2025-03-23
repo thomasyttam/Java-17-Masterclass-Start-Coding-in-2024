@@ -39,10 +39,27 @@ public class RunMethods {
 
         var c3 = new NameSort<StoreEmployee>();
 
+        // Using anonymous class
+        var c4 = new Comparator<StoreEmployee>() {
+            @Override
+            public int compare(StoreEmployee o1, StoreEmployee o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        };
+
         sortIt(storeEmployees, c0);
         sortIt(storeEmployees, c1);
         sortIt(storeEmployees, c2);
         sortIt(storeEmployees, c3);
+        sortIt(storeEmployees, c4);
+        // the first one is anonymous class, second one is lambda expression
+        sortIt(storeEmployees, new Comparator<StoreEmployee>() {
+            @Override
+            public int compare(StoreEmployee o1, StoreEmployee o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
+        sortIt(storeEmployees, (o1, o2) -> o1.getName().compareTo(o2.getName()));
     }
 
     public static <T> void sortIt(List<T> list,
