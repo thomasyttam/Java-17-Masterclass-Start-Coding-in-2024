@@ -2,6 +2,11 @@ package dev.lpa;
 
 import dev.lpa.domain.Employee;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -12,5 +17,22 @@ public class Main {
         Employee e4 = new Employee("Daisy", "Duck", "05/03/2012");
         Employee e5 = new Employee("Goofy", "Dog", "23/07/2020");
 
+        List<Employee> list = new ArrayList<>(Arrays.asList(e1, e2, e3, e4, e5));
+    }
+
+    public static void printOrderedList(List<Employee> elist, String sortField) {
+
+        int currentYear = LocalDate.now().getYear();
+
+        class MyEmployee {
+
+            Employee containedEmployee;
+            int yearsWorked;
+            String fullName;
+
+            public MyEmployee(Employee containedEmployee) {
+                this.containedEmployee = containedEmployee;
+            }
+        }
     }
 }
