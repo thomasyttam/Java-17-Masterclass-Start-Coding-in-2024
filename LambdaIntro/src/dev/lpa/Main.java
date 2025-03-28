@@ -2,6 +2,7 @@ package dev.lpa;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class Main {
@@ -20,5 +21,26 @@ public class Main {
                 new Person("Linus", "Van Pelt"),
                 new Person("Peppermint", "Patty"),
                 new Person("Charlie", "Brown")));
+
+        // Using anonymous class
+        var comparatorLastName = new Comparator<Person>() {
+
+            @Override
+            public int compare(Person o1, Person o2) {
+                return o1.lastName().compareTo(o2.lastName());
+            }
+        };
+
+//        people.sort(comparatorLastName);
+        people.sort((o1, o2) -> o1.lastName().compareTo(o2.lastName()));
+        System.out.println(people);
+
+        interface EnhancedComparator<T> extends Comparator<T> {
+            int secondLevel(T o1, T o2);
+        }
+
+        var comparatorMixed = new EnhancedComparator<Person>() {
+            
+        };
     }
 }
