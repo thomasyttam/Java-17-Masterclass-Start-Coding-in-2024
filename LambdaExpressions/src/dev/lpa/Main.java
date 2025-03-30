@@ -49,6 +49,15 @@ public class Main {
 
         var firstPoint = coords.get(0);
         processPoint(firstPoint[0], firstPoint[1], p1);
+
+        System.out.println("-----");
+        coords.forEach(s->processPoint(s[0], s[1], p1));
+        coords.forEach(s->processPoint(s[0], s[1],
+                (lat, lng) ->
+                        System.out.printf("[lat:%.3f lon:%.3f]%n", lat, lng)));
+
+        list.removeIf(s -> s.equalsIgnoreCase("bravo"));
+        list.forEach(s -> System.out.println(s));
     }
 
 //    public static <T> T calculator(Operation<T> function, T value1, T value2) {
