@@ -24,5 +24,17 @@ public class Main {
             System.out.println(prefix + " "+ myString + " means " + first);
         });
         // prefix = "NATO"; -> cannot re-assign prefix used in lambda expression need final or effectively final
+
+        // int result = calculator((a, b) -> System.out.println(a + b), 5, 2); -> Error: System.out.println(a + b) cannot convert to int
+        // int result = calculator((Integer a, var b) -> a + b, 5, 2); -> Error: for the type Interger or var, cannot mix use
+        int result = calculator((a, b) -> a + b, 5, 2);
+        var result2 = calculator((a, b) -> a / b, 10.0, 2.5);
+    }
+
+    public static <T> T calculator(Operation<T> function, T value1, T value2) {
+
+        T result = function.operate(value1, value2);
+        System.out.println("Result of operation: "  + result);
+        return result;
     }
 }
