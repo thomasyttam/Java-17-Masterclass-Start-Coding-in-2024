@@ -3,6 +3,7 @@ package dev.lpa;
 import java.util.Arrays;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
 public class Main {
@@ -52,8 +53,6 @@ public class Main {
             return returnVal.toString();
         };
 
-        everySecondChar.apply("Let's split this up into an array");
-
         UnaryOperator<String> everySecondCharTwo = source -> {
             StringBuilder returnVal = new StringBuilder();
             for (int i = 0; i < source.length(); i++) {
@@ -64,8 +63,16 @@ public class Main {
             return returnVal.toString();
         };
 
-        System.out.println(everySecondChar.apply("Let's split this up into an array"));
-        System.out.println(everySecondCharTwo.apply("Let's split this up into an array"));
+        System.out.println(everySecondChar.apply("1234567890"));
+        System.out.println(everySecondCharTwo.apply("1234567890"));
+
+        String result = everSecondCharacter(everySecondChar, "1234567890");
+        System.out.println(result);
+
+        Supplier<String> iLoveJava = () -> "I love Java!";
+        Supplier<String> iLoveJava2 = () -> {return "I love Java!";};
+
+        System.out.println(iLoveJava.get());
     }
 
     public static String EverySecondChar(String source) {
@@ -77,5 +84,10 @@ public class Main {
             }
         }
         return returnVal.toString();
+    }
+
+    public static String everSecondCharacter(Function<String, String> func, String source) {
+
+        return func.apply(source);
     }
 }
