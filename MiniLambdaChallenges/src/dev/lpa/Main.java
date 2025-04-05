@@ -73,6 +73,7 @@ public class Main {
         Supplier<String> iLoveJava2 = () -> {return "I love Java!";};
 
         System.out.println(iLoveJava.get());
+        System.out.println(iLoveJava2.get());
     }
 
     public static String EverySecondChar(String source) {
