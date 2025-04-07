@@ -1,5 +1,6 @@
 package dev.lpa;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -20,6 +21,23 @@ public class Main {
         System.out.println(Arrays.toString(names));
 
         List<String> backedByArray = Arrays.asList(names);
+
+        backedByArray.replaceAll(s -> s + " " + getRandomChar('A',  'D') + "." );
+        System.out.println("--> Add random middle initial");
+        System.out.println(Arrays.toString(names));
+
+        backedByArray.replaceAll(s -> s + " " + getReversedName(s.split(" ")[0])); // s.split ->get the first name
+        System.out.println("--> Add reversed name as last name");
+        Arrays.asList(names).forEach(s -> System.out.println(s));
+
+        List<String> newList = new ArrayList<>(List.of(names));
+
+        // newList.removeIf(s -> (s.split(" ")[0]).equals( s.split(" ")[s.split(" ").length - 1]));
+        newList.removeIf(s -> s.substring(0, s.indexOf(" ")).equals(
+                s.substring(s.lastIndexOf(" ") + 1)
+                ));
+        System.out.println("--> Remove names where first = last");
+        newList.forEach(s -> System.out.println(s));
 
     }
 
