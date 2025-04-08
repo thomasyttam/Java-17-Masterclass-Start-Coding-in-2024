@@ -33,9 +33,15 @@ public class Main {
         List<String> newList = new ArrayList<>(List.of(names));
 
         // newList.removeIf(s -> (s.split(" ")[0]).equals( s.split(" ")[s.split(" ").length - 1]));
-        newList.removeIf(s -> s.substring(0, s.indexOf(" ")).equals(
-                s.substring(s.lastIndexOf(" ") + 1)
-                ));
+//        newList.removeIf(s -> s.substring(0, s.indexOf(" ")).equals(
+//                s.substring(s.lastIndexOf(" ") + 1)
+//                ));
+
+        newList.removeIf(s -> {
+            String first = s.substring(0, s.indexOf(" "));
+            String last = s.substring(s.lastIndexOf(" ") + 1);
+            return first.equals(last);
+        });
         System.out.println("--> Remove names where first = last");
         newList.forEach(s -> System.out.println(s));
 
