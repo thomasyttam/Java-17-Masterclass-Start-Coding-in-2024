@@ -1,6 +1,7 @@
 package dev.lpa;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.BinaryOperator;
 import java.util.function.Supplier;
@@ -34,6 +35,9 @@ public class Main {
 //        Supplier<PlainOld> reference1 = () -> new PlainOld();
         Supplier<PlainOld> reference1 = PlainOld::new;
         PlainOld newPojo = reference1.get();
+
+        System.out.println("Getting array");
+        PlainOld[] pojo1 = seedArray(PlainOld::new, 10);
     }
 
     private static <T> void calculator(BinaryOperator<T> function, T value1, T value2) {
@@ -41,5 +45,12 @@ public class Main {
         T result = function.apply(value1, value2);
         System.out.println("Result of operation: " + result);
 
+    }
+
+    private static PlainOld[] seedArray(Supplier<PlainOld> reference, int count) {
+
+        PlainOld[] array = new PlainOld[count];
+        Arrays.setAll(array, i -> reference.get());
+        return array;
     }
 }
