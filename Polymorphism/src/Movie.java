@@ -28,7 +28,7 @@ class Adventure extends Movie {
     }
 
     @Override
-    public void watchMovie() {
+        public void watchMovie() {
         super.watchMovie();
         System.out.printf(".. %s%n".repeat(3),
                 "Pleasant Scene",
@@ -55,7 +55,7 @@ class Comedy extends Movie {
                 "Funny faces",
                 "Happy ending");
     }
-
+    
     public void watchComedy() {
         System.out.println("Watching a Comedy!");
     }
