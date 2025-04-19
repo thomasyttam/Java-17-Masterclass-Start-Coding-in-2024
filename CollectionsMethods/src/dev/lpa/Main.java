@@ -31,6 +31,16 @@ public class Main {
         List<Card> kingsOfClubs = Collections.nCopies(13, kingOfClubs);
         Card.printDeck(kingsOfClubs, "Kings of Clubs", 1);
 
+        Collections.addAll(cards, cardArray); // addAll will increase the size of cards
         Collections.addAll(cards, cardArray);
+        Card.printDeck(cards, "Card Collection wih Aces added", 2);
+
+        Collections.copy(cards, kingsOfClubs); // copy will not increase the size of cards
+        Card.printDeck(cards, "Card Collection wih Kings copies", 2);
+        System.out.println("cards.size() = " + cards.size());
+
+        cards = List.copyOf(kingsOfClubs); //this method returns an unmodifiable list
+        Card.printDeck(cards, "List Copy of Kings", 2);
+        System.out.println("cards.size() = " + cards.size());
     }
 }
