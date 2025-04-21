@@ -75,6 +75,28 @@ public class Main {
         boolean disjoint2 = Collections.disjoint(kings, tens);
         System.out.println("disjoint = " + disjoint2);
 
+//        Collections.sort(deck, sortingAlgorithm);
+        deck.sort(sortingAlgorithm);
+        Card tenOfHearts = Card.getNumericCard(Card.Suit.HEART, 10);
+        int foundIndex = Collections.binarySearch(deck, tenOfHearts,sortingAlgorithm); // need to sort using sortingAlgorithm before search
+        System.out.println("foundIndex = " + foundIndex);
+        System.out.println("foundIndex = " + deck.indexOf(tenOfHearts));
+        System.out.println(deck.get(foundIndex));
 
+        Card tenOfClubs = Card.getNumericCard(Card.Suit.CLUB, 10);
+        Collections.replaceAll(deck, tenOfClubs, tenOfHearts);
+        Card.printDeck(deck.subList(32, 36), "Tens row", 1);
+
+        Collections.replaceAll(deck, tenOfHearts, tenOfClubs);
+        Card.printDeck(deck.subList(32, 36), "Tens row", 1);
+
+        if (Collections.replaceAll(deck, tenOfHearts, tenOfClubs)) {
+            System.out.println("Tens of hearts replaced with tens of clubs");
+        } else {
+            System.out.println("No tens of hearts found in the list");
+        }
+
+        System.out.println("Ten of Club Cards = " +
+                Collections.frequency(deck, tenOfClubs));
     }
 }
