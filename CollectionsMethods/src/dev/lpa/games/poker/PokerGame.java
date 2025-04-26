@@ -29,6 +29,11 @@ public class PokerGame {
         deal();
         System.out.println("-".repeat(30));
         pokerHands.forEach(System.out::println);
+
+        int cardsDealt = playerCount * cardsInHand;
+        int cardsRemaining = deck.size() - cardsDealt;
+
+        remainingCards = new ArrayList<>(Collections.nCopies(cardsRemaining, null));
     }
 
     private void deal() {
