@@ -27,4 +27,20 @@ public class PokerHand {
                 playerNO, score, score.ordinal(), hand,
                 (discards.size() > 0) ? "Discards:" + discards : "");
     }
+
+    private void setRank(int faceCount) {
+
+        switch (faceCount) {
+            case 4 -> score = Ranking.FOUR_OF_A_KIND;
+            case 3 -> {
+                if (score == Ranking.NONE) score = Ranking.THREE_OF_A_KIND;
+                else score = Ranking.FULL_HOUSE;
+            }
+            case 2 -> {
+                if (score == Ranking.NONE) score = Ranking.ONE_PAIR;
+                else if (score == Ranking.THREE_OF_A_KIND) score = Ranking.FULL_HOUSE;
+                else score = Ranking.TWO_PAIR;
+            }
+        }
+    }
 }
