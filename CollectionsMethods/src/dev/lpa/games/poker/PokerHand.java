@@ -3,6 +3,7 @@ package dev.lpa.games.poker;
 import dev.lpa.Card;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PokerHand {
@@ -42,5 +43,20 @@ public class PokerHand {
                 else score = Ranking.TWO_PAIR;
             }
         }
+    }
+
+    public void evalHand() {
+        List<String> faceList = new ArrayList<>(hand.size());
+        hand.forEach(card -> faceList.add(card.face()));
+
+        List<String> duplicateFaceCards = new ArrayList<>();
+        faceList.forEach(face -> {
+            if (!duplicateFaceCards.contains(face) &&
+                    Collections.frequency(faceList, face) > 1) {
+                duplicateFaceCards.add(face);
+            }
+        });
+
+
     }
 }
