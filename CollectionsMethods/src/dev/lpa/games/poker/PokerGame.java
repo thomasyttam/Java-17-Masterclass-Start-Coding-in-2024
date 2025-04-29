@@ -30,7 +30,9 @@ public class PokerGame {
         deal();
         System.out.println("-".repeat(30));
         Consumer<PokerHand> checkHand = PokerHand::evalHand;
-        pokerHands.forEach(System.out::println);
+//        pokerHands.forEach(System.out::println);
+        pokerHands.forEach(checkHand.andThen(System.out::println));
+
 
         int cardsDealt = playerCount * cardsInHand;
         int cardsRemaining = deck.size() - cardsDealt;
