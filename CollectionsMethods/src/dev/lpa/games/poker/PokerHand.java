@@ -24,7 +24,7 @@ public class PokerHand {
 
     @Override
     public String toString() {
-        return "%d. %-16s Rank%d %-40s %s".formatted(
+        return "%d. %-16s Rank:%d %-40s %s".formatted(
                 playerNO, score, score.ordinal(), hand,
                 (discards.size() > 0) ? "Discards:" + discards : "");
     }
@@ -57,6 +57,13 @@ public class PokerHand {
             }
         });
 
+        for (String duplicate : duplicateFaceCards) {
+            int start = faceList.indexOf(duplicate);
+            int last = faceList.lastIndexOf(duplicate);
+            setRank(last - start + 1);
+            List<Card> sub = hand.subList(start, last + 1);
+            keepers.addAll(sub);
+        }
 
     }
 }
