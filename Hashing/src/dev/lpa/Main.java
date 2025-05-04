@@ -40,5 +40,14 @@ public class Main {
 
         List<PlayingCard> cards =
                 Arrays.asList(aceHearts, kingClubs, queenSpades);
+        cards.forEach(s -> System.out.println(s + ": " + s.hashCode()));
+
+        Set<PlayingCard> deck = new HashSet<>();
+        for(PlayingCard c : cards) {
+            if(!deck.add(c)) {
+                System.out.println("Found a duplicate for " + c);
+            }
+        }
+        System.out.println(deck);
     }
 }
