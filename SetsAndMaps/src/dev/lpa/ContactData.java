@@ -35,6 +35,11 @@ public class ContactData {
         while (scanner.hasNext()) {
             String[] data = scanner.nextLine().split(",");
             Arrays.asList(data).replaceAll(String::trim);
+            if (type.equals("phone")) {
+                dataList.add(new Contact(data[0], Long.parseLong(data[1])));
+            } else if (type.equals("email")) {
+                dataList.add(new Contact(data[0], data[1]));
+            }
         }
         return dataList;
     }

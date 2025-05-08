@@ -23,7 +23,7 @@ public class Contact {
 
     public Contact(String name, String email, long phone) {
         this.name = name;
-        if (email != null){
+        if (email != null) {
             emails.add(email);
         }
         if (phone > 0) {
@@ -43,7 +43,7 @@ public class Contact {
         return "%s: %s %s".formatted(name, emails, phones);
     }
 
-    public Contact mergeContact(Contact contact) {
+    public Contact mergeContactData(Contact contact) {
 
         Contact newContact = new Contact(name);
         newContact.emails = new HashSet<>(this.emails);
