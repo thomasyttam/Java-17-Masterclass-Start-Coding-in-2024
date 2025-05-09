@@ -52,4 +52,34 @@ public class Contact {
         newContact.phones.addAll(contact.phones);
         return newContact;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Contact contact = (Contact) o;
+        return getName().equals(contact.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return 33 * getName().hashCode();
+    }
+
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        Contact contact = (Contact) o;
+////        return Objects.equals(getName(), contact.getName()) &&
+//        return getName().equals(contact.getName()) &&
+//                Objects.equals(emails, contact.emails) &&
+//                Objects.equals(phones, contact.phones);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(getName(), emails, phones);
+//    }
 }
