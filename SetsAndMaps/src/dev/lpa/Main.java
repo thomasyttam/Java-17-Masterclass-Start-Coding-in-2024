@@ -18,6 +18,12 @@ public class Main {
         Set<Contact> phoneContacts = new HashSet<>(phones);
         printData("Phone Contacts", phoneContacts);
         printData("Email Contacts", emailContacts);
+
+        int index = emails.indexOf(new Contact("Robin Hood"));
+        Contact robinHood = emails.get(index);
+        robinHood.addEmail("Sherwood Forest");
+        robinHood.addEmail("Sherwood Forest");
+        System.out.println(robinHood);
     }
 
     public static void printData(String header, Collection<Contact> contacts) {
