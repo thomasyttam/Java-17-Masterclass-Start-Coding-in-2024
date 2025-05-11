@@ -24,6 +24,20 @@ public class Main {
         robinHood.addEmail("Sherwood Forest");
         robinHood.addEmail("Sherwood Forest");
         System.out.println(robinHood);
+
+        Set<Contact> unionAB = new HashSet<>();
+        unionAB.addAll(emailContacts);
+        unionAB.addAll(phoneContacts);
+        printData("(A ∪ B) Union of emails (A) with phones (B)", unionAB);
+
+        Set<Contact> intersectAB = new HashSet<>(emailContacts);
+        intersectAB.retainAll(phoneContacts);
+        printData("(A ∩ B) Intersect of emails (A) with phones (B)", intersectAB);
+
+        Set<Contact> intersectBA = new HashSet<>(phoneContacts);
+        intersectBA.retainAll(emailContacts);
+        printData("(B ∩ A) Intersect of phones (B) with emails (A)", intersectBA);
+
     }
 
     public static void printData(String header, Collection<Contact> contacts) {
