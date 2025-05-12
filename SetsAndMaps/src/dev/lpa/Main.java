@@ -38,6 +38,14 @@ public class Main {
         intersectBA.retainAll(emailContacts);
         printData("(B ∩ A) Intersect of phones (B) with emails (A)", intersectBA);
 
+        Set<Contact> AMinusB = new HashSet<>(emailContacts);
+        AMinusB.removeAll(phoneContacts);
+        printData("(A - B) emails (A) minus phones (B)", AMinusB);
+
+        Set<Contact> BMinusA = new HashSet<>(phoneContacts);
+        BMinusA.removeAll(emailContacts);
+        printData("(B - A) phones (B) minus emails (B)", BMinusA);
+
     }
 
     public static void printData(String header, Collection<Contact> contacts) {
