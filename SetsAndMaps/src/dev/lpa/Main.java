@@ -46,6 +46,13 @@ public class Main {
         BMinusA.removeAll(emailContacts);
         printData("(B - A) phones (B) minus emails (B)", BMinusA);
 
+        Set<Contact> symmetricDiff = new HashSet<>(AMinusB);
+        symmetricDiff.addAll(BMinusA);
+        printData("Symmetric Difference: phones and emails", symmetricDiff);
+
+        Set<Contact> symmetricDiff2 = new HashSet<>(unionAB);
+        symmetricDiff2.removeAll(intersectAB);
+        printData("Symmetric Difference: phones and emails", symmetricDiff2);
     }
 
     public static void printData(String header, Collection<Contact> contacts) {
