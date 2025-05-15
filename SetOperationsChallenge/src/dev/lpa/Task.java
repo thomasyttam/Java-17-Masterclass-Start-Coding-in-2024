@@ -4,7 +4,7 @@ enum Priority {HIGH, MEDIUM, LOW}
 
 enum Status {IN_QUEUE, ASSIGNED, IN_PROCESS}
 
-public class Task {
+public class Task implements Comparable<Task>{
 
     private String project;
     private String description;
@@ -73,5 +73,32 @@ public class Task {
     public String toString() {
         return "%-20s %-25s %-10s %-10s %s".formatted(project, description, project,
                 assignee, status);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Task task = (Task) o;
+
+        if (!getProject().equals(task.getProject())) return false;
+        return getDescription().equals(task.getDescription());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getProject().hashCode();
+        result = 31 * result + getDescription().hashCode();
+        return result;
+    }
+
+    @Override
+    public int compareTo(Task o) {
+        int result = this.project.compareTo(o.project);
+        if (result == 0) {
+            result = this.description.compareTo(o.description);
+        }
+        return result;
     }
 }
