@@ -12,6 +12,10 @@ public class Main {
         Comparator<Task> sortByPriority = Comparator.comparing(Task::getPriority);
         Set<Task> annsTasks = TaskData.getTasks("Ann");
         sortAndPrint("Ann's Tasks", annsTasks, sortByPriority);
+
+        Set<Task> bobsTasks = TaskData.getTasks("Bob");
+        Set<Task> carolsTasks = TaskData.getTasks("Carol");
+        List<Set<Task>> sets = List.of(annsTasks, bobsTasks, carolsTasks);
     }
 
     public static void sortAndPrint(String header, Collection<Task> collection) {
@@ -29,5 +33,28 @@ public class Main {
         List<Task> list = new ArrayList<>(collection);
         list.sort(sorter);
         list.forEach(System.out::println);
+    }
+
+    private static Set<Task> getUnion(List<Set<Task>> sets) {
+
+        Set<Task> union = new HashSet<>();
+        for (var taskSet : sets) {
+            union.addAll(taskSet);
+        }
+        return union;
+    }
+
+    private static Set<Task> getIntersect(Set<Task> a, Set<Task> b) {
+
+        Set<Task> intersect = new HashSet<>(a);
+        intersect.retainAll(b);
+        return intersect;
+    }
+
+    private static Set<Task> getDifference(Set<Task> a , Set<Task> b) {
+
+        Set<Task> result = new HashSet<>(a);
+        result.removeAll(b);
+        return result;
     }
 }
