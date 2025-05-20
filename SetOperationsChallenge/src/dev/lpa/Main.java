@@ -16,6 +16,12 @@ public class Main {
         Set<Task> bobsTasks = TaskData.getTasks("Bob");
         Set<Task> carolsTasks = TaskData.getTasks("Carol");
         List<Set<Task>> sets = List.of(annsTasks, bobsTasks, carolsTasks);
+
+        Set<Task> assignedTasks = getUnion(sets);
+        sortAndPrint("Assigned Tasks", assignedTasks);
+
+        Set<Task> everyTasks = getUnion(List.of(tasks, assignedTasks));
+        sortAndPrint("Assigned Tasks", everyTasks);
     }
 
     public static void sortAndPrint(String header, Collection<Task> collection) {
