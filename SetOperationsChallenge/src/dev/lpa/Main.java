@@ -27,6 +27,24 @@ public class Main {
         sortAndPrint("Missing Tasks", missingTasks);
 
         Set<Task> unassignedTasks = getDifference(tasks, assignedTasks);
+        sortAndPrint("Unassigned Tasks", unassignedTasks, sortByPriority);
+
+        Set<Task> overlap = getUnion(List.of(
+                getIntersect(annsTasks, bobsTasks),
+                getIntersect(carolsTasks, bobsTasks),
+                getIntersect(annsTasks, carolsTasks)
+        ));
+        sortAndPrint("Assigned to Multiples", overlap, sortByPriority);
+
+        List<Task> overlapping = new ArrayList<>();
+        for (Set<Task> set : sets) {
+            Set<Task> dupes = getIntersect(set, overlap);
+            overlapping.addAll(dupes);
+        }
+
+        Comparator<Task> priorityNatural = sortByPriority.thenComparing(
+                Comparator.naturalOrder());
+        sortAndPrint("Overlapping", overlapping, priorityNatural);
     }
 
     public static void sortAndPrint(String header, Collection<Task> collection) {
