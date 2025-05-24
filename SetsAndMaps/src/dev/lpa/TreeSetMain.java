@@ -39,5 +39,34 @@ public class TreeSetMain {
         System.out.printf("min = %s, first = %s %n", min.getName(), first.getName());
         System.out.printf("max = %s, last = %s %n", max.getName(), last.getName());
         System.out.println("-".repeat(30));
+
+        NavigableSet<Contact> copiedSet = new TreeSet<>(fullSet);
+        System.out.println("-".repeat(30));
+        System.out.println("Original Tree set");
+        copiedSet.forEach(System.out::println);
+        System.out.println("-".repeat(30));
+        System.out.println("First element = " + copiedSet.pollFirst());
+        System.out.println("Last element = " + copiedSet.pollLast());
+        System.out.println("Tree set after poll out");
+        copiedSet.forEach(System.out::println);
+        System.out.println("-".repeat(30));
+
+        Contact daffy = new Contact("Daffy Duck");
+        Contact daisy = new Contact("Daisy Duck");
+        Contact snoopy = new Contact("Snoopy");
+        Contact archie = new Contact("Archie");
+
+        for (Contact c : List.of(daffy, daisy, last, snoopy)) {
+            System.out.printf("ceiling(%s)=%s%n", c.getName(), fullSet.ceiling(c));
+            System.out.printf("higher(%s)=%s%n", c.getName(), fullSet.higher(c));
+        }
+        System.out.println("-".repeat(30));
+
+        for (Contact c : List.of(daffy, daisy, first, archie)) {
+            System.out.printf("floor(%s)=%s%n", c.getName(), fullSet.floor(c));
+            System.out.printf("lower(%s)=%s%n", c.getName(), fullSet.lower(c));
+        }
+        System.out.println("-".repeat(30));
+
     }
 }
