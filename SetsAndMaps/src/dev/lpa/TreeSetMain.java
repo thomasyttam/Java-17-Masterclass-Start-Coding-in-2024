@@ -68,5 +68,18 @@ public class TreeSetMain {
         }
         System.out.println("-".repeat(30));
 
+        NavigableSet<Contact> descendingSet = fullSet.descendingSet();
+        descendingSet.forEach(System.out::println);
+        System.out.println("-".repeat(30));
+
+        Contact lastContact = descendingSet.pollLast();
+        System.out.println("Removed " + lastContact);
+        descendingSet.forEach(System.out::println);
+        System.out.println("-".repeat(30));
+        fullSet.forEach(System.out::println);
+        System.out.println("-".repeat(30));
+
+        Contact marion = new Contact("Maid Marion");
+        var headSet = fullSet.headSet(marion);
     }
 }
