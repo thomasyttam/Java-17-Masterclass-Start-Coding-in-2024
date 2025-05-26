@@ -80,6 +80,21 @@ public class TreeSetMain {
         System.out.println("-".repeat(30));
 
         Contact marion = new Contact("Maid Marion");
-        var headSet = fullSet.headSet(marion);
+        var headSet = fullSet.headSet(marion, true);
+//        var headSet = fullSet.headSet(marion);
+        headSet.forEach(System.out::println);
+        System.out.println("-".repeat(30));
+
+        var tailSet = fullSet.tailSet(marion, false);
+//        var tailSet = fullSet.tailSet(marion);
+        tailSet.forEach(System.out::println);
+        System.out.println("-".repeat(30));
+
+        Contact linus = new Contact("Linus Van Pelt");
+        var subset = fullSet.subSet(
+                linus, false, marion, true);
+//        var subset = fullSet.subSet(linus, marion);
+        subset.forEach(System.out::println);
+
     }
 }
