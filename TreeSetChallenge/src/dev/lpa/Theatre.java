@@ -47,6 +47,25 @@ public class Theatre {
         System.out.printf("%1$s%n%2$s Seat Map%n%1$s%n", separatorLine,
                 theatreName);
 
+        int index = 0;
+        for (Seat s : seats) {
+            System.out.printf("%-8s%s",
+                    s.seatNum + ((s.reserved) ? "(\u25CF)" : ""),
+                    ((index++ + 1) % seatsPerRow == 0 ) ? "\n" : "");
+        }
         System.out.println(separatorLine);
+    }
+
+    public String reserveSeat(char row, int seat) {
+
+        Seat requestedSeat = new Seat(row, seat);
+        Seat requested = seats.floor(requestedSeat);
+
+        if (requested == null || !requested.seatNum.equals(requestedSeat.seatNum)) {
+            System.out.print("--> No such Seat: " + requestedSeat);
+            System.out.printf(": Seat must be between %s and %s%n",
+                    seats.first().seatNum, seats.last().seatNum);
+        }
+        return null;
     }
 }
