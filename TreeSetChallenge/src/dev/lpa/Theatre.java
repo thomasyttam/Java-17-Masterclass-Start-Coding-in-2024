@@ -1,6 +1,7 @@
 package dev.lpa;
 
 import java.util.NavigableSet;
+import java.util.Set;
 import java.util.TreeSet;
 
 public class Theatre {
@@ -59,13 +60,34 @@ public class Theatre {
     public String reserveSeat(char row, int seat) {
 
         Seat requestedSeat = new Seat(row, seat);
+//        Seat requested = seats.ceiling(requestedSeat); // ceiling and floor same result as we need exact match
         Seat requested = seats.floor(requestedSeat);
 
         if (requested == null || !requested.seatNum.equals(requestedSeat.seatNum)) {
             System.out.print("--> No such Seat: " + requestedSeat);
             System.out.printf(": Seat must be between %s and %s%n",
                     seats.first().seatNum, seats.last().seatNum);
+        } else {
+            if (!requested.reserved) {
+                requested.reserved = true;
+                return requested.seatNum;
+            } else {
+                System.out.println("Seat's already reserved.");
+            }
         }
         return null;
+    }
+
+    private boolean validate(int count, char first, char last, int min, int max) {
+
+        boolean result = (min > 0 || seatsPerRow >= count || (max - min + 1) >= count);
+        result = result && seats.contains(new Seat(first, min));
+        return result;
+    }
+
+    public Set<Seat> reserveSeats(int count, char minRow, char maxRow,
+                                  int minSeat, int maxSeat) {
+        char lastValid = seats.last().seatNum.charAt(0);
+        maxRow = (maxRow < lastValid) ? maxRow : lastValid;
     }
 }
