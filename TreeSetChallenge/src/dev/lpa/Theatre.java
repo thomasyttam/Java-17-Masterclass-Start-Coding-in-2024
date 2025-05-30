@@ -82,6 +82,13 @@ public class Theatre {
 
         boolean result = (min > 0 || seatsPerRow >= count || (max - min + 1) >= count);
         result = result && seats.contains(new Seat(first, min));
+        if (!result) {
+            System.out.printf("Invalid! %1$d seats between " +
+                    "%2$c[%3$d-%4$d]-%5$c[%3$d-%4$d] Try again",
+                    count, first, min, max, last);
+            System.out.printf(": Seat number be between %s and %S%n",
+                    seats.first().seatNum, seats.last().seatNum);
+        }
         return result;
     }
 
@@ -89,5 +96,43 @@ public class Theatre {
                                   int minSeat, int maxSeat) {
         char lastValid = seats.last().seatNum.charAt(0);
         maxRow = (maxRow < lastValid) ? maxRow : lastValid;
+
+        if (!validate(count, minRow, maxRow, minSeat, maxSeat)) {
+            return null;
+        }
+
+        NavigableSet<Seat> selected = null;
+
+        for (char letter = minRow; letter <= maxRow; letter++) {
+
+            NavigableSet<Seat> contiguous = seats.subSet(
+                    new Seat(letter, minSeat), true,
+                    new Seat(letter, maxSeat), true);
+
+            int index = 0;
+            Seat first = null;
+            for (Seat current : contiguous) {
+                if (current.reserved) {
+                    index = 0;
+                    continue;
+                }
+                first = (index == 0) ? current : first;
+                if (++index == count) {
+                    selected = contiguous.subSet(first, true,
+                            current, true);
+                    break;
+                }
+            }
+            if (selected != null) {
+                break;
+            }
+        }
+
+        Set<Seat> reservedSeats = null;
+        if (selected != null) {
+            selected.forEach(s -> s.reserved = true);
+            reservedSeats = new TreeSet<>(selected);
+        }
+        return reservedSeats;
     }
 }
