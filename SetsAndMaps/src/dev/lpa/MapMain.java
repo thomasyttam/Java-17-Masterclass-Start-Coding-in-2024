@@ -28,5 +28,19 @@ public class MapMain {
         System.out.println(contacts.get("Charlie Brown"));
 
         System.out.println(contacts.get("Chuck Brown"));
+
+        Contact defaultContact = new Contact("Chuck Brown");
+        System.out.println(contacts.getOrDefault("Chuck Brown", defaultContact));
+
+        System.out.println("-".repeat(40));
+        contacts.clear(); // clear all contacts
+        // contacts.forEach((k, v) -> System.out.println("key = " + k + ", value = " + v));
+        for (Contact contact : fullList) {
+            Contact duplicate = contacts.put(contact.getName(), contact);
+            if (duplicate != null) {
+                System.out.println("duplicate = " + duplicate);
+                System.out.println(("current = " + contact));
+            }
+        }
     }
 }
