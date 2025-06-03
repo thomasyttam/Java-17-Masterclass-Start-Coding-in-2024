@@ -64,5 +64,16 @@ public class MapMain {
         }
         contacts.forEach((k, v) -> System.out.println("key = " + k + ", value = " + v));
 
+        System.out.println("-".repeat(40));
+        contacts.clear(); // clear all contacts
+        fullList.forEach(contact -> contacts.merge(contact.getName(), contact,
+                (previous, current) -> {
+                    System.out.println("prev: " + previous + " : current " + current);
+                    Contact merged = previous.mergeContactData(current);
+                    System.out.println("merged =  " + merged);
+                    return merged;
+                }
+                ));
+        contacts.forEach((k, v) -> System.out.println("key = " + k + ", value = " + v));
     }
 }
