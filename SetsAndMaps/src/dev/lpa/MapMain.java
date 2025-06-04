@@ -67,13 +67,25 @@ public class MapMain {
         System.out.println("-".repeat(40));
         contacts.clear(); // clear all contacts
         fullList.forEach(contact -> contacts.merge(contact.getName(), contact,
-                (previous, current) -> {
-                    System.out.println("prev: " + previous + " : current " + current);
-                    Contact merged = previous.mergeContactData(current);
-                    System.out.println("merged =  " + merged);
-                    return merged;
-                }
+//                (previous, current) -> previous.mergeContactData(current)
+                Contact::mergeContactData
+//                {
+//                    System.out.println("prev: " + previous + " : current " + current);
+//                    Contact merged = previous.mergeContactData(current);
+//                    System.out.println("merged =  " + merged);
+//                    return merged;
+//                }
                 ));
         contacts.forEach((k, v) -> System.out.println("key = " + k + ", value = " + v));
+
+        System.out.println("-".repeat(40));
+        for(String contactName : new String[] {"Daisy Duck", "Daffy Duck",
+                "Scrooge Duck"}) {
+//            contacts.compute(contactName, (k, v) -> new Contact(k)); -> replace old contact with new one
+            contacts.computeIfAbsent(contactName, (k) -> new Contact(k));
+        }
+        contacts.forEach((k, v) -> System.out.println("key = " + k + ", value = " + v));
+
+        
     }
 }
