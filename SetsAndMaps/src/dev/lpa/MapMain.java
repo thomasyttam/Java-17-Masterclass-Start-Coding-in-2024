@@ -86,6 +86,51 @@ public class MapMain {
         }
         contacts.forEach((k, v) -> System.out.println("key = " + k + ", value = " + v));
 
-        
+        System.out.println("-".repeat(40));
+        for(String contactName : new String[] {"Daisy Duck", "Daffy Duck",
+                "Scrooge Duck"}) {
+            contacts.computeIfPresent(contactName, (k, v) -> {
+                v.addEmail("Fun Place"); return v;});
+        }
+        contacts.forEach((k, v) -> System.out.println("key = " + k + ", value = " + v));
+
+        System.out.println("-".repeat(40));
+        contacts.replaceAll((k, v) -> {
+            String newEmail = k.replaceAll(" ", "") + "@funplace.com";
+            v.replaceEmailIfExists("DDuck@funplace.com", newEmail);
+            return v;
+        });
+        contacts.forEach((k, v) -> System.out.println("key = " + k + ", value = " + v));
+
+        System.out.println("-".repeat(40));
+        Contact daisy = new Contact("Daisy Jane Duck", "daisy@duck.com");
+        Contact replaceContact = contacts.replace("Daisy Duck", daisy);
+        System.out.println("daisy = " + daisy);
+        System.out.println("replaceContact = " + replaceContact);
+        contacts.forEach((k, v) -> System.out.println("key = " + k + ", value = " + v));
+
+        System.out.println("-".repeat(40));
+        Contact updateDaisy = replaceContact.mergeContactData(daisy);
+        System.out.println("updatedDaisy = " + updateDaisy);
+//        boolean success = contacts.replace("Daisy Duck", replaceContact,
+        boolean success = contacts.replace("Daisy Duck", daisy,
+                updateDaisy);
+        if (success) {
+           System.out.println("Successfully replaced element");
+        } else {
+            System.out.printf("Did not match on both key: %s and value: %s %n".
+                    formatted("Daisy Duck", replaceContact));
+        }
+        contacts.forEach((k, v) -> System.out.println("key = " + k + ", value = " + v));
+
+        System.out.println("-".repeat(40));
+        success = contacts.remove("Daisy Duck", daisy);
+        if (success) {
+            System.out.println("Successfully removed element");
+        } else {
+            System.out.printf("Did not match on both key: %s and value: %s %n".
+                    formatted("Daisy Duck", daisy));
+        }
+        contacts.forEach((k, v) -> System.out.println("key = " + k + ", value = " + v));
     }
 }
