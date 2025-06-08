@@ -41,6 +41,30 @@ public class MapViewsMain {
 
         ContactData.getData("email").forEach(c -> contacts.put(c.getName(), c));
         ContactData.getData("phone").forEach(c -> contacts.put(c.getName(), c));
-        System.out.println(keyView);    // auto get update the keyview
+        System.out.println(keyView);    // auto get update the keyView
+
+        var values = contacts.values();
+        values.forEach(System.out::println);
+
+        values.retainAll(ContactData.getData("email"));
+        System.out.println(keyView);
+        contacts.forEach((k, v) -> System.out.println(v));
+
+        System.out.println("-".repeat(40));
+        List<Contact> list = new ArrayList<>(values);
+        list.sort(Comparator.comparing(Contact::getNameLastFirst));
+        list.forEach(c -> System.out.println(c.getNameLastFirst() + ": " + c));
+
+        System.out.println("-".repeat(40));
+        Contact first = list.get(0);
+        contacts.put(first.getNameLastFirst(), first); // same value, different key
+        values.forEach(System.out::println);
+        keyView.forEach(System.out::println);
+
+        HashSet<Contact> set = new HashSet<>(values);
+        set.forEach(System.out::println);
+        if(set.size() < contacts.keySet().size()) {
+            System.out.println("Duplicate Values are in my Map");
+        }
     }
 }
