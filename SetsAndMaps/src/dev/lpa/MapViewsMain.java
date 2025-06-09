@@ -66,5 +66,13 @@ public class MapViewsMain {
         if(set.size() < contacts.keySet().size()) {
             System.out.println("Duplicate Values are in my Map");
         }
+
+        var nodeSet = contacts.entrySet();
+        for (var node : nodeSet) {
+            if (!node.getKey().equals(node.getValue().getName())) {
+                System.out.println("Key doesn't match name: " + node.getKey() + ": " +
+                        node.getValue());
+            }
+        }
     }
 }
