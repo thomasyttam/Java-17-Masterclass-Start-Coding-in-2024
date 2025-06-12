@@ -1,5 +1,8 @@
 package dev.lpa;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class AdventureGame {
 
     private static final String GAME_LOCATIONS = """
@@ -19,6 +22,25 @@ public class AdventureGame {
 
         private String getString() {
             return directions[this.ordinal()];
+        }
+    }
+
+    private record Location(String description, Map<Compass, String> nextPlaces) {}
+
+    private String lastPlace;
+    private Map<String, Location> adventureMap = new HashMap<>();
+
+    public AdventureGame() {
+    }
+
+    public AdventureGame(String customLocations) {
+
+    }
+
+    public void loadLocations(String data) {
+
+        for (String s :  data.split("\\R")) {
+
         }
     }
 }
