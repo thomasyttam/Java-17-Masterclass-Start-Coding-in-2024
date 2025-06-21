@@ -60,6 +60,40 @@ public class Main {
         displayStats(1, week1Purchases);
         displayStats(2, week2Purchases);
 
+        System.out.println("-----------------------");
+
+        LocalDate lastDate = datedPurchases.lastKey();
+        var previousEntry = datedPurchases.lastEntry();
+
+        while (previousEntry != null) {
+            List<Purchase> lastDaysData = previousEntry.getValue();
+            System.out.println(lastDate + "  purchases : " + lastDaysData.size());
+
+            LocalDate prevDate = datedPurchases.lowerKey(lastDate);  // get the previous date
+            previousEntry = datedPurchases.lowerEntry(lastDate);
+            lastDate = prevDate; // update lastDate to the previous date
+        }
+
+        System.out.println("-----------------------");
+        var reversed = datedPurchases.descendingMap();
+
+        LocalDate firstDate = reversed.firstKey();
+//        var nextEntry = reversed.firstEntry();
+        var nextEntry = reversed.pollFirstEntry(); // pollFirstEntry remove the data from the map when call and mutate the map
+
+        while (nextEntry != null) {
+            List<Purchase> lastDaysData = nextEntry.getValue();
+            System.out.println(firstDate + " purchases : " + lastDaysData.size());
+
+            LocalDate nextDate = reversed.higherKey(firstDate);
+//            nextEntry = reversed.higherEntry(firstDate);
+            nextEntry = reversed.pollFirstEntry(); // pollFirstEntry remove the data from the map when call and mutate the map
+            firstDate = nextDate;
+        }
+
+        System.out.println("-----------------------");
+        datedPurchases.forEach((key, value) -> System.out.println(key + ": " + value));
+
     }
 
     private static void addPurchase(String name, Course course, double price) {
