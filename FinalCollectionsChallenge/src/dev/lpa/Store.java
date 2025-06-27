@@ -1,5 +1,6 @@
 package dev.lpa;
 
+import java.time.LocalDate;
 import java.util.*;
 
 public class Store {
@@ -20,6 +21,12 @@ public class Store {
 
         myStore.manageStoreCarts();
         myStore.listProductsByCategory(false, true);
+
+        myStore.carts.forEach(System.out::println);
+        myStore.abandonCarts();
+        myStore.listProductsByCategory(false, true);
+        myStore.carts.forEach(System.out::println);
+
     }
 
     private void manageStoreCarts() {
@@ -50,15 +57,44 @@ public class Store {
             System.out.println("Something went wrong, could not check out");
         }
 
+        Cart cart4 =  new Cart(Cart.CartType.PHYSICAL, 0);
+        carts.add(cart4);
+        cart4.addItem(aisleInventory.get(Category.BEVERAGE).get("tea"), 1);
+        System.out.println(cart4);
+
     }
 
     private boolean checkOutCart(Cart cart) {
 
-        return false;
+        for (var cartItem : cart.getProducts().entrySet()) {
+            var item = inventory.get(cartItem.getKey()); // get the quantity in inventory
+            int qty = cartItem.getValue(); // get quantity of each sku
+            if (!item.sellItem(qty)) return false; // call sellItem in class Inventory to check if stock is enough
+        }
+        cart.printSalesSlip(inventory);
+        carts.remove(cart);
+        return true;
     }
 
     private void abandonCarts() {
 
+        int dayOfYear = LocalDate.now().getDayOfYear();
+        Cart lastCart = null;
+        for (Cart cart : carts) {
+            if (cart.getCartDate().getDayOfYear() == dayOfYear) {
+                break;
+            }
+            lastCart = cart;
+        }
+
+        var oldCarts = carts.headSet(lastCart, true);
+        Cart abandonedCart = null;
+        while ((abandonedCart = oldCarts.pollFirst()) != null) {
+            for (String sku : abandonedCart.getProducts().keySet()) {
+                InventoryItem item = inventory.get(sku);
+                item.releaseItem(abandonedCart.getProducts().get(sku));
+            }
+        }
     }
 
     private void listProductsByCategory() {

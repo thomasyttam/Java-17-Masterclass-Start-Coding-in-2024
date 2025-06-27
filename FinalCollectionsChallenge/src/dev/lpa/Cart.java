@@ -32,6 +32,10 @@ public class Cart {
         return cartDate;
     }
 
+    public Map<String, Integer> getProducts() {
+        return products;
+    }
+
     public void addItem(InventoryItem item, int qty) {
 
         // if item exists, add the qty to old value
