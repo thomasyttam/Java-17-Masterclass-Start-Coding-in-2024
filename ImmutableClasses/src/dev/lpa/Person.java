@@ -8,21 +8,33 @@ public class Person {
     private String dob;
     private Person[] kids;
 
+    public Person(String name, String dob, Person[] kids) {
+        this.name = name;
+        this.dob = dob;
+        this.kids = kids;
+    }
+
+    public Person(String name, String dob) {
+        this(name, dob, null);
+    }
+
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    // protect not to change name
+//    public void setName(String name) {
+//        this.name = name;
+//    }
 
     public String getDob() {
         return dob;
     }
 
-    public void setDob(String dob) {
-        this.dob = dob;
-    }
+    // protect not to change dob
+//    public void setDob(String dob) {
+//        this.dob = dob;
+//    }
 
     public Person[] getKids() {
         return kids;
