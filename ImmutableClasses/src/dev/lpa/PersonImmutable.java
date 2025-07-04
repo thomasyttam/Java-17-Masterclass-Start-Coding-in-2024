@@ -21,9 +21,10 @@ public class PersonImmutable {
     }
 
     protected PersonImmutable(PersonImmutable person) {
-        this.name = person.name;
-        this.dob = person.dob;
-        this.kids = person.kids;
+//        this.name = person.name;
+//        this.dob = person.dob;
+//        this.kids = person.kids;
+        this(person.getName(), person.getDob(), person.getKids());
     }
 
     public String getName() {
@@ -44,6 +45,7 @@ public class PersonImmutable {
 //        this.dob = dob;
 //    }
 
+    // final
     public final PersonImmutable[] getKids() {
         // Arrays.copyOf create a defensive copy, otherwise it will return the reference of kids.
         return kids == null ? null : Arrays.copyOf(kids, kids.length);

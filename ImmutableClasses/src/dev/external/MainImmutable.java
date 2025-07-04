@@ -1,5 +1,7 @@
 package dev.external;
 
+import dev.external.domain.LivingPerson;
+import dev.hacker.PersonOfInterest;
 import dev.lpa.PersonImmutable;
 
 public class MainImmutable {
@@ -24,6 +26,22 @@ public class MainImmutable {
 
         johnsKids[0] = new PersonImmutable("Ann", "04/04/1936");
         System.out.println(john);
+
+        LivingPerson johnLiving = new LivingPerson(john.getName(), john.getKids());
+        System.out.println(johnLiving);
+
+        LivingPerson anne = new LivingPerson("Ann", null);
+        johnLiving.addKid(anne);
+        System.out.println(johnLiving);
+
+        PersonOfInterest johnCopy = new PersonOfInterest(john);
+        System.out.println(johnCopy);
+
+        kids = johnCopy.getKids();
+        kids[1] = anne;
+        System.out.println(johnCopy);
+        System.out.println(john);
+
     }
 
 }
