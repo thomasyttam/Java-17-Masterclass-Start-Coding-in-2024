@@ -7,7 +7,7 @@ public class BankAccount {
     private final AccountType accountType;
     private final double balance;
 
-    public BankAccount(AccountType accountType, double balance) {
+    BankAccount(AccountType accountType, double balance) {
         this.accountType = accountType;
         this.balance = balance;
     }
