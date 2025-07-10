@@ -12,8 +12,8 @@ public class BankCustomer {
     private final int customerId;
     private final List<BankAccount> accounts = new ArrayList<>();
 
-
-    public BankCustomer(String name, double checkingAmount, double savingsAmount) {
+//    public BankCustomer(String name, double checkingAmount, double savingsAmount) {
+    BankCustomer(String name, double checkingAmount, double savingsAmount) {
         this.name = name;
         this.customerId = lastCustomerId++;
         accounts.add(new BankAccount(BankAccount.AccountType.CHECKING, checkingAmount));
@@ -24,9 +24,28 @@ public class BankCustomer {
         return name;
     }
 
+//    public int getCustomerId() {
+//        return customerId;
+//    }
+    // change to String
+    public String getCustomerId() {
+        return "%015d".formatted(customerId);
+    }
+
     public List<BankAccount> getAccounts() {
 //        return accounts;
-        return new ArrayList<>(accounts); // create defensive copy
+//        return new ArrayList<>(accounts); // create defensive copy
+        return List.copyOf(accounts); // create unmodifiable collection, prevent add, delete or reassign accounts
+    }
+
+    public BankAccount getAccount(BankAccount.AccountType type) {
+
+        for (var account : accounts) {
+            if (account.getAccountType() == type) {
+                return account;
+            }
+        }
+        return null;
     }
 
     @Override
