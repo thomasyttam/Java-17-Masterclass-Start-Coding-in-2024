@@ -13,6 +13,7 @@ public class BankCustomer {
     private final List<BankAccount> accounts = new ArrayList<>();
 
 //    public BankCustomer(String name, double checkingAmount, double savingsAmount) {
+    // no modifier, only class in same package (dev.bank can call it)
     BankCustomer(String name, double checkingAmount, double savingsAmount) {
         this.name = name;
         this.customerId = lastCustomerId++;
