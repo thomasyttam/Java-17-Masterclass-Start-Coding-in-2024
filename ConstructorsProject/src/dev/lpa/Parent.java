@@ -2,6 +2,11 @@ package dev.lpa;
 
 public class Parent {
 
+    // static initializer called first and only in class construction, not each instance's construction
+    static {
+        System.out.println("Parent static initializer: class being constructed");
+    }
+
 //    private String name; // if not constructor, implicit constructor set value to null
 //    private String dob; // if not constructor, implicit constructor set value to null
 
