@@ -19,5 +19,8 @@ public class Main {
 
         Generation gOld; // no print out as not initialize
         Generation g = Generation.BABY_BOOMER; // print out as use of constructor when initialize
+//        Generation h = new Generation(); // Enum types cannot be instantiated
+//        Generation h = new Generation.BABY_BOOMER(1900, 2000); // Cannot resolve symbol 'BABY_BOOMER'
+
     }
 }
