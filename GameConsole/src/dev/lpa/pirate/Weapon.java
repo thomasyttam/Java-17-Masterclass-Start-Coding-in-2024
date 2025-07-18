@@ -40,7 +40,7 @@ public enum Weapon {
     public static List<Weapon> getWeaponsByLevel(int levelOfPlay) {
 
         List<Weapon> weapons = new ArrayList<>(EnumSet.allOf(Weapon.class));
-        weapons.removeIf(w -> (w.minLevel > levelOfPlay));
+        weapons.removeIf(w -> (w.minLevel > levelOfPlay)); // remove the weapons when the level is greater than the player
         return weapons;
     }
 }
