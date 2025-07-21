@@ -1,5 +1,7 @@
 package dev.lpa.game;
 
+import dev.lpa.pirate.PirateGame;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -10,14 +12,14 @@ import java.util.Map;
 // total different meaning
 //public final abstract class Game<T extends Player> {
 // public sealed abstract class Game<T extends Player> { //Sealed class permits clause must contain all subclasses
-public abstract class Game<T extends Player>{
+public sealed abstract class SealedGame<T extends Player> permits ShooterGame{
 
     private final String gameName;
     private final List<T> players = new ArrayList<>();
     private Map<Character, GameAction> standardActions = null;
 
 //    private Game(String gameName) { // the subclass cannot access this constructor
-    public Game(String gameName) {
+    public SealedGame(String gameName) {
         this.gameName = gameName;
     }
 

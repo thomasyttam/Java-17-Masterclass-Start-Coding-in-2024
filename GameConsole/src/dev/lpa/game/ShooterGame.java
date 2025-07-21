@@ -3,7 +3,8 @@ package dev.lpa.game;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class ShooterGame extends Game<Shooter>{
+//public class ShooterGame extends Game<Shooter>{
+public final class ShooterGame extends SealedGame<Shooter>{ // Modifier 'sealed', 'non-sealed' or 'final' expected
 
     public ShooterGame(String gameName) {
         super(gameName);
