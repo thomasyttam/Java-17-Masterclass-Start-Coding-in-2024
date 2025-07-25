@@ -1,9 +1,7 @@
 package dev.lpa;
 
 import dev.lpa.game.GameConsole;
-import dev.lpa.pirate.Pirate;
 import dev.lpa.pirate.PirateGame;
-import dev.lpa.pirate.Weapon;
 
 public class Main {
 
@@ -14,24 +12,23 @@ public class Main {
 //        int playerIndex = console.addPlayer();
 //        console.playGame(playerIndex);
 
-
-        Weapon weapon = Weapon.getWeaponByChar('P');
-        System.out.println("weapon = "+ weapon + ", hitPoints=" +
-                weapon.getHitPoints() + ", minLevel=" + weapon.getMinLevel());
-
-        var list = Weapon.getWeaponsByLevel(1);
-        list.forEach(System.out::println);
-
-        Pirate tim = new Pirate("Tim");
-        System.out.println(tim);
+//        Weapon weapon = Weapon.getWeaponByChar('P');
+//        System.out.println("weapon = "+ weapon + ", hitPoints=" +
+//                weapon.getHitPoints() + ", minLevel=" + weapon.getMinLevel());
+//
+//        var list = Weapon.getWeaponsByLevel(1);
+//        list.forEach(System.out::println);
+//
+//        Pirate tim = new Pirate("Tim");
+//        System.out.println(tim);
 
 //        PirateGame.getTowns(0).forEach(System.out::println);
 //        System.out.println("-----------------------------------------------------");
 //        PirateGame.getTowns(1).forEach(System.out::println);
 
-        PirateGame.getTowns(0).forEach(t ->System.out.println(t.information()));
-        System.out.println("-----------------------------------------------------");
-        PirateGame.getTowns(1).forEach(t ->System.out.println(t.information()));
+//        PirateGame.getTowns(0).forEach(t ->System.out.println(t.information()));
+//        System.out.println("-----------------------------------------------------");
+//        PirateGame.getTowns(1).forEach(t ->System.out.println(t.information()));
 
 //        Town bridgetown = new Town("Bridgetown", "Barbados", 0);
 //        System.out.println(bridgetown);
