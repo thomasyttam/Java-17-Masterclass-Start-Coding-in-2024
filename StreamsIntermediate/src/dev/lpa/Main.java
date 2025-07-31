@@ -38,6 +38,9 @@ public class Main {
                         .map(i -> new Seat((char) ('A' + i / seatsInRow),
                                 i % seatsInRow + 1))
 //                        .sorted(); // need comparator
+                        .skip(5)
+                        .limit(10)
+                        .peek(s -> System.out.println("--> " + s)) // peek is an intermediate operation and lazy stream, won't process until include terminal operation
                         .sorted(Comparator.comparing(Seat::price)
                                 .thenComparing(Seat::toString)); // first compare price then string
 /*                      First method to doubleStream and back to String
@@ -49,7 +52,6 @@ public class Main {
                         .boxed()
                         .map("%.2f"::formatted);
  */
-
 
         stream.forEach(System.out::println);
     }
