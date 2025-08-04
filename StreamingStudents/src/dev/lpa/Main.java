@@ -1,8 +1,10 @@
 package dev.lpa;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -88,13 +90,36 @@ public class Main {
                 .count();
         System.out.println("longTerm students? " + longTermCount);
 
-        Arrays.stream(students)
+//        Arrays.stream(students)
+//                .filter(s -> (s.getAge() - s.getAgeEnrolled() >= 7) &&
+//                        (s.getMonthsSinceActive() < 12))
+//                .filter(s -> !s.hasProgrammingExperience())
+//                .limit(5)
+//                // after toList, it is not a stream, it became a List
+//                .toList()
+//                .forEach(System.out::println);
+//        List<Student> longTimeLearners = Arrays.stream(students) // become unmodifiable list after toList();
+//                .filter(s -> (s.getAge() - s.getAgeEnrolled() >= 7) &&
+//                        (s.getMonthsSinceActive() < 12))
+//                .filter(s -> !s.hasProgrammingExperience())
+//                .limit(5)
+//                .toList();
+        var longTimeLearners = Arrays.stream(students)
                 .filter(s -> (s.getAge() - s.getAgeEnrolled() >= 7) &&
                         (s.getMonthsSinceActive() < 12))
                 .filter(s -> !s.hasProgrammingExperience())
                 .limit(5)
-                // after toList, it is not a stream, it became a List
-                .toList()
-                .forEach(System.out::println);
+                // .toArray() become Object[]
+                // .toArray(size -> new Student[size]) // lambda expression
+                .toArray(Student[]::new); // method reference
+
+        var Learners = Arrays.stream(students)
+                .filter(s -> (s.getAge() - s.getAgeEnrolled() >= 7) &&
+                        (s.getMonthsSinceActive() < 12))
+                .filter(s -> !s.hasProgrammingExperience())
+                .limit(5)
+                .collect(Collectors.toList()); // a modifiable List from collect
+
+        Collections.shuffle(Learners);
     }
 }
