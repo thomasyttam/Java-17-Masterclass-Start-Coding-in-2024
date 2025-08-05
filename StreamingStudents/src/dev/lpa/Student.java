@@ -131,7 +131,8 @@ public class Student {
                 courses);
 
         for (Course c : courses) {
-            int lecture = random.nextInt(1, c.lectureCount());
+//            int lecture = random.nextInt(1, c.lectureCount());
+            int lecture = random.nextInt(30, c.lectureCount()); // get average over 50 percent
             int year = random.nextInt(student.getYearEnrolled(), maxYear);
             int month = random.nextInt(1, 13);
             if (year == (maxYear - 1)) {
