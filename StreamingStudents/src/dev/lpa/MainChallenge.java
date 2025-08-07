@@ -12,7 +12,6 @@ public class MainChallenge {
         Course jmc= new Course("JMC", "Java Masterclass", 100);
         Course jgames = new Course("JGAME", "Creating games in Java");
 
-
                 // cannot use as traditional for loop with post increment
 //        List<Student> students = Stream
 //                .iterate(1, s -> s <= 5000, s -> s++) // cannot use as s will increment only after the value is returned as result.
