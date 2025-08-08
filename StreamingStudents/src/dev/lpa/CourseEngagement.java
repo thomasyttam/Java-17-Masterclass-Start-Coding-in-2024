@@ -21,7 +21,7 @@ public class CourseEngagement {
 //    public Course getCourse() {
 //        return course;
 //    }
-    public String getCourse() {
+    public String getCourseCode() {
         return course.courseCode();
     }
 
