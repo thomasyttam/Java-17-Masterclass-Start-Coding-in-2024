@@ -33,7 +33,11 @@ public class Main {
         System.out.println("10 to the fifth power (10*10*10*10*10) = " + Math.pow(10, 5));
 
         for (int i = 0; i < 10; i++) {
-            System.out.println(Math.random());
+//            System.out.println(Math.random());
+//            System.out.println(Math.random() * 10);
+//            System.out.println((int)(Math.random() * 10));
+//            System.out.println((int)(Math.random() * 10) + 1);
+            System.out.println((int)(Math.random() * 26) + 65);
         }
     }
 }
