@@ -1,5 +1,7 @@
 package dev.lpa;
 
+import java.util.Random;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -37,7 +39,56 @@ public class Main {
 //            System.out.println(Math.random() * 10);
 //            System.out.println((int)(Math.random() * 10));
 //            System.out.println((int)(Math.random() * 10) + 1);
-            System.out.println((int)(Math.random() * 26) + 65);
+//            System.out.println((int)(Math.random() * 26) + 65);
+            System.out.printf("%1$d = %1$c%n", (int) (Math.random() * 26) + 65);
         }
+
+        System.out.println("---------------------------");
+        Random r = new Random();
+        for (int i = 0; i < 10; i++) {
+            System.out.printf("%1$d = %1$c%n", r.nextInt(65, 91));
+        }
+
+        System.out.println("---------------------------");
+        for (int i = 0; i < 10; i++) {
+            System.out.printf("%1$d = %1$c%n",
+                    r.nextInt((int) 'A', (int) 'Z' + 1));
+        }
+
+        System.out.println("---------------------------");
+        for (int i = 0; i < 10; i++) {
+//            System.out.printf("%1$d%n", r.nextInt()); // full range of integer, from negative to positive number
+            System.out.printf("%1$d%n", r.nextInt(-10, 11));
+        }
+
+        System.out.println("---------------------------");
+        r.ints() // ints() IntStream
+                .limit(10)
+                .forEach(System.out::println);
+
+        System.out.println("---------------------------");
+        r.ints(0, 10) // (lower bound, upper bound)
+                .limit(10)
+                .forEach(System.out::println);
+
+        System.out.println("---------------------------");
+        r.ints(10, 0, 10) // (streamSize, lower bound, upper bound)
+                .forEach(System.out::println);
+
+        System.out.println("---------------------------");
+        r.ints(10)
+                .forEach(System.out::println);
+
+        long nanoTime = System.nanoTime();
+        Random pseudoRandom = new Random(nanoTime);
+        System.out.println("---------------------------");
+        pseudoRandom.ints(10, 0, 10)
+                .forEach(i -> System.out.print(i + " "));
+
+        // same seed, same output
+        Random notReallyRandom = new Random(nanoTime);
+        System.out.println("\n---------------------------");
+        notReallyRandom.ints(10, 0, 10)
+                .forEach(i -> System.out.print(i + " "));
     }
 }
