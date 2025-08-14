@@ -1,6 +1,7 @@
 package dev.lpa;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Arrays;
 
@@ -64,6 +65,31 @@ public class Main {
         System.out.printf("%-15s %-15d %-8d %d %n",
                 policyPayout, policyPayout.unscaledValue(), policyPayout.scale(),
                 policyPayout.precision());
+
+//        BigDecimal percent = BigDecimal.ONE.divide(BigDecimal.valueOf(beneficiaries));
+//        BigDecimal percent = BigDecimal.ONE.divide(BigDecimal.valueOf(beneficiaries),
+//                MathContext.UNLIMITED);
+//        BigDecimal percent = BigDecimal.ONE.divide(BigDecimal.valueOf(beneficiaries),
+//                MathContext.DECIMAL128); // DECIMAL32 7 scale, DECIMAL64 16 digit, DECIMAL128 34 digit
+        BigDecimal percent = BigDecimal.ONE.divide(BigDecimal.valueOf(beneficiaries),
+                new MathContext(60, RoundingMode.UP));
+        System.out.println(percent);
+
+        BigDecimal checkAmount = policyPayout.multiply(percent);
+        System.out.printf("%.2f%n", checkAmount);
+        checkAmount = checkAmount.setScale(2, RoundingMode.HALF_UP); // set scale of checkAmount to 2 same as policyPayout
+        System.out.printf("%-15s %-15d %-8d %d %n",
+                checkAmount, checkAmount.unscaledValue(), checkAmount.scale(),
+                checkAmount.precision());
+
+        BigDecimal totalChecksAmount = checkAmount.multiply(
+                BigDecimal.valueOf(beneficiaries));
+        System.out.printf("Combined: %.2f%n", totalChecksAmount);
+        System.out.println("Remaining = " + policyPayout.subtract(totalChecksAmount));
+
+        System.out.printf("%-15s %-15d %-8d %d %n",
+                totalChecksAmount, totalChecksAmount.unscaledValue(),
+                totalChecksAmount.scale(), totalChecksAmount.precision());
 
 //        BigDecimal test1 = new BigDecimal("1.1111122222333334444455555");
 //        BigDecimal test2 = BigDecimal.valueOf(1.1111122222333334444455555);
