@@ -2,6 +2,7 @@ package dev.lpa;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.Period;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 
@@ -50,6 +51,24 @@ public class Main {
         System.out.println(May5.plusDays(365));
         System.out.println(May5.plusWeeks(52));
         System.out.println(May5.plus(365, ChronoUnit.DAYS));
-        
+
+        System.out.println("May5 > today? " + May5.isAfter(today));
+        System.out.println("today > May5? " + May5.isBefore(today));
+        System.out.println("May5 > today? " + May5.compareTo(today)); // check if May5 is greater than today
+        System.out.println("today > May5? " + today.compareTo(May5));
+
+        System.out.println("today = now ? " + today.compareTo(LocalDate.now()));
+        System.out.println("today = now ? " + today.equals(LocalDate.now()));
+
+        System.out.println(today.isLeapYear());
+        System.out.println(May5.minusYears(2).isLeapYear());
+
+        System.out.println("-------------------");
+        May5.datesUntil(May5.plusDays(7))
+                .forEach(System.out::println);
+
+        System.out.println("-------------------");
+        May5.datesUntil(May5.plusYears(1), Period.ofDays(7))
+                .forEach(System.out::println);
     }
 }
