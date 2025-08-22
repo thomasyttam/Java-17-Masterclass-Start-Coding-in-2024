@@ -1,5 +1,8 @@
 package dev.lpa;
 
+import java.util.Arrays;
+import java.util.Scanner;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -42,6 +45,52 @@ public class Main {
             String output = testString.replaceFirst(pattern, replacement);
             System.out.println("Pattern: " + pattern + " => " + output);
         }
+
+        // Song of the Witches in MacBeth, a Play by Shakespeare
+        String paragraph = """
+                Double, double toil and trouble;
+                Fire burn and caldron bubble.
+                Fillet of a fenny snake,
+                In the caldron boil and bake
+                Eye of newt and toe of frog,
+                Wool of bat and tongue of dog,
+                Adder's fork and blind-worm's sting,
+                Lizard's leg and howlet's wing,
+                For a charm of powerful trouble,
+                Like a hell-broth boil and bubble.
+                """;
+
+//        String[] lines = paragraph.split("\n"); // split per newline
+        String[] lines = paragraph.split("\\R"); // line breaker matcher
+        System.out.println("This paragraph has " + lines.length + " lines");
+        String[] words = paragraph.split("\\s"); // white space, new line matcher
+        System.out.println("This paragraph has " + words.length + " words");
+        System.out.println(paragraph.replaceAll("[a-zA-Z]+ble",
+                "[GRUB]"));
+
+        Scanner scanner = new Scanner(paragraph);
+        System.out.println(scanner.delimiter()); // use whitespace as default for delimiter
+        scanner.useDelimiter("\\R"); // change delimiter to \\R
+
+//        while (scanner.hasNext()) {
+//            String element = scanner.next();
+//            System.out.println(element);
+//        }
+
+        scanner.tokens() // token introduce in JDK9
+//                .map(s -> Arrays.stream(s.split("\\s")).count()) // count words each line
+                .map(s -> s.replaceAll("\\p{Punct}", "")) // remove punctuation
+                .flatMap(s -> Arrays.stream(s.split("\\s+")))
+                .filter(s -> s.matches("[a-zA-Z]+ble"))
+                .forEach(System.out::println);
+        scanner.close();
+
+        System.out.println("-".repeat(30));
+
+        scanner = new Scanner(paragraph);
+        System.out.println(scanner.findInLine("[a-zA-Z]+ble")); // first find
+        System.out.println(scanner.findInLine("[a-zA-Z]+ble")); // second find
+        scanner.close();
     }
 
     private static String format(String regexp, String... args) {
