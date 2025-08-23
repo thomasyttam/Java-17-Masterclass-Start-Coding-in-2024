@@ -39,15 +39,53 @@ public class Main {
                 """;
 
 //        Pattern htmlPattern = Pattern.compile("<[hH]\\d>.*</[hH]\\d>");
-        Pattern htmlPattern = Pattern.compile("<[hH]\\d>(.*)</[hH]\\d>"); // (xxx) xxx is the capture group
+        Pattern htmlPattern = Pattern.compile("<[hH](?<level>\\d)>(.*)</[hH]\\d>"); // (xxx) xxx is the capture group, only one matching group, ?<xxx> matcher group name "xxx"
         Matcher htmlMatcher = htmlPattern.matcher(htmlSnippet);
 
         while (htmlMatcher.find()) {
-            System.out.println("group: " + htmlMatcher.group());
-            System.out.println("group0: " + htmlMatcher.group(0));
-            System.out.println("group0: " + htmlMatcher.group(1));
-//            System.out.println(htmlMatcher.group("level") + " " +
+//            System.out.println("group: " + htmlMatcher.group());
+//            System.out.println("group0: " + htmlMatcher.group(0));
+//            System.out.println("group0: " + htmlMatcher.group(1));
+//            System.out.println(htmlMatcher.group(1) + " " +
 //                    htmlMatcher.group(2));
-//            System.out.println("index = " + htmlMatcher.start("level"));
-        }    }
+            System.out.println(htmlMatcher.group("level") + " " +
+                    htmlMatcher.group(2));
+            System.out.println("index = " + htmlMatcher.start("level"));
+        }
+
+//        htmlMatcher.reset();
+        htmlMatcher.results().forEach(mr -> System.out.println(
+                mr.group(1) + " *** " + mr.group(2)));
+
+        String tabbedText = """
+                group1	group2	group3
+                1	2	3
+                a	b	d
+                """;
+
+        tabbedText.lines()
+                .flatMap(s -> Pattern.compile("\\t").splitAsStream(s))
+                .forEach(System.out::println);
+
+        htmlMatcher.reset();
+//        String updatedSnippet = htmlMatcher.replaceFirst("First Header");
+        // below code don't work as replaceFirst reset matcher every time, and group(2) is not created before the matcher invoke
+//        String updatedSnippet = htmlMatcher.replaceFirst(
+//                "<em>" + htmlMatcher.group(2) + "</em>");
+        // Take a function and call that function after match
+        String updatedSnippet = htmlMatcher.replaceFirst((mr) ->
+                "<em>" + mr.group(2) + "</em>");
+        System.out.println("------------------");
+        System.out.println(updatedSnippet);
+        System.out.println(htmlMatcher.start() + " : " + htmlMatcher.end());
+        System.out.println(htmlMatcher.group(2));
+
+        htmlMatcher.usePattern(
+                Pattern.compile("<([hH]\\d)>(.*)</\\1>")); // \\1, using same as backslash 1
+
+        htmlMatcher.reset();
+        System.out.println("------------------");
+        System.out.println("Using Back Reference: \n" +
+                htmlMatcher.replaceFirst("<em>$2</em>")); //$ back reference
+    }
 }
