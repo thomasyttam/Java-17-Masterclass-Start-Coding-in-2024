@@ -24,7 +24,7 @@ public class Main {
         }
 
         System.out.println("---------------------------------------");
-        try (Stream<Path> paths = Files.walk(path, 2)) {
+        try (Stream<Path> paths = Files.walk(path, 2)) { // go deeper in the directory with 2 level
             paths
                     .filter(Files::isRegularFile)
                     .map(Main::listDir)
@@ -33,6 +33,38 @@ public class Main {
             throw new RuntimeException(e);
         }
 
+        System.out.println("---------------------------------------");
+//        try (Stream<Path> paths = Files.find(path, 2,
+        try (Stream<Path> paths = Files.find(path, Integer.MAX_VALUE,
+//                (p, attr) -> Files.isRegularFile(p)
+//                (p, attr) -> attr.isRegularFile()
+                (p, attr) -> attr.isRegularFile() && attr.size() > 300
+        )) {
+            paths
+                    .map(Main::listDir)
+                    .forEach(System.out::println);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        path = path.resolve(".idea");
+        System.out.println("==============Directory Stream==============");
+//        try (var dirs = Files.newDirectoryStream(path)) {
+        try (var dirs = Files.newDirectoryStream(path, "*.xml")) {
+            dirs.forEach(d -> System.out.println(Main.listDir(d)));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println("==============Directory Stream==============");
+        try (var dirs = Files.newDirectoryStream(path,
+                p -> p.getFileName().toString().endsWith(".xml")
+//                        && Files.isRegularFile(p) && Files.size(p) > 1000
+        )) {
+            dirs.forEach(d -> System.out.println(Main.listDir(d)));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private static String listDir(Path path) {
