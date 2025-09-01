@@ -112,8 +112,15 @@ public class Challenge {
 
                     int level = key.getNameCount() - initialCount - 1;
                     if (level < printLevel) {
-                        System.out.printf("%s[%s] - %,d bytes %n",
-                                "\t".repeat(level), key.getFileName(), value);
+
+//                        System.out.printf("%s[%s] - %,d bytes %n",
+//                                "\t".repeat(level), key.getFileName(), value);
+                        long size = value.getOrDefault(FILE_SIZE, 0L);
+                        System.out.printf("%s[%s] - %,d bytes, %d files, %d folders %n",
+                                "\t".repeat(level), key.getFileName(), size,
+                                value.getOrDefault(FILE_CNT, 0L),
+                                value.getOrDefault(DIR_CNT, 0L));
+
                     }
                 });
 
@@ -130,7 +137,6 @@ public class Challenge {
                 parentMap.merge(FILE_SIZE, fileSize, Math::addExact);
                 parentMap.merge(FILE_CNT, fileCount, Math::addExact);
             }
-
             return FileVisitResult.CONTINUE;
         }
     }
