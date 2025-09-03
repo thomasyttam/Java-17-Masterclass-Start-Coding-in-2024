@@ -26,6 +26,10 @@ public class Main {
         try (BufferedReader bufferedReader = new BufferedReader(
                 new FileReader("file.txt"))) {
 
+            String line;
+//            while ((line = bufferedReader.readLine()) != null) {
+//                System.out.println(line);
+//            }
             bufferedReader.lines().forEach(System.out::println);
         } catch (IOException e) {
             e.printStackTrace();
