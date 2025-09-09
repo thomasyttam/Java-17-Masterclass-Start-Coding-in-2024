@@ -2,6 +2,7 @@ package dev.lpa.student;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Student {
 
@@ -121,11 +122,22 @@ public class Student {
     }
 
     public String toJSON() {
+
+        StringJoiner courses = new StringJoiner(",", "[", "]");
+        for (Course c : coursesEnrolled) {
+            courses.add(c.toJSON());
+        }
+        String engagement = engagementMap.values().stream()
+                .map(CourseEngagement::toJSON)
+                .collect(Collectors.joining(",", "[", "]"));
+
         return new StringJoiner(", ", "{", "}")
                 .add("\"studentId\":" + studentId)
                 .add("\"demographics\":" + demographics.toJSON())
 //                .add("\"coursesEnrolled\":" + coursesEnrolled)
+                .add("\"coursesEnrolled\":" + courses)
 //                .add("\"engagementMap\":" + engagementMap)
+                .add("\"engagementMap\":" + engagement)
                 .toString();
     }
 
