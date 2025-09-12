@@ -1,9 +1,10 @@
 package dev.lpa;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.Writer;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -47,10 +48,53 @@ public class Main {
             e.printStackTrace();
         }
 
-        try (BufferedReader reader = new BufferedReader(
-                new FileReader("files//student-activity.json"));
-                     PrintWriter writer = new PrintWriter("students-backup.json")) {
+//        try (BufferedReader reader = new BufferedReader(
+//                new FileReader("files//student-activity.json"));
+//                     PrintWriter writer = new PrintWriter("students-backup.json")) {
+//            reader.transferTo(writer); // Files.copy works as efficiently as possible, reader.transfer more efficient for vary large files, and copy across different network drive
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+
+        String urlString = "https://api.census.gov/data/2019/pep/charagegroups?get=NAME,POP&for=state:*";
+        URI uri = URI.create(urlString);
+        try (var urlInputStream = uri.toURL().openStream();
+        ) {
+            urlInputStream.transferTo(System.out);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Path jsonPath = Path.of("USPopulationByState.txt");
+        try (var reader = new InputStreamReader(uri.toURL().openStream());
+             var writer = Files.newBufferedWriter(jsonPath)) {
             reader.transferTo(writer);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try (var reader = new InputStreamReader(uri.toURL().openStream());
+             PrintWriter writer = new PrintWriter("USPopulationByState.csv")) {
+            reader.transferTo(new Writer() {
+                @Override
+                public void write(char[] cbuf, int off, int len) throws IOException {
+
+                    String jsonString = new String(cbuf, off, len).trim();
+                    jsonString = jsonString.replace('[', ' ').trim();
+                    jsonString = jsonString.replaceAll("\\]", "");
+                    writer.write(jsonString);
+                }
+
+                @Override
+                public void flush() throws IOException {
+                    writer.flush();;
+                }
+
+                @Override
+                public void close() throws IOException {
+                    writer.close();
+                }
+            });
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
