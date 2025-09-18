@@ -1,0 +1,11 @@
+Directory Contents: 
+C:\Users\Vanessa Leung\Desktop\Tat\_selfLearning\Java\Java17MasterclassStartCodingin2024\DirectoryFileChallenge\public
+C:\Users\Vanessa Leung\Desktop\Tat\_selfLearning\Java\Java17MasterclassStartCodingin2024\DirectoryFileChallenge\public\assets
+C:\Users\Vanessa Leung\Desktop\Tat\_selfLearning\Java\Java17MasterclassStartCodingin2024\DirectoryFileChallenge\public\assets\icons
+C:\Users\Vanessa Leung\Desktop\Tat\_selfLearning\Java\Java17MasterclassStartCodingin2024\DirectoryFileChallenge\public\assets\icons\index.txt
+C:\Users\Vanessa Leung\Desktop\Tat\_selfLearning\Java\Java17MasterclassStartCodingin2024\DirectoryFileChallenge\public\assets\icons\indexCopy.txt
+C:\Users\Vanessa Leung\Desktop\Tat\_selfLearning\Java\Java17MasterclassStartCodingin2024\DirectoryFileChallenge\public\assets\index.txt
+C:\Users\Vanessa Leung\Desktop\Tat\_selfLearning\Java\Java17MasterclassStartCodingin2024\DirectoryFileChallenge\public\assets\indexCopy.txt
+C:\Users\Vanessa Leung\Desktop\Tat\_selfLearning\Java\Java17MasterclassStartCodingin2024\DirectoryFileChallenge\public\index.txt
+C:\Users\Vanessa Leung\Desktop\Tat\_selfLearning\Java\Java17MasterclassStartCodingin2024\DirectoryFileChallenge\public\indexCopy.txt
+Generated: 2025-09-17T05:38:22.762333400
