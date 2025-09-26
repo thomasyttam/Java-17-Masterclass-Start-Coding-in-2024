@@ -12,11 +12,13 @@ class Player implements Serializable {
     private String name;
     private int topScore;
     private long bigScore;
+    private final transient long accountId;
 //    private List<String> collectedWeapons = new ArrayList<>();
     private List<String> collectedWeapons = new LinkedList<>();
 
 //    public Player(String name, int topScore, List<String> collectedWeapons) {
-    public Player(String name, long topScore, List<String> collectedWeapons) {
+    public Player(long accountId, String name, long topScore, List<String> collectedWeapons) {
+        this.accountId = accountId;
         this.name = name;
 //        this.topScore = topScore;
         this.bigScore = topScore;
@@ -26,10 +28,18 @@ class Player implements Serializable {
     @Override
     public String toString() {
         return "Player{" +
+                "id=" + accountId + ", " +
                 "name='" + name + '\'' +
                 ", bigScore=" + bigScore +
                 ", collectedWeapons=" + collectedWeapons +
                 '}';
+    }
+
+    @Serial
+    private void readObject(ObjectInputStream stream)
+            throws IOException, ClassNotFoundException {
+                stream.defaultReadObject();
+                bigScore = (bigScore == 0) ? 1_000_000_000L : bigScore;
     }
 }
 
@@ -42,7 +52,7 @@ public class Main {
 //        writeData(dataFile);
 //        readData(dataFile);
 
-        Player tim = new Player("Tim", 100_000_010,
+        Player tim = new Player(555, "Tim", 100_000_010,
                 List.of("knife", "machete", "pistol"));
         System.out.println(tim);
 
