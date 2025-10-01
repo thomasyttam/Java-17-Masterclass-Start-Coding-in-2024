@@ -4,8 +4,8 @@ import java.util.concurrent.TimeUnit;
 
 public class CachedData {
 
-//    private boolean flag = false;
-    private volatile boolean flag = false;
+//    private boolean flag = false; // memory inconsistency
+    private volatile boolean flag = false; // volatile means this value may be changed by multiple threadz
 
     public void toggleFlag() {
         flag = !flag;
