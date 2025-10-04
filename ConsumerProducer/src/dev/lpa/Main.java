@@ -10,18 +10,28 @@ class MessageRepository {
     public synchronized String read() {
 
         while (!hasMessage) {
-
+            try {
+                wait(); // pit current thread in a wait queue
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
         hasMessage = false;
+        notifyAll();
         return message;
     }
 
     public synchronized void write(String message) {
 
         while (hasMessage) {
-
+            try {
+                wait(); // pit current thread in a wait queue
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
         hasMessage = true;
+        notifyAll();
         this.message = message;
     }
 }
