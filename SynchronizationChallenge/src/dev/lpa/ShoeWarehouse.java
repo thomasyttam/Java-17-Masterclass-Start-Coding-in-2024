@@ -26,4 +26,20 @@ public class ShoeWarehouse {
         System.out.println("Incoming: " + item);
         notifyAll();
     }
+
+    public synchronized Order fulfillOrder() {
+
+        while (shippingItems.isEmpty()) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        Order item = shippingItems.remove(0);
+        System.out.println(Thread.currentThread().getName() + " Fulfilled: " + item);
+        notifyAll();
+        return item;
+    }
+
 }
