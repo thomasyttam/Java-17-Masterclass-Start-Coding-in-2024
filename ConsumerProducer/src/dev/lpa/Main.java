@@ -1,12 +1,17 @@
 package dev.lpa;
 
 import java.util.Random;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 class MessageRepository {
 
     private String message;
     private boolean hasMessage = false;
 
+    private final Lock lock = new ReentrantLock();
+
+//    public synchronized String read() {
     public synchronized String read() {
 
         while (!hasMessage) {
