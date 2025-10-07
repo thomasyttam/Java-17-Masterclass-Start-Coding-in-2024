@@ -12,17 +12,23 @@ class MessageRepository {
     private final Lock lock = new ReentrantLock();
 
 //    public synchronized String read() {
-    public synchronized String read() {
+    public String read() {
 
-        while (!hasMessage) {
-            try {
-                wait(); // pit current thread in a wait queue
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+        lock.lock();
+        try {
+            while (!hasMessage) {
+                try {
+//                wait(); // pit current thread in a wait queue
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
+            hasMessage = false;
+        } finally {
+//        notifyAll();
+            lock.unlock();
         }
-        hasMessage = false;
-        notifyAll();
         return message;
     }
 
@@ -108,6 +114,22 @@ public class Main {
 
         Thread reader = new Thread(new MessageReader(messageRepository));
         Thread writer = new Thread(new MessageWriter(messageRepository));
+
+        writer.setUncaughtExceptionHandler((thread, exc) -> {
+            System.out.println("Writer had exception: " + exc);
+            if (reader.isAlive()) {
+                System.out.println("Going to interrupt the reader");
+                reader.interrupt();
+            }
+        });
+
+        reader.setUncaughtExceptionHandler((thread, exc) -> {
+            System.out.println("Reader had exception: " + exc);
+            if (writer.isAlive()) {
+                System.out.println("Going to interrupt the writer");
+                writer.interrupt();
+            }
+        });
 
         reader.start();
         writer.start();
