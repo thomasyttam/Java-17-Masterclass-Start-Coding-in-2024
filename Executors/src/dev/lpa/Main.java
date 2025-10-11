@@ -38,6 +38,10 @@ class ColorThreadFactory implements ThreadFactory {
 public class Main {
 
     public static void main(String[] args) {
+        var multiExecutor = Executors.newCachedThreadPool();
+    }
+
+    public static void fixedmain(String[] args) {
 
         int count = 6;
         var multiExecutor = Executors.newFixedThreadPool(
@@ -157,5 +161,13 @@ public class Main {
         } catch (IllegalArgumentException ignore) {
             // User may pass a bad color name, Will just ignore this error.
         }
+
+        String color = threadColor.color();
+        int sum = 0;
+        for (int i = start; i <= end; i += delta) {
+            sum += i;
+        }
+        System.out.println(color + Thread.currentThread().getName() + ", "
+                + colorString + "  " + sum);
     }
 }
