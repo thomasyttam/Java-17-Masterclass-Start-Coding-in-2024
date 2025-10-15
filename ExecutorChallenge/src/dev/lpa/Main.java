@@ -1,7 +1,5 @@
 package dev.lpa;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -34,9 +32,19 @@ public class Main {
             }
         };
 
-        List<Callable<Order>> tasks = Collections.nCopies(15, orderingTask);
+//        List<Callable<Order>> tasks = Collections.nCopies(15, orderingTask);
+//        try {
+//            orderingService.invokeAll(tasks);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+
         try {
-            orderingService.invokeAll(tasks);
+//            Thread.sleep(random.nextInt(500, 2000));
+            for (int j = 0; j < 15; j++) {
+                Thread.sleep(random.nextInt(500, 2000));
+                orderingService.submit(() -> warehouse.receiveOrder(generateOrder()));
+            }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -47,6 +55,7 @@ public class Main {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        warehouse.shutDown();
 
 //            Thread producerThread = new Thread(() -> {
 //            for (int j = 0; j < 10; j++) {
