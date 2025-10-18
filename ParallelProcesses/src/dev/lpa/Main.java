@@ -5,9 +5,46 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Callable;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
+import java.util.concurrent.RecursiveTask;
+
+class RecursiveSumTask extends RecursiveTask<Long> {
+
+    private final long[] numbers;
+    private final int start;
+    private final int end;
+    private final int division;
+
+    public RecursiveSumTask(long[] numbers, int start, int end, int division) {
+        this.numbers = numbers;
+        this.start = start;
+        this.end = end;
+        this.division = division;
+    }
+
+    @Override
+    protected Long compute() {
+
+        if ((end - start) <= (numbers.length / division)) {
+            System.out.println(start + " : " + end);
+            long sum = 0;
+            for (int i = start; i < end; i++) {
+                sum += numbers[i];
+            }
+            return sum;
+        } else {
+            int mid = (start + end) / 2;
+            RecursiveSumTask leftTask =
+                    new RecursiveSumTask(numbers, start, mid, division);
+            RecursiveSumTask rightTask =
+                    new RecursiveSumTask(numbers, mid, end, division);
+            leftTask.fork();
+            rightTask.fork();
+            return leftTask.join() + rightTask.join();
+        }
+    }
+}
 
 public class Main {
 
@@ -21,7 +58,8 @@ public class Main {
         System.out.println("sum = " + sum);
 
 //        ExecutorService threadPool = Executors.newWorkStealingPool(4);
-        ForkJoinPool threadPool = (ForkJoinPool) Executors.newWorkStealingPool(4);
+//        ForkJoinPool threadPool = (ForkJoinPool) Executors.newWorkStealingPool(4);
+        ForkJoinPool threadPool = ForkJoinPool.commonPool(); //  the common pool will use as many CPUs as possible, but won't typically use all of them
 
         List<Callable<Long>> tasks = new ArrayList<>();
 
@@ -41,7 +79,7 @@ public class Main {
 
         List<Future<Long>> futures = threadPool.invokeAll(tasks);
 
-//        System.out.println("CPUs: " + Runtime.getRuntime().availableProcessors());
+        System.out.println("CPUs: " + Runtime.getRuntime().availableProcessors());
         System.out.println("Parallelism = " + threadPool.getParallelism());
         System.out.println("Pool size = " + threadPool.getPoolSize());
         System.out.println("Steal count = " + threadPool.getStealCount());
@@ -52,6 +90,11 @@ public class Main {
         }
 
         System.out.println("Thread Pool Sum = " + taskSum);
+
+        RecursiveTask<Long> task =
+                new RecursiveSumTask(numbers, 0, numbersLength, 8);
+        long forkJoinSum = threadPool.invoke(task);
+        System.out.println("RecursiveTask sum is: " + forkJoinSum);
 
         threadPool.shutdown();
 
