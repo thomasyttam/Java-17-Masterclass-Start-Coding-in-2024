@@ -1,8 +1,8 @@
 package dev.lpa;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 record Person(String firstName, String lastName, int age) {
@@ -41,11 +41,64 @@ public class Main {
         System.out.println("-----------------------------");
 
 //        Stream.generate(Person::new)
-        Arrays.stream(persons)
+        Arrays.stream(persons) // use the array persons
                 .limit(10)
                 .parallel()
 //                .sorted(Comparator.comparing(Person::lastName))
-//                .forEach(System.out::println);
-                .forEachOrdered(System.out::println);
+//                .forEach(System.out::println); // not in order
+                .forEachOrdered(System.out::println); // not guarantee stream is sorted
+
+        System.out.println("-----------------------------");
+
+        int sum = IntStream.range(1, 101)
+                .parallel()
+                .reduce(0, Integer::sum);
+
+        System.out.println("The sum of the numbers is: " + sum);
+
+        String humptyDumpty = """
+                Humpty Dumpty sat on a wall.
+                Humpty Dumpty had a great fall.
+                All the king's horses and all the king's men
+                couldn't put Humpty together again.
+                """;
+
+        System.out.println("-----------------------------");
+        var words = new Scanner(humptyDumpty).tokens().toList();
+        words.forEach(System.out::println);
+        System.out.println("-----------------------------");
+
+//        var backTogetherAgain = words
+//                .stream()
+//                .reduce(
+//                        new StringJoiner(" "),
+//                        StringJoiner::add,
+//                        StringJoiner::merge
+//                );
+
+        var backTogetherAgain = words
+                .parallelStream()
+                .collect(Collectors.joining(" ")); // not thread safe using reduce and cause error
+//                .reduce("", (s1, s2) -> s1.concat(s2).concat(" "));
+
+        System.out.println(backTogetherAgain);
+
+        Map<String, Long> lastNameCounts =
+                Stream.generate(Person::new)
+                        .limit(10000)
+                        .parallel()
+                        .collect(Collectors.groupingBy(
+                                Person::lastName,
+                                Collectors.counting()
+                        ));
+
+        lastNameCounts.entrySet().forEach(System.out::println);
+
+        long total = 0;
+        for (long count : lastNameCounts.values()) {
+            total += count;
+        }
+        System.out.println("Total = " + total);
+
     }
 }
