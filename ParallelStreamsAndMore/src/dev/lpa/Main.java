@@ -87,7 +87,8 @@ public class Main {
                 Stream.generate(Person::new)
                         .limit(10000)
                         .parallel()
-                        .collect(Collectors.groupingBy(
+//                        .collect(Collectors.groupingBy(
+                        .collect(Collectors.groupingByConcurrent(
                                 Person::lastName,
                                 Collectors.counting()
                         ));
@@ -99,6 +100,28 @@ public class Main {
             total += count;
         }
         System.out.println("Total = " + total);
+
+        System.out.println(lastNameCounts.getClass().getName());
+
+//        var lastCounts = new TreeMap<String, Long>(); // TreeMap is not multi thread safe -> cause Exception
+//        var lastCounts = new ConcurrentSkipListMap<String, Long>();
+        var lastCounts = Collections.synchronizedMap(
+                new TreeMap<String, Long>());
+        Stream.generate(Person::new)
+                .limit(10000)
+                .parallel()
+                .forEach((person) -> lastCounts.merge(person.lastName(),
+                         1L, Long::sum));
+
+        System.out.println(lastCounts);
+
+        total = 0;
+        for (long count : lastCounts.values()) {
+            total += count;
+        }
+        System.out.println("Total = " + total);
+
+        System.out.println(lastCounts.getClass().getName());
 
     }
 }
