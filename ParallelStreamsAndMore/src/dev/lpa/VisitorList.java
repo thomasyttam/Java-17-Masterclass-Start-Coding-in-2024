@@ -1,5 +1,7 @@
 package dev.lpa;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -32,6 +34,9 @@ public class VisitorList {
                 System.out.println(newVisitors);
             } else {
                 System.out.println("Queue is Full, cannot add " + visitor);
+                System.out.println("Draining Queue and writing data to file");
+                List<Person> tempList = new ArrayList<>();
+                newVisitors.drainTo(tempList);
             }
         };
 
