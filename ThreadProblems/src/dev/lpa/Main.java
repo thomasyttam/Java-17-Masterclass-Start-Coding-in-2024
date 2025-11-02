@@ -51,5 +51,14 @@ public class Main {
             System.out.println(threadName + " has released lock on resourceA (csv)");
         }, "THREAD-B");
 
+        threadA.start();
+        threadB.start();
+
+        try {
+            threadA.join();
+            threadB.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
