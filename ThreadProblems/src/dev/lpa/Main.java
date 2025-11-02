@@ -32,23 +32,23 @@ public class Main {
 
         Thread threadB = new Thread(() -> {
             String threadName = Thread.currentThread().getName();
-            System.out.println(threadName + " attempting to lock resourceA (csv)");
-            synchronized (resourceA) {
-                System.out.println(threadName + " has lock on resourceA (csv)");
+            System.out.println(threadName + " attempting to lock resourceB (json)");
+            synchronized (resourceB) {
+                System.out.println(threadName + " has lock on resourceB (json)");
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 System.out.println(threadName +
-                        " NEXT attempting to lock resourceB (json), " +
-                        "still has lock on resource A (csv)");
-                synchronized (resourceB) {
-                    System.out.println(threadName + " has lock on resourceB (json)");
+                        " NEXT attempting to lock resourceA (csv), " +
+                        "still has lock on resource B (json)");
+                synchronized (resourceA) {
+                    System.out.println(threadName + " has lock on resourceA (csv)");
                 }
-                System.out.println(threadName + " has released lock on resourceB (json)");
+                System.out.println(threadName + " has released lock on resourceA (csv)");
             }
-            System.out.println(threadName + " has released lock on resourceA (csv)");
+            System.out.println(threadName + " has released lock on resourceB (json)");
         }, "THREAD-B");
 
         threadA.start();
