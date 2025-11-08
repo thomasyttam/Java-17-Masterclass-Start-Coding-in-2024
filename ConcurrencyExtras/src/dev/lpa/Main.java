@@ -1,5 +1,8 @@
 package dev.lpa;
 
+import java.util.Random;
+import java.util.concurrent.ConcurrentSkipListSet;
+
 record Student(String name, int enrolledYear, int studentId)
         implements Comparable<Student> {
 
@@ -23,6 +26,11 @@ class StudentId {
 }
 
 public class Main {
+
+    private static Random random = new Random();
+
+    private static ConcurrentSkipListSet<Student> studentSet =
+            new ConcurrentSkipListSet<>();
 
     public static void main(String[] args) {
 
