@@ -1,5 +1,6 @@
 package dev.lpa;
 
+import java.util.Collections;
 import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentSkipListSet;
@@ -47,5 +48,14 @@ public class Main {
 
         var executor = Executors.newCachedThreadPool();
 
+        try {
+            var futures = executor.invokeAll(
+                    Collections.nCopies(10, studentMaker));
+                studentSet.forEach(System.out::println);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        executor.shutdown();
     }
 }
