@@ -47,15 +47,17 @@ public class Main {
         };
 
         var executor = Executors.newCachedThreadPool();
-
-        try {
-            var futures = executor.invokeAll(
-                    Collections.nCopies(10, studentMaker));
-                studentSet.forEach(System.out::println);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        for (int i = 0; i < 10; i++) {
+            studentSet.clear();
+            try {
+                var futures = executor.invokeAll(
+                        Collections.nCopies(10, studentMaker));
+                System.out.println("# of students = " + studentSet.size());
+//                studentSet.forEach(System.out::println);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
-
         executor.shutdown();
     }
 }
