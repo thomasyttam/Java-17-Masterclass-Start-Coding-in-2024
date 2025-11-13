@@ -51,7 +51,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        StudentId idGenerator = new StudentId();
+//        StudentId idGenerator = new StudentId();
+        AtomicStudentId idGenerator = new AtomicStudentId();
         Callable<Student> studentMaker = () -> {
             int studentId = idGenerator.getNextId();
             Student student = new Student("Tim " + studentId,
