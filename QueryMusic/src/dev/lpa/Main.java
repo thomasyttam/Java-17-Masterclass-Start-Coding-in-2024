@@ -23,7 +23,10 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        String query = "SELECT * FROM music.artists";
+        String albumName = "Tapestry";
+//        String query = "SELECT * FROM music.artists";
+        String query = "SELECT * FROM music.albumview WHERE album_name='%s'"
+                .formatted(albumName);
 
         var dataSource = new MysqlDataSource();
         dataSource.setServerName(props.getProperty("serverName"));
