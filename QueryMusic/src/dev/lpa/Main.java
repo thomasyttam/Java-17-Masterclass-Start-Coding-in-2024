@@ -32,10 +32,15 @@ public class Main {
         dataSource.setDatabaseName(props.getProperty("databaseName"));
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter an Album Name: ");
-        String albumName = "Tapestry";
-        String query = "SELECT * FROM music.albumview WHERE album_name='%s'"
-                .formatted(albumName);
+//        System.out.println("Enter an Album Name: ");
+//        String albumName = "Tapestry";
+//        String albumName = scanner.nextLine();
+//        String query = "SELECT * FROM music.albumview WHERE album_name='%s'"
+//                .formatted(albumName);
+        System.out.println("Enter an Artist Id: ");
+        String artistId = scanner.nextLine();
+        String query = "SELECT * FROM music.artists WHERE artist_id=%s"
+                .formatted(artistId);
 
         try (var connection = dataSource.getConnection(
                 props.getProperty("user"),
