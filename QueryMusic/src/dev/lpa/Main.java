@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
-import java.util.Scanner;
 
 public class Main {
 
@@ -30,17 +29,40 @@ public class Main {
         dataSource.setServerName(props.getProperty("serverName"));
         dataSource.setPort(Integer.parseInt(props.getProperty("port")));
         dataSource.setDatabaseName(props.getProperty("databaseName"));
+        try {
+            dataSource.setMaxRows(10);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
-        Scanner scanner = new Scanner(System.in);
-//        System.out.println("Enter an Album Name: ");
 //        String albumName = "Tapestry";
+
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.println("Enter an Album Name: ");
+
 //        String albumName = scanner.nextLine();
 //        String query = "SELECT * FROM music.albumview WHERE album_name='%s'"
 //                .formatted(albumName);
-        System.out.println("Enter an Artist Id: ");
-        String artistId = scanner.nextLine();
-        String query = "SELECT * FROM music.artists WHERE artist_id=%s"
-                .formatted(artistId);
+//        System.out.println("Enter an Artist Id: ");
+//        String artistId = scanner.nextLine();
+//        int artistid = Integer.parseInt(artistId);
+
+//        String query = "SELECT * FROM music.artists WHERE artist_id=%s"
+//                .formatted(artistId);
+//        String query = "SELECT * FROM music.artists WHERE artist_id=%d"
+//                .formatted(artistid);
+
+        String query = "SELECT * FROM music.artists limit 10";
+
+//        String query = """
+//            WITH RankedRows AS (
+//                                SELECT *,
+//                                ROW_NUMBER() OVER (ORDER BY artist_id) AS row_num
+//                                FROM music.artists
+//                            )
+//                            SELECT *
+//                                FROM RankedRows
+//                            WHERE row_num <= 10""";
 
         try (var connection = dataSource.getConnection(
                 props.getProperty("user"),
