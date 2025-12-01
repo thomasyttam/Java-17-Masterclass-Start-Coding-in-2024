@@ -6,11 +6,12 @@ public class MusicDML {
 
     public static void main(String[] args) {
 
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        // Prior to that version, a driver had to be loaded explicitly.
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//        } catch (ClassNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
 
         try (Connection connection = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/music",
@@ -18,14 +19,22 @@ public class MusicDML {
                 System.getenv("MYSQL_PASS"));
              Statement statement = connection.createStatement();
         ) {
-            String artist = "Elf";
-            String query = "SELECT * from artists WHERE artist_name='%s'"
-                    .formatted(artist);
-            boolean result = statement.execute(query); // result always true
-            System.out.println("result = " + result);
-            var rs = statement.executeQuery(query);
-            boolean found = (rs != null && rs.next());
-            System.out.println("Artist was " + (found ? "found" : "not found"));
+//            String artist = "Elf";
+//            String query = "SELECT * from artists WHERE artist_name='%s'"
+//                    .formatted(artist);
+//            boolean result = statement.execute(query); // result always true
+//            System.out.println("result = " + result);
+//            var rs = statement.executeQuery(query);
+//            boolean found = (rs != null && rs.next());
+//            System.out.println("Artist was " + (found ? "found" : "not found"));
+            String tableName = "music.artists";
+            String columnName = "artist_name";
+            String columnValue = "Bob Dylan";
+            if (!executeSelect(statement, tableName, columnName, columnValue)) {
+                System.out.println("Maybe we should add this record");
+                insertRecord(statement, tableName, new String[]{columnName},
+                        new String[]{columnValue});
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -65,5 +74,25 @@ public class MusicDML {
             return printRecords(rs);
         }
         return false;
+    }
+
+    private static boolean insertRecord(Statement statement, String table,
+                                        String[] columnNames, String[] columnValues)
+            throws SQLException {
+
+        String colNames = String.join(",", columnNames);
+        String colValues = String.join("','", columnValues);
+        String query = "INSERT INTO %s (%s) VALUES ('%s')"
+                .formatted(table, colNames, colValues);
+        System.out.println(query);
+        boolean insertResult = statement.execute(query);
+//        System.out.println("insertResult = " + insertResult);
+        int recordsInserted = statement.getUpdateCount();
+        if (recordsInserted > 0) {
+            executeSelect(statement, table,
+                    columnNames[0], columnValues[0]);
+        }
+//        return insertResult;
+        return recordsInserted > 0;
     }
 }
