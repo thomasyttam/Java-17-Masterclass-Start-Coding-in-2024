@@ -35,7 +35,10 @@ public class MusicDML {
                 insertRecord(statement, tableName, new String[]{columnName},
                         new String[]{columnValue});
             } else {
-                deleteRecord(statement, tableName, columnName, columnValue);
+//                deleteRecord(statement, tableName, columnName, columnValue);
+                updateRecord(statement, tableName, columnName,
+                        columnValue, columnName,
+                        columnValue.toUpperCase());
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -130,5 +133,12 @@ public class MusicDML {
                     updatedColumn, updatedValue);
         }
         return recordsUpdated > 0;
+    }
+
+    private static void insertArtistAlbum(Statement statement,
+                                          String artistName,
+                                          String albumName)
+        throws SQLException {
+        
     }
 }
