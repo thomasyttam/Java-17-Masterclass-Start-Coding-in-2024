@@ -139,6 +139,30 @@ public class MusicDML {
                                           String artistName,
                                           String albumName)
         throws SQLException {
-        
+
+        String artistInsert = "INSERT INTO music.artists (artist_name) VALUES (%s)"
+                .formatted(statement.enquoteLiteral(artistName)); // statement.enquoteLiteral -> This method will enclose the string in single quotes, as well as escape any single
+        System.out.println(artistInsert);
+        statement.execute(artistInsert, Statement.RETURN_GENERATED_KEYS);
+
+        ResultSet rs = statement.getGeneratedKeys(); // get artistId;
+        int artistId = (rs != null && rs.next()) ? rs.getInt(1) : -1;
+        String albumInsert = ("INSERT INTO music.albums (album_name, artist_id)" +
+                " VALUES (%s, %d)")
+                .formatted(statement.enquoteLiteral(albumName), artistId);
+        System.out.println(albumInsert);
+        statement.execute(albumInsert, Statement.RETURN_GENERATED_KEYS);
+        rs = statement.getGeneratedKeys(); // get albumId
+        int albumId = (rs != null && rs.next()) ? rs.getInt(1) : -1;
+
+        String[] songs = new String[]{
+                "You're No Good",
+                "Talkin' New York",
+                "In My Time of Dyin'",
+                "Man of Constant Sorrow",
+                "Fixin' to Die",
+                "Pretty Peggy-O",
+                "Highway 51 Blues"
+        };
     }
 }
