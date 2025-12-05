@@ -29,11 +29,12 @@ public class MusicDML {
 //            System.out.println("Artist was " + (found ? "found" : "not found"));
             String tableName = "music.artists";
             String columnName = "artist_name";
-            String columnValue = "Elf";
+            String columnValue = "Bob Dylan";
             if (!executeSelect(statement, tableName, columnName, columnValue)) {
-                System.out.println("Maybe we should add this record");
-                insertRecord(statement, tableName, new String[]{columnName},
-                        new String[]{columnValue});
+//                System.out.println("Maybe we should add this record");
+//                insertRecord(statement, tableName, new String[]{columnName},
+//                        new String[]{columnValue});
+                insertArtistAlbum(statement, columnValue, columnValue);
             } else {
 //                deleteRecord(statement, tableName, columnName, columnValue);
                 updateRecord(statement, tableName, columnName,
@@ -164,5 +165,19 @@ public class MusicDML {
                 "Pretty Peggy-O",
                 "Highway 51 Blues"
         };
+
+        String songInsert = "INSERT INTO music.songs " +
+                "(track_number, song_title, album_id) VALUES (%d, %s, %d)";
+
+        for (int i = 0; i < songs.length; i++) {
+            String songQuery = songInsert.formatted(i + 1,
+                    statement.enquoteLiteral(songs[i]), albumId);
+            System.out.println(songQuery);
+
+            statement.execute(songQuery);
+        }
+
+        executeSelect(statement, "music.albumview", "album_name",
+                "Bob Dylan");
     }
 }
