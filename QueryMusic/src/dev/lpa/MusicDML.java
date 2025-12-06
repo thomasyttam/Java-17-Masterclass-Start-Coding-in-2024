@@ -37,9 +37,19 @@ public class MusicDML {
                 insertArtistAlbum(statement, columnValue, columnValue);
             } else {
 //                deleteRecord(statement, tableName, columnName, columnValue);
-                updateRecord(statement, tableName, columnName,
-                        columnValue, columnName,
-                        columnValue.toUpperCase());
+//                updateRecord(statement, tableName, columnName,
+//                        columnValue, columnName,
+//                        columnValue.toUpperCase());
+                try {
+                    deleteArtistAlbum(connection, statement,
+                            columnValue, columnValue);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                executeSelect(statement, "music.albumview", "album_name",
+                        columnValue);
+                executeSelect(statement, "music.albums", "album_name",
+                        columnValue);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -139,7 +149,7 @@ public class MusicDML {
     private static void insertArtistAlbum(Statement statement,
                                           String artistName,
                                           String albumName)
-        throws SQLException {
+            throws SQLException {
 
         String artistInsert = "INSERT INTO music.artists (artist_name) VALUES (%s)"
                 .formatted(statement.enquoteLiteral(artistName)); // statement.enquoteLiteral -> This method will enclose the string in single quotes, as well as escape any single
@@ -180,4 +190,13 @@ public class MusicDML {
         executeSelect(statement, "music.albumview", "album_name",
                 "Bob Dylan");
     }
+
+    private static void deleteArtistAlbum(Connection conn, Statement statement,
+                                          String artistName, String albumName)
+            throws SQLException {
+
+        System.out.println("AUTOCOMMIT = " + conn.getAutoCommit());
+
+    }
+
 }
