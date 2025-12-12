@@ -27,6 +27,7 @@ public class Main {
             System.out.println(metaData.getSQLStateType());
             if (!checkSchema(conn)) {
                 System.out.println("storefront schema does not exist");
+                setUpSchema(conn);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -72,5 +73,19 @@ public class Main {
                 CONSTRAINT FK_ORDERID FOREIGN KEY (order_id)
                 REFERENCES storefront.order (order_id) ON DELETE CASCADE
                 ) """;
+
+        try (Statement statement = conn.createStatement()) { // Create Schema
+
+            System.out.println("Creating storefront Database");
+            statement.execute(createSchema);
+            if (checkSchema(conn)) {
+                statement.execute(createOrder);
+                System.out.println("Successfully Created Order");
+                statement.execute(createOrderDetails);
+                System.out.println("Successfully Created Order Details");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
