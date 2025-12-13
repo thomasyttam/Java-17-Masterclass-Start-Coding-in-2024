@@ -88,4 +88,12 @@ public class Main {
             e.printStackTrace();
         }
     }
+
+    private static int addOrder(Connection conn, String[] items) {
+
+        int orderId = -1;
+        String insertOrder = "INSERT INTO storefront.order (order_date) VALUES ('%s')";
+        String insertDetail = "INSERT INTO storefront.order_details " +
+                "(order_id, item_description) values(%d, %s)"; // use enquoteLiteral, no single quote in %s
+    }
 }
