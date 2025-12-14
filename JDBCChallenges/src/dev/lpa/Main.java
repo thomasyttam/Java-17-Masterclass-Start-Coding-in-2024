@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Main {
 
@@ -29,6 +31,10 @@ public class Main {
                 System.out.println("storefront schema does not exist");
                 setUpSchema(conn);
             }
+
+            int newOrder = addOrder(conn, new String[]{"shoes", "shirt", "socks"});
+            
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -95,5 +101,17 @@ public class Main {
         String insertOrder = "INSERT INTO storefront.order (order_date) VALUES ('%s')";
         String insertDetail = "INSERT INTO storefront.order_details " +
                 "(order_id, item_description) values(%d, %s)"; // use enquoteLiteral, no single quote in %s
+
+        DateTimeFormatter dtf =
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        String orderDateTime = LocalDateTime.now().format(dtf);
+        System.out.println(orderDateTime);
+        String formattedString = insertOrder.formatted(orderDateTime);
+        System.out.println(formattedString);
+
+        String insertOrderAlternative = "INSERT INTO storefront.order (order_date) " +
+                "VALUES ('%1$tF %1$tT')";
+        System.out.println(insertOrderAlternative.formatted(LocalDateTime.now()));
     }
 }
