@@ -33,7 +33,7 @@ public class Main {
             }
 
             int newOrder = addOrder(conn, new String[]{"shoes", "shirt", "socks"});
-            
+            System.out.println("New order = " + newOrder);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -95,7 +95,7 @@ public class Main {
         }
     }
 
-    private static int addOrder(Connection conn, String[] items) {
+    private static int addOrder(Connection conn, String[] items) throws SQLException {
 
         int orderId = -1;
         String insertOrder = "INSERT INTO storefront.order (order_date) VALUES ('%s')";
@@ -113,5 +113,34 @@ public class Main {
         String insertOrderAlternative = "INSERT INTO storefront.order (order_date) " +
                 "VALUES ('%1$tF %1$tT')";
         System.out.println(insertOrderAlternative.formatted(LocalDateTime.now()));
+
+        try (Statement statement = conn.createStatement()){
+
+            conn.setAutoCommit(false);
+            int inserts = statement.executeUpdate(formattedString,
+                    Statement.RETURN_GENERATED_KEYS);
+
+            if (inserts == 1) {
+                var rs = statement.getGeneratedKeys();
+                if (rs.next()) {
+                    orderId = rs.getInt(1);
+                }
+            }
+
+            int count = 0;
+            for (var item : items) {
+                formattedString = insertDetail.formatted(orderId,
+                        statement.enquoteLiteral(item));
+                inserts = statement.executeUpdate(formattedString);
+                count += inserts;
+            }
+            conn.commit();
+            conn.setAutoCommit(true);
+        } catch (SQLException e) {
+            conn.rollback();
+            throw new RuntimeException(e);
+        }
+
+        return orderId;
     }
 }
