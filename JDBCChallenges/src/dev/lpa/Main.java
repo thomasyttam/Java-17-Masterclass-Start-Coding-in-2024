@@ -32,6 +32,7 @@ public class Main {
                 setUpSchema(conn);
             }
 
+            deleteOrder(conn, 2);
             int newOrder = addOrder(conn, new String[]{"shoes", "shirt", "socks"});
             System.out.println("New order = " + newOrder);
 
@@ -117,7 +118,7 @@ public class Main {
         try (Statement statement = conn.createStatement()){
 
             conn.setAutoCommit(false);
-            int inserts = statement.executeUpdate(formattedString,
+            int inserts = statement.executeUpdate(formattedString, // insert order, formattedString = insertOrder.formatted(orderDateTime);
                     Statement.RETURN_GENERATED_KEYS);
 
             if (inserts == 1) {
@@ -131,10 +132,17 @@ public class Main {
             for (var item : items) {
                 formattedString = insertDetail.formatted(orderId,
                         statement.enquoteLiteral(item));
-                inserts = statement.executeUpdate(formattedString);
+                inserts = statement.executeUpdate(formattedString); // insert item, formattedString = insertDetail.formatted(orderId, statement.enquoteLiteral(item));
                 count += inserts;
             }
-            conn.commit();
+
+            if (count != items.length) {
+                orderId = -1;
+                System.out.println("Number of records inserted doesn't equal items received");
+                conn.rollback();
+            } else {
+                conn.commit();
+            }
             conn.setAutoCommit(true);
         } catch (SQLException e) {
             conn.rollback();
@@ -142,5 +150,28 @@ public class Main {
         }
 
         return orderId;
+    }
+
+    private static void deleteOrder(Connection conn, int orderId) throws SQLException {
+
+//        String deleteOrder = "DELETE FROM storefront.order where order_id=%d";
+//        String deleteQuery = deleteOrder.formatted(orderId);
+        String deleteOrder = "DELETE FROM %s where order_id=%d";
+        String parentQuery = deleteOrder.formatted("storefront.order", orderId);
+        String childQuery = deleteOrder.formatted("storefront.order_details",
+                orderId);
+
+        try (Statement statement = conn.createStatement()) {
+            conn.setAutoCommit(false);
+            int deletedRecords = statement.executeUpdate(deleteQuery);
+            System.out.printf("%d records deleted%n", deletedRecords);
+            conn.commit();
+
+        } catch (SQLException e) {
+            conn.rollback();
+            throw new RuntimeException(e);
+        } finally {
+            conn.setAutoCommit(true);
+        }
     }
 }
