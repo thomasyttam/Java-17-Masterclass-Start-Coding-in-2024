@@ -33,8 +33,8 @@ public class Main {
             }
 
             deleteOrder(conn, 2);
-            int newOrder = addOrder(conn, new String[]{"shoes", "shirt", "socks"});
-            System.out.println("New order = " + newOrder);
+//            int newOrder = addOrder(conn, new String[]{"shoes", "shirt", "socks"});
+//            System.out.println("New order = " + newOrder);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -163,10 +163,17 @@ public class Main {
 
         try (Statement statement = conn.createStatement()) {
             conn.setAutoCommit(false);
-            int deletedRecords = statement.executeUpdate(deleteQuery);
-            System.out.printf("%d records deleted%n", deletedRecords);
-            conn.commit();
-
+//            int deletedRecords = statement.executeUpdate(deleteQuery);
+//            System.out.printf("%d records deleted%n", deletedRecords);
+            int deletedRecords = statement.executeUpdate(childQuery);
+            System.out.printf("%d child records deleted%n", deletedRecords);
+            deletedRecords = statement.executeUpdate(parentQuery);
+            if (deletedRecords == 1) {
+                conn.commit();
+                System.out.printf("Order %d was successfully deleted%n", orderId);
+            } else {
+                conn.rollback();
+            }
         } catch (SQLException e) {
             conn.rollback();
             throw new RuntimeException(e);
