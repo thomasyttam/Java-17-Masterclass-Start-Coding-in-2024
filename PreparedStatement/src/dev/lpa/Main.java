@@ -168,6 +168,7 @@ public class Main {
             }
             int[] inserts = psSong.executeBatch();
             int totalInserts = Arrays.stream(inserts).sum();
+            System.out.printf("%d song records added %n", inserts.length);
             conn.commit();
             conn.setAutoCommit(true);
         } catch (SQLException e) {
