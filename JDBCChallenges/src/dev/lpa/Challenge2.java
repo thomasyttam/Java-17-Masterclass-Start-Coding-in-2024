@@ -5,6 +5,7 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,5 +81,11 @@ public class Challenge2 {
             throw new RuntimeException(e);
         }
         return vals;
+    }
+
+    private static void addOrder(Connection conn, PreparedStatement psOrder,
+                                 PreparedStatement psDetail, Order order)
+            throws SQLException {
+            
     }
 }
