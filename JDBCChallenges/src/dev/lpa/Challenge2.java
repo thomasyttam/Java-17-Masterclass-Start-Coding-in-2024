@@ -86,6 +86,14 @@ public class Challenge2 {
     private static void addOrder(Connection conn, PreparedStatement psOrder,
                                  PreparedStatement psDetail, Order order)
             throws SQLException {
-            
+
+        try {
+            conn.setAutoCommit(false);
+
+            conn.commit();
+        } catch (SQLException e) {
+            conn.rollback();
+            throw e;
+        }
     }
 }
