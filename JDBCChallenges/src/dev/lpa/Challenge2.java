@@ -91,6 +91,13 @@ public class Challenge2 {
             conn.setAutoCommit(false);
             int orderId = -1;
             psOrder.setString(1, order.dateString());
+            if (psOrder.executeUpdate() == 1) {
+                var rs = psOrder.getGeneratedKeys();
+                if (rs.next()) {
+                    orderId = rs.getInt(1);
+                    System.out.println("orderId = " + orderId);
+                }
+            }
             conn.commit();
         } catch (SQLException e) {
             conn.rollback();
