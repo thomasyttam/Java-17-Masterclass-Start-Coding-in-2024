@@ -89,11 +89,14 @@ public class Challenge2 {
 
         try {
             conn.setAutoCommit(false);
-
+            int orderId = -1;
+            psOrder.setString(1, order.dateString());
             conn.commit();
         } catch (SQLException e) {
             conn.rollback();
             throw e;
+        } finally {
+            conn.setAutoCommit(true);
         }
     }
 }
