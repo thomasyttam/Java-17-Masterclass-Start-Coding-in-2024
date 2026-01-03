@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -96,6 +97,20 @@ public class Challenge2 {
                 if (rs.next()) {
                     orderId = rs.getInt(1);
                     System.out.println("orderId = " + orderId);
+
+                    if (orderId > -1) {
+                        psDetail.setInt(1, orderId);
+                        for (OrderDetail od : order.details()) {
+                            psDetail.setString(2, od.itemDescription());
+                            psDetail.setInt(3, od.qty());
+                            psDetail.addBatch();
+                        }
+                    }
+                    int[] data = psDetail.executeBatch();
+                    int rowsInserted = Arrays.stream(data).sum();
+                    if (rowsInserted != order.details().size()) {
+                        throw new SQLException("Inserts don't match");
+                    }
                 }
             }
             conn.commit();
@@ -105,5 +120,12 @@ public class Challenge2 {
         } finally {
             conn.setAutoCommit(true);
         }
+    }
+
+    private static void addOrders(Connection conn, List<Order> orders) {
+
+        String insertOrder = "INSERT INTO storefront.order (order_date) VALUES (?)";
+        String insertDetail = "INSERT INTO storefront.order_details " +
+                "(order_id, item_description, quantity) values(?, ?, ?)";
     }
 }
