@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -127,5 +128,16 @@ public class Challenge2 {
         String insertOrder = "INSERT INTO storefront.order (order_date) VALUES (?)";
         String insertDetail = "INSERT INTO storefront.order_details " +
                 "(order_id, item_description, quantity) values(?, ?, ?)";
+
+        try (
+                PreparedStatement psOrder = conn.prepareStatement(insertOrder,
+                        Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement psDetail = conn.prepareStatement(insertDetail,
+                        Statement.RETURN_GENERATED_KEYS);
+        ) {
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
