@@ -135,7 +135,17 @@ public class Challenge2 {
                 PreparedStatement psDetail = conn.prepareStatement(insertDetail,
                         Statement.RETURN_GENERATED_KEYS);
         ) {
-
+            
+            orders.forEach((o) -> {
+                try {
+                    addOrder(conn, psOrder, psDetail, o);
+                } catch (SQLException e) {
+                    System.err.printf("%d (%s) %s%n", e.getErrorCode(),
+                            e.getSQLState(), e.getMessage());
+                    System.err.println("Problem: " + psOrder);
+                    System.err.println("Order: " + o);
+                }
+            });
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
