@@ -50,6 +50,7 @@ public class Challenge2 {
 //                Statement statement = conn.createStatement();
 //                statement.execute(alterString);
 
+                addOrders(conn, orders);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -135,7 +136,7 @@ public class Challenge2 {
                 PreparedStatement psDetail = conn.prepareStatement(insertDetail,
                         Statement.RETURN_GENERATED_KEYS);
         ) {
-            
+
             orders.forEach((o) -> {
                 try {
                     addOrder(conn, psOrder, psDetail, o);
