@@ -31,5 +31,11 @@ public class MusicCallableStatement {
             throw new RuntimeException(e);
         }
 
+        albums.forEach((artist, artistAlbums) -> {
+            artistAlbums.forEach((key, value) -> {
+                System.out.println(key + " : " + value);
+            });
+        });
+
     }
 }
