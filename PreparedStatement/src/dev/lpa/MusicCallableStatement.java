@@ -37,5 +37,10 @@ public class MusicCallableStatement {
             });
         });
 
+        var dataSource = new MysqlDataSource();
+
+        dataSource.setServerName("localhost");
+        dataSource.setPort(3306);
+        dataSource.setDatabaseName("music");
     }
 }
