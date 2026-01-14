@@ -52,8 +52,8 @@ public class MusicCallableStatement {
                 System.getenv("MYSQL_PASS"));
         ) {
 
-            CallableStatement cs = connection.prepareCall(
-                    "CALL music.addAlbum(?,?,?)");
+            CallableStatement cs = connection.prepareCall( // callable statement Used to execute stored procedures or functions in the database.
+                    "CALL music.addAlbum(?,?,?)"); // music.addAlbum -> stored procedure in MySQL database
 
             albums.forEach((artist, albumMap) -> {
                 albumMap.forEach((album, songs) -> {
@@ -68,7 +68,7 @@ public class MusicCallableStatement {
                     }
                 });
             });
-            
+
             String sql = "SELECT * FROM music.albumview WHERE artist_name = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, "Bob Dylan");
