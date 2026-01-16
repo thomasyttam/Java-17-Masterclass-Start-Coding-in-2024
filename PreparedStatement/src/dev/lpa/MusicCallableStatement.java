@@ -54,7 +54,8 @@ public class MusicCallableStatement {
 
             CallableStatement cs = connection.prepareCall( // callable statement Used to execute stored procedures or functions in the database.
 //                    "CALL music.addAlbum(?,?,?)"); // music.addAlbum -> stored procedure in MySQL database
-                    "CALL music.addAlbumReturnCounts(?,?,?,?)"); // music.addAlbum -> stored procedure in MySQL database
+//                    "CALL music.addAlbumReturnCounts(?,?,?,?)"); // music.addAlbum -> stored procedure in MySQL database
+                    "CALL music.addAlbumInOutCounts(?,?,?,?)"); // music.addAlbum -> stored procedure in MySQL database
 
             albums.forEach((artist, albumMap) -> {
                 albumMap.forEach((album, songs) -> {
@@ -62,6 +63,7 @@ public class MusicCallableStatement {
                         cs.setString(1, artist);
                         cs.setString(2, album);
                         cs.setString(3, songs);
+                        cs.setInt(4, 10);
                         cs.registerOutParameter(4, Types.INTEGER);
                         cs.execute();
                         System.out.printf("%d songs were added for %s%n",
