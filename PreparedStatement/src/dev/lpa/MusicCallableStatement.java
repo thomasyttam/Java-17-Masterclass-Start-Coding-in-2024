@@ -63,7 +63,7 @@ public class MusicCallableStatement {
                         cs.setString(1, artist);
                         cs.setString(2, album);
                         cs.setString(3, songs);
-//                        cs.setInt(4, 10); // get initialized to default value, now is null
+                        cs.setInt(4, 10); // get initialized to default value, now is null, unexpected behaviour
                         cs.registerOutParameter(4, Types.INTEGER);
                         cs.execute();
                         System.out.printf("%d songs were added for %s%n",
