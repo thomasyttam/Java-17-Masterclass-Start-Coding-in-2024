@@ -52,7 +52,7 @@ public class MusicCallableStatement {
                 System.getenv("MYSQL_PASS"));
         ) {
 
-            CallableStatement cs = connection.prepareCall( // callable statement Used to execute stored procedures or functions in the database.
+/*            CallableStatement cs = connection.prepareCall( // callable statement Used to execute stored procedures or functions in the database.
 //                    "CALL music.addAlbum(?,?,?)"); // music.addAlbum -> stored procedure in MySQL database
 //                    "CALL music.addAlbumReturnCounts(?,?,?,?)"); // music.addAlbum -> stored procedure in MySQL database
                     "CALL music.addAlbumInOutCounts(?,?,?,?)"); // music.addAlbum -> stored procedure in MySQL database
@@ -72,13 +72,18 @@ public class MusicCallableStatement {
                         System.err.println(e.getErrorCode() + " " + e.getMessage());
                     }
                 });
-            });
+            }); */
 
             String sql = "SELECT * FROM music.albumview WHERE artist_name = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, "Bob Dylan");
             ResultSet resultSet = ps.executeQuery();
             Main.printRecords(resultSet);
+
+            CallableStatement csf = connection.prepareCall(
+                    " ? = CALL music.calcAlbumLength(?)"); // first question mark is the result of function
+            csf.registerOutParameter(1, Types.DOUBLE);
+
         }catch (SQLException e) {
             e.printStackTrace();
         }
