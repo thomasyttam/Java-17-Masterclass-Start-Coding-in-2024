@@ -81,9 +81,23 @@ public class MusicCallableStatement {
             Main.printRecords(resultSet);
 
             CallableStatement csf = connection.prepareCall(
-                    " ? = CALL music.calcAlbumLength(?)"); // first question mark is the result of function
-            csf.registerOutParameter(1, Types.DOUBLE);
+//                    " ? = CALL music.calcAlbumLength(?)"); // first question mark is the result of function
+                    "{ ? = CALL music.calcAlbumLength(?) }"); // first question mark is the result of function
 
+            csf.registerOutParameter(1, Types.DOUBLE); // return result in index 1
+
+            albums.forEach((artist, albumMap) -> {
+                albumMap.keySet().forEach((albumName) -> {
+                    try {
+                        csf.setString(2, albumName); // first parameter in index 2
+                        csf.execute();
+                        double result = csf.getDouble(1);
+                        System.out.printf("Length of %s is %.1f%n", albumName, result);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+            });
         }catch (SQLException e) {
             e.printStackTrace();
         }
