@@ -81,9 +81,8 @@ public class MusicCallableStatement {
             Main.printRecords(resultSet);
 
             CallableStatement csf = connection.prepareCall(
-//                    " ? = CALL music.calcAlbumLength(?)"); // first question mark is the result of function
-                    "{ ? = CALL music.calcAlbumLength(?) }"); // first question mark is the result of function
-
+//                    " ? = CALL music.calcAlbumLength(?)"); // first question mark is equals CALL, part of the string, call function
+                    "{ ? = CALL music.calcAlbumLength(?) }"); // first question mark is equals CALL, part of the string, call function
             csf.registerOutParameter(1, Types.DOUBLE); // return result in index 1
 
             albums.forEach((artist, albumMap) -> {
