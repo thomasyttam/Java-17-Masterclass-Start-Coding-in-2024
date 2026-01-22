@@ -8,15 +8,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 record OrderDetail(int orderDetailId, String itemDescription, int qty) {
 
     public OrderDetail(String itemDescription, int qty) {
         this(-1, itemDescription, qty);
+    }
+
+    public String toJSON() {
+        return new StringJoiner(", ", "{", "}")
+                .add("\"itemDescription\":\"" + itemDescription + "\"")
+                .add("\"qty\":" + qty)
+                .toString();
     }
 }
 
@@ -29,6 +33,12 @@ record Order(int orderId, String dateString, List<OrderDetail> details) {
     public void addDetail(String itemDescription, int qty) {
         OrderDetail item = new OrderDetail(itemDescription, qty);
         details.add(item);
+    }
+
+    public String getDetailsJson() {
+        StringJoiner jsonString = new StringJoiner(",", "[", "]");
+        details.forEach((d) -> jsonString.add(d.toJSON()));
+        return jsonString.toString();
     }
 }
 
