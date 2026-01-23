@@ -4,10 +4,9 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 record OrderDetail(int orderDetailId, String itemDescription, int qty) {
@@ -60,7 +59,28 @@ public class Challenge2 {
 //                Statement statement = conn.createStatement();
 //                statement.execute(alterString);
 
-                addOrders(conn, orders);
+//                addOrders(conn, orders);
+
+                CallableStatement cs = conn.prepareCall(
+                        "{ CALL storefront.addOrder(?, ?, ?, ?) }");
+
+                DateTimeFormatter formatter =
+                        DateTimeFormatter.ofPattern("G yyyy-MM-dd HH:mm:ss");
+
+                orders.forEach((o) -> {
+//                    System.out.println(o.getDetailsJson());
+                    try {
+                        LocalDateTime localDateTime =
+                                LocalDateTime.parse(o.dateString(), formatter);
+                        Timestamp timestamp = Timestamp.valueOf(localDateTime);
+                        cs.setTimestamp(1, timestamp);
+                        cs.setString(2, o.getDetailsJson());
+                    } catch (Exception e) {
+                        System.out.printf("Problem with %s : %s%n", o.dateString(),
+                                e.getMessage());
+                    }
+                });
+
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
