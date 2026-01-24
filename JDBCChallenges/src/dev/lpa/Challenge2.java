@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 import java.util.*;
 
 record OrderDetail(int orderDetailId, String itemDescription, int qty) {
@@ -62,19 +63,29 @@ public class Challenge2 {
 //                addOrders(conn, orders);
 
                 CallableStatement cs = conn.prepareCall(
-                        "{ CALL storefront.addOrder(?, ?, ?, ?) }");
+                        "{ CALL storefront.addOrder(?, ?, ?, ?) }"); // 1, 2: input parameter, 3,4: output parameter
 
+//                DateTimeFormatter formatter =
+//                        DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss");
                 DateTimeFormatter formatter =
-                        DateTimeFormatter.ofPattern("G yyyy-MM-dd HH:mm:ss");
+                        DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss")
+                                        .withResolverStyle(ResolverStyle.STRICT);
 
                 orders.forEach((o) -> {
 //                    System.out.println(o.getDetailsJson());
                     try {
                         LocalDateTime localDateTime =
-                                LocalDateTime.parse(o.dateString(), formatter);
+                                LocalDateTime.parse(o.dateString(), formatter); // parse change the invalid date to valid 0ne, 2023-11-31 to 2023-11-30
                         Timestamp timestamp = Timestamp.valueOf(localDateTime);
                         cs.setTimestamp(1, timestamp);
                         cs.setString(2, o.getDetailsJson());
+                        cs.registerOutParameter(3, Types.INTEGER);
+                        cs.registerOutParameter(4, Types.INTEGER);
+                        cs.execute();
+                        System.out.printf("%d records inserted for %d (%s)%n",
+                                cs.getInt(4),
+                                cs.getInt(3),
+                                o.dateString());
                     } catch (Exception e) {
                         System.out.printf("Problem with %s : %s%n", o.dateString(),
                                 e.getMessage());
