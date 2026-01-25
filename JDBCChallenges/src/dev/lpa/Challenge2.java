@@ -66,16 +66,21 @@ public class Challenge2 {
                         "{ CALL storefront.addOrder(?, ?, ?, ?) }"); // 1, 2: input parameter, 3,4: output parameter
 
 //                DateTimeFormatter formatter =
-//                        DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss");
+//                        DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss");  // parse change the invalid date to valid 0ne, 2023-11-31 to 2023-11-30
+//                DateTimeFormatter formatter =
+//                        DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss")
+//                                .withResolverStyle(ResolverStyle.STRICT);
                 DateTimeFormatter formatter =
-                        DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss")
+                        DateTimeFormatter.ofPattern("G yyyy-MM-dd HH:mm:ss")
                                         .withResolverStyle(ResolverStyle.STRICT);
 
                 orders.forEach((o) -> {
 //                    System.out.println(o.getDetailsJson());
                     try {
+//                        LocalDateTime localDateTime =
+//                                LocalDateTime.parse(o.dateString(), formatter);
                         LocalDateTime localDateTime =
-                                LocalDateTime.parse(o.dateString(), formatter); // parse change the invalid date to valid 0ne, 2023-11-31 to 2023-11-30
+                                LocalDateTime.parse("AD " + o.dateString(), formatter);
                         Timestamp timestamp = Timestamp.valueOf(localDateTime);
                         cs.setTimestamp(1, timestamp);
                         cs.setString(2, o.getDetailsJson());
