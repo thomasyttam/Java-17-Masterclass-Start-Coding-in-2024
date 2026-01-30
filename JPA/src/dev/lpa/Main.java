@@ -1,5 +1,6 @@
 package dev.lpa;
 
+import dev.lpa.music.Artist;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Persistence;
 
@@ -12,6 +13,15 @@ public class Main {
                              "dev.lpa.music");
              EntityManager entityManager = sessionFactory.createEntityManager();
         ) {
+            var transaction = entityManager.getTransaction();
+            transaction.begin();
+//            entityManager.persist(new Artist("Muddy Water"));
+//            Artist artist = entityManager.find(Artist.class, 203);
+//            entityManager.remove(artist);
+            Artist artist = entityManager.find(Artist.class, 202);
+            System.out.println(artist);
+            artist.setArtistName("Muddy Waters");
+            transaction.commit();
 
         } catch (Exception e) {
             e.printStackTrace();
