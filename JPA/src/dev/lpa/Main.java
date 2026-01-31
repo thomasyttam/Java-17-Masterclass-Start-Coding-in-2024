@@ -18,9 +18,11 @@ public class Main {
 //            entityManager.persist(new Artist("Muddy Water"));
 //            Artist artist = entityManager.find(Artist.class, 203);
 //            entityManager.remove(artist);
+//            Artist artist = new Artist(202, "Muddy Water");
+//            entityManager.merge(artist);
             Artist artist = entityManager.find(Artist.class, 202);
-            System.out.println(artist);
             artist.setArtistName("Muddy Waters");
+            System.out.println(artist);
             transaction.commit();
 
         } catch (Exception e) {
