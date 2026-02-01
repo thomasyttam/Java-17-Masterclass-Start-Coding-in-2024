@@ -1,9 +1,9 @@
 package dev.lpa.music;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "artists")
@@ -15,6 +15,10 @@ public class Artist {
 
     @Column(name="artist_name")
     private String artistName;
+
+    @OneToMany
+    @JoinColumn(name="artist_id")
+    private List<Album> albums = new ArrayList<>();
 
     public Artist() {
     }
