@@ -32,6 +32,10 @@ public class Artist {
         this.artistName = artistName;
     }
 
+    public List<Album> getAlbums() {
+        return albums;
+    }
+
     public String getArtistName() {
         return artistName;
     }
@@ -43,8 +47,9 @@ public class Artist {
     @Override
     public String toString() {
         return "Artist{" +
-                "artistName='" + artistName + '\'' +
-                ", artistId=" + artistId +
+                "artistId=" + artistId +
+                ", artistName='" + artistName + '\'' +
+                ", albums =" +albums +
                 '}';
     }
 }

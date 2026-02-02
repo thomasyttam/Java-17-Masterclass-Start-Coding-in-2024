@@ -20,8 +20,8 @@ public class Main {
 //            entityManager.remove(artist);
 //            Artist artist = new Artist(202, "Muddy Water");
 //            entityManager.merge(artist);
-            Artist artist = entityManager.find(Artist.class, 202);
-            artist.setArtistName("Muddy Waters");
+//            artist.setArtistName("Muddy Waters");
+            Artist artist = entityManager.find(Artist.class, 201);
             System.out.println(artist);
             transaction.commit();
 
