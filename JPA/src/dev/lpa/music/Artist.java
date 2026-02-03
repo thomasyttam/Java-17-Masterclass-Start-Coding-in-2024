@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 @Entity
 @Table(name = "artists")
@@ -16,7 +17,7 @@ public class Artist {
     @Column(name="artist_name")
     private String artistName;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="artist_id")
     private List<Album> albums = new ArrayList<>();
 
@@ -42,6 +43,12 @@ public class Artist {
 
     public void setArtistName(String artistName) {
         this.artistName = artistName;
+    }
+
+    public void removeDuplicates() {
+        var set = new TreeSet<>(albums);
+        albums.clear();
+        albums.addAll(set);
     }
 
     @Override

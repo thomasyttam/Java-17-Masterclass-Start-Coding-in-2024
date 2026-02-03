@@ -23,6 +23,8 @@ public class Main {
 //            artist.setArtistName("Muddy Waters");
             Artist artist = entityManager.find(Artist.class, 201);
             System.out.println(artist);
+            artist.removeDuplicates();
+            System.out.println(artist);
             transaction.commit();
 
         } catch (Exception e) {
