@@ -21,9 +21,11 @@ public class Main {
 //            Artist artist = new Artist(202, "Muddy Water");
 //            entityManager.merge(artist);
 //            artist.setArtistName("Muddy Waters");
-            Artist artist = entityManager.find(Artist.class, 201);
+//            Artist artist = entityManager.find(Artist.class, 201);
+//            artist.removeDuplicates();
+            Artist artist = entityManager.find(Artist.class, 202);
             System.out.println(artist);
-            artist.removeDuplicates();
+            artist.addAlbum("The Best of Muddy Waters");
             System.out.println(artist);
             transaction.commit();
 
