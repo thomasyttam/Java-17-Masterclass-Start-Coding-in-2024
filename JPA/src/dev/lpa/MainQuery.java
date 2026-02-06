@@ -29,9 +29,12 @@ public class MainQuery {
     private static List<Artist> getArtistsJPQL(EntityManager em, String matchedValue) {
 
 //        String jpql = "SELECT a FROM Artist a";
-        String jpql = "SELECT a FROM Artist a WHERE a.artistName LIKE :partialName";
+//        String jpql = "SELECT a FROM Artist a WHERE a.artistName LIKE :partialName";
+//        var query = em.createQuery(jpql, Artist.class);
+//        query.setParameter("partialName", matchedValue);
+        String jpql = "SELECT a FROM Artist a WHERE a.artistName LIKE ?1";
         var query = em.createQuery(jpql, Artist.class);
-        query.setParameter("partialName", matchedValue);
+        query.setParameter(1, matchedValue);
         return query.getResultList();
     }
 }
