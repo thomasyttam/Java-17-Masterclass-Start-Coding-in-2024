@@ -7,6 +7,7 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.Tuple;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public class MainQuery {
 
@@ -23,7 +24,17 @@ public class MainQuery {
             artists.forEach(System.out::println);
 
             var names = getArtistNames(em, "Stev%");
-            names.forEach(System.out::println);
+//            names.forEach(System.out::println);
+//            names
+//                    .map(a -> new Artist(
+//                            a.get(0, Integer.class),
+//                            (String) a.get(1)))
+//                    .forEach(System.out::println);
+            names
+                    .map(a -> new Artist(
+                            a.get("id", Integer.class),
+                            (String) a.get("name")))
+                    .forEach(System.out::println);
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -43,14 +54,17 @@ public class MainQuery {
     }
 
 //    private static List<String> getArtistNames(EntityManager em, String matchedValue) {
-    private static List<Tuple> getArtistNames(EntityManager em, String matchedValue) {
+    private static Stream<Tuple> getArtistNames(EntityManager em, String matchedValue) {
 
 //        String jpql = "SELECT a.artistId, a.artistName FROM Artist a WHERE a.artistName LIKE ?1";
-        String jpql = "SELECT a.artistId, a.artistName FROM Artist a " +
+//        String jpql = "SELECT a.artistId, a.artistName FROM Artist a " +
+//                "WHERE a.artistName LIKE ?1";
+        String jpql = "SELECT a.artistId id, a.artistName as name FROM Artist a " +
                 "WHERE a.artistName LIKE ?1";
 //        var query = em.createQuery(jpql, String.class);
         var query = em.createQuery(jpql,Tuple.class);
         query.setParameter(1, matchedValue);
-        return query.getResultList();
+//        return query.getResultList();
+        return query.getResultStream();
     }
 }
