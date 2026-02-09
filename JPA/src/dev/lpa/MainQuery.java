@@ -20,21 +20,22 @@ public class MainQuery {
             var transaction = em.getTransaction();
             transaction.begin();
 //            artists = getArtistsJPQL(em, "");
-            artists = getArtistsJPQL(em, "%Stev%");
+//            artists = getArtistsJPQL(em, "%Stev%");
+            artists = getArtistsJPQL(em, "%Greatest Hits%");
             artists.forEach(System.out::println);
 
-            var names = getArtistNames(em, "Stev%");
+//            var names = getArtistNames(em, "Stev%");
 //            names.forEach(System.out::println);
 //            names
 //                    .map(a -> new Artist(
 //                            a.get(0, Integer.class),
 //                            (String) a.get(1)))
 //                    .forEach(System.out::println);
-            names
-                    .map(a -> new Artist(
-                            a.get("id", Integer.class),
-                            (String) a.get("name")))
-                    .forEach(System.out::println);
+//            names
+//                    .map(a -> new Artist(
+//                            a.get("id", Integer.class),
+//                            (String) a.get("name")))
+//                    .forEach(System.out::println);
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -47,9 +48,14 @@ public class MainQuery {
 //        String jpql = "SELECT a FROM Artist a WHERE a.artistName LIKE :partialName";
 //        var query = em.createQuery(jpql, Artist.class);
 //        query.setParameter("partialName", matchedValue);
-        String jpql = "SELECT a FROM Artist a WHERE a.artistName LIKE ?1";
+//        String jpql = "SELECT a FROM Artist a WHERE a.artistName LIKE ?1"; // search from artist name
+//        String jpql = "SELECT a FROM Artist a JOIN albums album " +
+//                "WHERE album.albumName LIKE ?1";
+        String jpql = "SELECT a FROM Artist a JOIN albums album " +
+                "WHERE album.albumName LIKE ?1 OR album.albumName LIKE ?2";
         var query = em.createQuery(jpql, Artist.class);
         query.setParameter(1, matchedValue);
+        query.setParameter(2, "%Best of%");
         return query.getResultList();
     }
 
