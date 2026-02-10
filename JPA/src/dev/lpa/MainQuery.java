@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.Tuple;
+import jakarta.persistence.criteria.CriteriaBuilder;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -72,5 +73,12 @@ public class MainQuery {
         query.setParameter(1, matchedValue);
 //        return query.getResultList();
         return query.getResultStream();
+    }
+
+    private static Stream<Artist> getArtistsBuilder(EntityManager em,
+                                                    String matchedValue) {
+
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+
     }
 }
