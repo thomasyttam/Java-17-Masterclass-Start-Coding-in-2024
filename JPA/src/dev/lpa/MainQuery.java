@@ -6,6 +6,8 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.Tuple;
 import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -79,6 +81,7 @@ public class MainQuery {
                                                     String matchedValue) {
 
         CriteriaBuilder builder = em.getCriteriaBuilder();
-
+        CriteriaQuery<Artist> criteriaQuery = builder.createQuery(Artist.class);
+        Root<Artist> root = criteriaQuery.from(Artist.class);
     }
 }
