@@ -10,6 +10,8 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 
 import java.util.List;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MainQuery {
@@ -39,6 +41,18 @@ public class MainQuery {
 //                            a.get("id", Integer.class),
 //                            (String) a.get("name")))
 //                    .forEach(System.out::println);
+
+            System.out.println("----------------------------------");
+            Stream<Artist> sartists = getArtistsBuilder(em, "");
+            var map = sartists
+                    .limit(10)
+                            .collect(Collectors.toMap(
+                                    Artist::getArtistName,
+                                    (a) -> a.getAlbums().size(),
+                                    Integer::sum,
+                                    TreeMap::new
+                            ));
+
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,5 +97,7 @@ public class MainQuery {
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<Artist> criteriaQuery = builder.createQuery(Artist.class);
         Root<Artist> root = criteriaQuery.from(Artist.class);
+        criteriaQuery.select(root);
+        return em.createQuery(criteriaQuery).getResultStream();
     }
 }
