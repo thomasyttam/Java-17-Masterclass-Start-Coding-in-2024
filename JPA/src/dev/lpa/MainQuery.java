@@ -43,7 +43,7 @@ public class MainQuery {
 //                    .forEach(System.out::println);
 
             System.out.println("----------------------------------");
-            Stream<Artist> sartists = getArtistsBuilder(em, "");
+            Stream<Artist> sartists = getArtistsBuilder(em, "Bl%");
             var map = sartists
                     .limit(10)
                             .collect(Collectors.toMap(
@@ -52,6 +52,21 @@ public class MainQuery {
                                     Integer::sum,
                                     TreeMap::new
                             ));
+
+            map.forEach((k, v) -> System.out.println(k + " : " + v));
+
+            System.out.println("----------------------------------");
+            Stream<Artist> sartists2 = getArtistsSQL(em, "Bl%");
+            var map2 = sartists2
+                    .limit(10)
+                    .collect(Collectors.toMap(
+                            Artist::getArtistName,
+                            (a) -> a.getAlbums().size(),
+                            Integer::sum,
+                            TreeMap::new
+                    ));
+
+            map2.forEach((k, v) -> System.out.println(k + " : " + v));
 
             transaction.commit();
         } catch (Exception e) {
@@ -97,7 +112,22 @@ public class MainQuery {
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<Artist> criteriaQuery = builder.createQuery(Artist.class);
         Root<Artist> root = criteriaQuery.from(Artist.class);
-        criteriaQuery.select(root);
+//        criteriaQuery.select(root);
+//        criteriaQuery.where(builder.like(root.get("artistName"), matchedValue)); // Where like in SQL
+//        criteriaQuery.orderBy(builder.asc(root.get("artistName"))); // Orderby in SQL
+        criteriaQuery
+                .select(root)
+                .where(builder.like(root.get("artistName"), matchedValue))
+                .orderBy(builder.asc(root.get("artistName"))); // chain of three method
         return em.createQuery(criteriaQuery).getResultStream();
+    }
+
+    private static Stream<Artist> getArtistsSQL(EntityManager em, String matchedValue) {
+
+        var query = em.createNativeQuery(
+                "SELECT * FROM music.artists where artist_name like ?1",
+                Artist.class);
+        query.setParameter(1, matchedValue);
+        return query.getResultStream();
     }
 }
