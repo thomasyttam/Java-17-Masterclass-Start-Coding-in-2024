@@ -11,7 +11,7 @@ import java.util.TreeSet;
 public class Artist {
 
     @Id
-    @Column(name="artist_id")
+    @Column(name="artist_id") // name -> column name is table
     private int artistId;
 
     @Column(name="artist_name")

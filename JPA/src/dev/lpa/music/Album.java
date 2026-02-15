@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Album implements Comparable<Album>{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // if only read data, this field is not needed
     @Column(name="album_id")
     private int albumId;
 
