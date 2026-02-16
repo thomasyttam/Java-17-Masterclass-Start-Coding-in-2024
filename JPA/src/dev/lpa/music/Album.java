@@ -2,6 +2,9 @@ package dev.lpa.music;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "albums")
 public class Album implements Comparable<Album>{
@@ -13,6 +16,10 @@ public class Album implements Comparable<Album>{
 
     @Column(name="album_name")
     private String albumName;
+
+    @OneToMany
+    @JoinColumn(name="album_id")
+    private List<Song> playList = new ArrayList<>();
 
     public Album() {
     }
