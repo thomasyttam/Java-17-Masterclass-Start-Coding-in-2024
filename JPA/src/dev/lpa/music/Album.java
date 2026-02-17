@@ -3,6 +3,7 @@ package dev.lpa.music;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Entity
@@ -41,11 +42,23 @@ public class Album implements Comparable<Album>{
         this.albumName = albumName;
     }
 
+    public List<Song> getPlayList() {
+        return playList;
+    }
+
     @Override
     public String toString() {
+
+        playList.sort(Comparator.comparing(Song::getTrackNumber)); // Sort the song by track number
+        StringBuilder sb = new StringBuilder();
+        for (Song s : playList) {
+            sb.append("\n\t").append(s);
+        }
+        sb.append("\n");
         return "Album{" +
-                "albumName='" + albumName + '\'' +
-                ", albumId=" + albumId +
+                "albumId=" + albumId +
+                ", albumName='" + albumName + '\'' +
+                ", songs = " + sb +
                 '}';
     }
 
