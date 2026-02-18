@@ -1,8 +1,12 @@
-package dev.lpa.music;
+package dev.lpa;
 
+import dev.lpa.music.Album;
+import dev.lpa.music.Artist;
+import dev.lpa.music.Song;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.criteria.*;
 
 import java.util.List;
 
@@ -46,5 +50,16 @@ public class SongQuery {
         var query = em.createQuery(jpql, Artist.class);
         query.setParameter(1, matchedValue);
         return query.getResultList();
+    }
+
+    private static List<Object[]> getMatchedSongsBuilder(EntityManager entityManager,
+                                                         String matchedValue) {
+
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
+
+        Root<Artist> root = query.from(Artist.class);
+        Join<Artist, Album> albumJoin = root.join("albums", JoinType.INNER);
+        Join<Album, Song> songJoin = albumJoin.join("playList", JoinType.INNER);
     }
 }
