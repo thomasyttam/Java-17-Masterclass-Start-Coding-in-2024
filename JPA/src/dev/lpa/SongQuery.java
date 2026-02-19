@@ -20,7 +20,7 @@ public class SongQuery {
                 EntityManager em = emf.createEntityManager();
         ) {
             String dashedString = "-".repeat(19);
-            String word = "Storm";
+            String word = "Soul";
             var matches = getMatchedSongs(em, "%"+word+"%");
             System.out.printf("%-30s %-65s %s%n","Artist", "Album", "Song Title");
             System.out.printf("%1$-30s %1$-65s %1$s%n", dashedString);
@@ -38,6 +38,15 @@ public class SongQuery {
                     });
                 });
             });
+
+            System.out.printf("%-30s %-65s %s%n", "Artist", "Album", "Song Title");
+            System.out.printf("%1$-30s %1$-65s %1$s%n", dashedString);
+            var bmatches = getMatchedSongsBuilder(em,
+                    "%" + word + "%");
+            bmatches.forEach(m ->
+                    System.out.printf("%-30s %-65s %s%n",
+                            (String) m[0], (String) m[1], (String) m[2])
+            );
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,5 +70,16 @@ public class SongQuery {
         Root<Artist> root = query.from(Artist.class);
         Join<Artist, Album> albumJoin = root.join("albums", JoinType.INNER);
         Join<Album, Song> songJoin = albumJoin.join("playList", JoinType.INNER);
+
+        query
+                .multiselect(
+                        root.get("artistName"),
+                        albumJoin.get("albumName"),
+                        songJoin.get("songTitle")
+                )
+                .where(builder.like(songJoin.get("songTitle"), matchedValue))
+                .orderBy(builder.asc(root.get("artistName")));
+
+        return entityManager.createQuery(query).getResultList();
     }
 }
