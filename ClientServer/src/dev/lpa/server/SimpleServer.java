@@ -17,6 +17,7 @@ public class SimpleServer {
             // The input and output streams get closed when the socket connection is closed
             try (Socket socket = serverSocket.accept();) //the application block here to wait client connection
             {
+                System.out.println("Server accepts client connection");
                 BufferedReader input = new BufferedReader(
                         new InputStreamReader(socket.getInputStream())); // get client input
                 PrintWriter output =

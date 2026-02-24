@@ -19,9 +19,23 @@ public class SimpleClient {
                     new PrintWriter(socket.getOutputStream(), true);
 
             Scanner scanner = new Scanner(System.in);
-            
+            String requestString;
+            String responseString;
+
+            do {
+                System.out.println("Enter string to be echoed (sent to server): ");
+                requestString = scanner.nextLine();
+
+                output.println(requestString);
+                if (!requestString.equals("exit")) {
+                    responseString = input.readLine();
+                    System.out.println(responseString);
+                }
+            } while(!requestString.equals("exit"));
         } catch (IOException e) {
             System.out.println("Client error: " + e.getMessage());
+        } finally {
+            System.out.println("Client Disconnected");
         }
     }
 }
