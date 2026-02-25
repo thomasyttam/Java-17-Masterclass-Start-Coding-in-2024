@@ -15,7 +15,7 @@ public class SimpleServer {
 
             // close a server socket mean won't accept new connection, not automatically close existing connection
             // The input and output streams get closed when the socket connection is closed
-            try (Socket socket = serverSocket.accept();) //the application block here to wait client connection
+            try (Socket socket = serverSocket.accept();) //the application block here to wait client connection, occur once, no way for second client
             {
                 System.out.println("Server accepts client connection");
                 BufferedReader input = new BufferedReader(
@@ -24,7 +24,7 @@ public class SimpleServer {
                         new PrintWriter(socket.getOutputStream(), true); // output, autoflush true
 
                 while (true) {
-                    String echoString = input.readLine();
+                    String echoString = input.readLine(); // blocking method, block here unit client send a request
                     System.out.println("Server got request data: " + echoString);
                     if (echoString.equals("exit")) {
                         break;
