@@ -20,6 +20,7 @@ public class MultiThreadedSimpleServer {
                 try (Socket socket = serverSocket.accept();) //the application block here to wait client connection, occur once, no way for second client
                 {
                     System.out.println("Server accepts client connection");
+                    socket.setSoTimeout(20000);
                     BufferedReader input = new BufferedReader(
                             new InputStreamReader(socket.getInputStream())); // get client input
                     PrintWriter output =
@@ -40,5 +41,9 @@ public class MultiThreadedSimpleServer {
         } catch (IOException e) {
             System.out.println("Server exception " + e.getMessage());
         }
+    }
+
+    private static void handleClientRequest(Socket socket) {
+        
     }
 }
