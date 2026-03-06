@@ -21,8 +21,18 @@ public class Main {
         doOperation("Read and Print Value: ", buffer, printBuffer);
 
         doOperation("Flip (from Read to Write): ", buffer, ByteBuffer::flip);
+//        doOperation("1. Move position to end of text", buffer,
+//                (b) -> b.position(b.limit()));
+//        doOperation("2. Change limit to capacity", buffer,
+//                (b) -> b.limit(b.capacity()));
+        doOperation("Compact: ", buffer, ByteBuffer::compact); // same as the above 2 operations
         doOperation("Append: ", buffer, b -> b.put(" This is a new test".getBytes()));
-
+//        doOperation("Flip (from Write to Read): ", buffer, ByteBuffer::flip);
+        doOperation("Read and Print Value: ",
+                buffer.slice(0, buffer.position()), printBuffer); // slice just get the string between 0 to position, no need flip
+        doOperation("Append: ",buffer, b -> b.put(" *****".getBytes()));
+        doOperation("Read and Print Value: ",
+                buffer.slice(0, buffer.position()), printBuffer);
     }
 
     private static void doOperation(String op, ByteBuffer buffer, Consumer<ByteBuffer> c) {
