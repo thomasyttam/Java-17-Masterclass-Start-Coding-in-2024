@@ -16,13 +16,14 @@ public class SimpleServerChannel {
                     serverChannel.socket().getLocalPort());
 
             while (true) {
-
+                System.out.println("Waiting to connect to another client");
                 SocketChannel clientChannel = serverChannel.accept();
                 System.out.printf("Client %s connected%n",
                         clientChannel.socket().getRemoteSocketAddress());
 
                 ByteBuffer buffer = ByteBuffer.allocate(1024);
                 SocketChannel channel = clientChannel;
+                System.out.println("Waiting on client request data");
                 int readBytes = channel.read(buffer);
 
                 if (readBytes > 0) {
