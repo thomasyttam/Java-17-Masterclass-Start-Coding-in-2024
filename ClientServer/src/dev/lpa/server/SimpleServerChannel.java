@@ -4,6 +4,8 @@ import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SimpleServerChannel {
 
@@ -15,9 +17,12 @@ public class SimpleServerChannel {
             System.out.println("Server is listening on port " +
                     serverChannel.socket().getLocalPort());
 
+            List<SocketChannel> clientChannels = new ArrayList<>();
+
             while (true) {
                 System.out.println("Waiting to connect to another client");
                 SocketChannel clientChannel = serverChannel.accept();
+                clientChannels.add(clientChannel);
                 System.out.printf("Client %s connected%n",
                         clientChannel.socket().getRemoteSocketAddress());
 
