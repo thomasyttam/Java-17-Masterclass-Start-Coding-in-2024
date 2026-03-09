@@ -13,36 +13,43 @@ public class SimpleServerChannel {
 
         try (ServerSocketChannel serverChannel = ServerSocketChannel.open()) {
             serverChannel.socket().bind(new InetSocketAddress(5000));
-
+            serverChannel.configureBlocking(false); // set non blocking on server channel, polling
             System.out.println("Server is listening on port " +
                     serverChannel.socket().getLocalPort());
 
             List<SocketChannel> clientChannels = new ArrayList<>();
 
             while (true) {
-                System.out.println("Waiting to connect to another client");
+//                System.out.println("Waiting to connect to another client");
                 SocketChannel clientChannel = serverChannel.accept();
-                clientChannels.add(clientChannel);
-                System.out.printf("Client %s connected%n",
-                        clientChannel.socket().getRemoteSocketAddress());
-
+                if (clientChannel != null) { // check client is null as non blocking on server channel
+                    clientChannel.configureBlocking(false); // polling
+                    clientChannels.add(clientChannel);
+                    System.out.printf("Client %s connected%n",
+                            clientChannel.socket().getRemoteSocketAddress());
+                }
                 ByteBuffer buffer = ByteBuffer.allocate(1024);
-                SocketChannel channel = clientChannel;
-                System.out.println("Waiting on client request data");
-                int readBytes = channel.read(buffer);
 
-                if (readBytes > 0) {
-                    buffer.flip(); // flip the buffer state from writeable to readble
+                for (int i = 0; i < clientChannels.size(); i++) {
+//                    SocketChannel channel = clientChannel;
+                    SocketChannel channel = clientChannels.get(i);
+//                    System.out.println("Waiting on client request data");
+                    int readBytes = channel.read(buffer);
 
-                    channel.write(ByteBuffer.wrap("Echo from server: ".getBytes()));
-                    while (buffer.hasRemaining()) {
-                        channel.write(buffer);
+                    if (readBytes > 0) {
+                        buffer.flip(); // flip the buffer state from writeable to readble
+
+                        channel.write(ByteBuffer.wrap("Echo from server: ".getBytes()));
+                        while (buffer.hasRemaining()) {
+                            channel.write(buffer);
+                        }
+                        buffer.clear();
+                    } else if (readBytes == -1) {
+                        System.out.printf("Connection to %s lost%n",
+                                channel.socket().getRemoteSocketAddress());
+                        channel.close();
+                        clientChannels.remove(i); // remove client from clientChannel when client disconnect
                     }
-                    buffer.clear();
-                } else if (readBytes == -1) {
-                    System.out.printf("Connection to %s lost%n",
-                            channel.socket().getRemoteSocketAddress());
-                    channel.close();
                 }
             }
         } catch (Exception e) {
