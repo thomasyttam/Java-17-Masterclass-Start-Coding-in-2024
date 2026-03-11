@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.nio.ByteBuffer;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.SocketChannel;
 import java.util.Scanner;
 
 public class SimpleClient {
@@ -37,5 +40,13 @@ public class SimpleClient {
         } finally {
             System.out.println("Client Disconnected");
         }
+    }
+
+    private static void echoData(SelectionKey key) throws IOException {
+
+        SocketChannel clientChannel = (SocketChannel) key.channel();
+        ByteBuffer buffer = ByteBuffer.allocate(1024);
+
+        int bytesRead = clientChannel.read(buffer);
     }
 }
