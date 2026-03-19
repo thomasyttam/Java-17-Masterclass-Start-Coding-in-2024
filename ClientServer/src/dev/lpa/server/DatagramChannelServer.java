@@ -6,6 +6,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
+import java.util.Iterator;
 
 public class DatagramChannelServer {
 
@@ -24,25 +25,32 @@ public class DatagramChannelServer {
             channel.register(selector, SelectionKey.OP_READ);
             ByteBuffer buffer = ByteBuffer.allocate(PACKET_SIZE);
 
-            while (true) { // listen for event
-                SelectionKey key = keyIterator.next();
-                keyIterator.remove();
+            while (true) {
+                selector.select();
 
-                if (key.isReadable()) {
-                    var registeredChannel = (DatagramChannel) key.channel();
-                    buffer.clear();
-                    var clientAddress =
-                            registeredChannel.receive(buffer);
-                    buffer.flip();
-                    byte[] data = new byte[buffer.remaining()];
-                    buffer.get(data);
-                    String audioFilePath = new String(data);
-                    System.out.println("Client requested to listen to: "
-                            + audioFilePath);
+                var selectedKeys = selector.selectedKeys();
+                Iterator<SelectionKey> keyIterator = selectedKeys.iterator();
+
+                while (keyIterator.hasNext()) {
+                    SelectionKey key = keyIterator.next();
+                    keyIterator.remove();
+
+                    if (key.isReadable()) {
+                        var registeredChannel = (DatagramChannel) key.channel();
+                        buffer.clear();
+                        var clientAddress =
+                                registeredChannel.receive(buffer);
+                        buffer.flip();
+                        byte[] data = new byte[buffer.remaining()];
+                        buffer.get(data);
+                        String audioFilePath = new String(data);
+                        System.out.println("Client requested to listen to: "
+                                + audioFilePath);
+                    }
                 }
             }
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+}
