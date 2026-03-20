@@ -2,10 +2,14 @@ package dev.lpa.server;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
+import java.nio.channels.FileChannel;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Iterator;
 
 public class DatagramChannelServer {
@@ -51,6 +55,32 @@ public class DatagramChannelServer {
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private static void sendDataToClient(String file, SocketAddress address,
+                                         DatagramChannel channel) {
+
+        ByteBuffer buffer = ByteBuffer.allocate(PACKET_SIZE);
+
+        try (
+                FileChannel fileChannel = FileChannel.open(Paths.get(file),
+                        StandardOpenOption.READ);
+        ) {
+            while (true) {
+                buffer.clear();
+                int bytesRead = fileChannel.read(buffer);
+                if (bytesRead == -1) {
+                    break;
+                }
+
+                buffer.flip();
+                while (buffer.hasRemaining()) {
+                    channel.send(buffer, address);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 }
