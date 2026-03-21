@@ -11,6 +11,7 @@ import java.nio.channels.Selector;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
 
 public class DatagramChannelServer {
 
@@ -50,6 +51,8 @@ public class DatagramChannelServer {
                         String audioFilePath = new String(data);
                         System.out.println("Client requested to listen to: "
                                 + audioFilePath);
+                        new Thread(() -> sendDataToClient(audioFilePath,
+                                clientAddress, registeredChannel)).start();
                     }
                 }
             }
@@ -77,6 +80,12 @@ public class DatagramChannelServer {
                 buffer.flip();
                 while (buffer.hasRemaining()) {
                     channel.send(buffer, address);
+                }
+
+                try {
+                    TimeUnit.MILLISECONDS.sleep(22);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
             }
         } catch (IOException e) {
