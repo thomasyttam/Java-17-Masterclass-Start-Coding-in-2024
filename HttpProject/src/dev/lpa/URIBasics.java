@@ -14,6 +14,15 @@ public class URIBasics {
                 ----------------------------------------------
                 [scheme:]scheme-specific-part[#fragment]
                 ----------------------------------------------
+                Scheme: %s
+                Scheme-specific part: %s
+                  Authority: %s
+                    User info: %s
+                    Host: %s
+                    Port: %d
+                    Path: %s
+                    Query: %s
+                Fragment: %s
                 """
         );
     }
