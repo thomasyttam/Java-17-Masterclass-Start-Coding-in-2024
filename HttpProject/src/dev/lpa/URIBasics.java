@@ -6,6 +6,10 @@ public class URIBasics {
 
     public static void main(String[] args) {
 
+//        URI timsSite = URI.create("https://learnprogramming.academy/");
+        URI timsSite = URI.create(
+                "https://learnprogramming.academy/courses/complete-java-masterclass");
+        print(timsSite);
     }
 
     private static void print(URI uri) {
@@ -23,7 +27,16 @@ public class URIBasics {
                     Path: %s
                     Query: %s
                 Fragment: %s
-                """
+                """,
+                uri.getScheme(),
+                uri.getSchemeSpecificPart(),
+                uri.getAuthority(),
+                uri.getUserInfo(),
+                uri.getHost(),
+                uri.getPort(),
+                uri.getPath(),
+                uri.getQuery(),
+                uri.getFragment()
         );
     }
 }
