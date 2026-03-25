@@ -1,6 +1,9 @@
 package dev.lpa;
 
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 public class URIBasics {
 
@@ -10,6 +13,18 @@ public class URIBasics {
         URI timsSite = URI.create(
                 "https://learnprogramming.academy/courses/complete-java-masterclass");
         print(timsSite);
+
+        try {
+            URI uri = new URI(
+                    "http://user:pw@store.com:5000/products/phones?os=android#samsung");
+            print(uri);
+
+            URL url = timsSite.toURL();
+            System.out.println(url);
+            print(url);
+        } catch (URISyntaxException | MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private static void print(URI uri) {
@@ -37,6 +52,26 @@ public class URIBasics {
                 uri.getPath(),
                 uri.getQuery(),
                 uri.getFragment()
+        );
+    }
+
+    private static void print(URL url) {
+
+        System.out.printf("""            
+                ----------------------------------------------
+                  Authority: %s
+                    User info: %s
+                    Host: %s
+                    Port: %d
+                    Path: %s
+                    Query: %s
+                """,
+                url.getAuthority(),
+                url.getUserInfo(),
+                url.getHost(),
+                url.getPort(),
+                url.getPath(),
+                url.getQuery()
         );
     }
 }
