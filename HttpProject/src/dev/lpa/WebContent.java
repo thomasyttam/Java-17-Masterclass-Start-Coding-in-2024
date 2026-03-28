@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.net.URLConnection;
 
 public class WebContent {
 
@@ -14,7 +15,12 @@ public class WebContent {
 //            URL url = new URL("http://example.com");
 
             URL url = new URL("https://jsonplaceholder.typicode.com/todos?id=5");
-            printContents(url.openStream());
+//            printContents(url.openStream());
+            URLConnection urlConnection = url.openConnection();
+            System.out.println(urlConnection.getContentType());
+            urlConnection.getHeaderFields()
+                    .entrySet()
+                    .forEach(System.out::println);
 //        } catch (MalformedURLException e) {
         } catch (IOException e) {
             throw new RuntimeException(e);
