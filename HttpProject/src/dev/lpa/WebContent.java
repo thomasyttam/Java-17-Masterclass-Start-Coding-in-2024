@@ -21,6 +21,9 @@ public class WebContent {
             urlConnection.getHeaderFields()
                     .entrySet()
                     .forEach(System.out::println);
+            System.out.println(urlConnection.getHeaderField("Cache-Control"));
+            urlConnection.connect();
+            printContents(urlConnection.getInputStream());
 //        } catch (MalformedURLException e) {
         } catch (IOException e) {
             throw new RuntimeException(e);
