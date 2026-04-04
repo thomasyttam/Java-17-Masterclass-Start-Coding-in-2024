@@ -21,6 +21,9 @@ public class SimpleHttpServer {
                 String requestMethod = exchange.getRequestMethod();
                 System.out.println("Request Method: " + requestMethod);
 
+                String data = new String(exchange.getRequestBody().readAllBytes());
+                System.out.println("Body data: " + data);
+
                 if (requestMethod.equals("POST")) {
                     visitorCounter++;
                 }
@@ -43,8 +46,6 @@ public class SimpleHttpServer {
                 exchange.close();
 
             });
-
-
 
             server.start();
             System.out.println("Server is listening on port 8080...");
