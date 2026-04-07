@@ -31,7 +31,7 @@ public class HttpExamplePost {
             output.writeBytes(parameters);
             output.flush();
             output.close();
-            
+
             int responseCode =  connection.getResponseCode();
             System.out.printf("Response code: %d%n",responseCode);
             if (responseCode != HTTP_OK) {
