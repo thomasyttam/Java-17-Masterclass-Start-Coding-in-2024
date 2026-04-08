@@ -33,17 +33,27 @@ public class SimpleHttpServer {
                     visitorCounter++;
                 }
 
+                String firstName = parameters.get("first");
+                String lastName = parameters.get("last");
                 String response = """
                 <html>
                     <body>
                         <h1>Hello World from My Http Server</h1>
                         <p>Number of Visitors who signed up = %d<p>
                         <form method="post">
+                            <label for="first">First name:</label>
+                            <input type="text" id="first" name="first" value="%s">
+                            <br>
+                            <label for="last">Last name:</label>
+                            <input type="text" id="last" name="last" value="%s">
+                            <br>
                             <input type="submit" value="Submit">
                         </form>
                     </body>
                 </html>
-                """.formatted(visitorCounter);
+                """.formatted(visitorCounter,
+                        firstName == null ? "" : firstName,
+                        lastName == null ? "" : lastName);
 
                 var bytes = response.getBytes();
                 exchange.sendResponseHeaders(HTTP_OK, bytes.length);
