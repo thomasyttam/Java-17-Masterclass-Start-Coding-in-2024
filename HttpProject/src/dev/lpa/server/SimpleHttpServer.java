@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static java.net.HttpURLConnection.HTTP_OK;
 
@@ -32,6 +33,12 @@ public class SimpleHttpServer {
                 exchange.getRequestHeaders().entrySet().forEach(System.out::println);
                 if (requestMethod.equals("POST")) {
                     visitorCounter++;
+                }
+
+                try {
+                    TimeUnit.SECONDS.sleep(5);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
 
                 String firstName = parameters.get("first");
