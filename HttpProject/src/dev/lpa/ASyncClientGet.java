@@ -7,6 +7,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 import static java.net.HttpURLConnection.HTTP_OK;
@@ -29,15 +30,15 @@ public class ASyncClientGet {
 
             HttpResponse<Stream<String>> response = client.send(request,
                     HttpResponse.BodyHandlers.ofLines());
-            if (response.statusCode() != HTTP_OK) {
-                System.out.println("Error reading web page " + url);
-                return;
+
+            int result = -1;
+            while((result = response.statusCode()) == -1) {
+                System.out.print(". ");
+                TimeUnit.SECONDS.sleep(1);
             }
-//            System.out.println( response.body());
-            response.body()
-                    .filter(s -> s.contains("<h1>"))
-                    .map(s -> s.replaceAll("<[^>]*>", "").strip())
-                    .forEach(System.out::println);
+            System.out.println();
+            handleResponse(response);
+
         } catch (IOException | URISyntaxException | InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -45,5 +46,13 @@ public class ASyncClientGet {
 
     private static void handleResponse(HttpResponse<Stream<String>> response) {
 
+        if (response.statusCode() == HTTP_OK) {
+            response.body()
+                    .filter(s -> s.contains("<h1>"))
+                    .map(s -> s.replaceAll("<[^>]*>", "").strip())
+                    .forEach(System.out::println);
+        } else {
+            System.out.println("Error reading response " + response.uri());
+        }
     }
 }
