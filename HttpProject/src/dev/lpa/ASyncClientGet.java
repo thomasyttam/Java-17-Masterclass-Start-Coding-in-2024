@@ -8,7 +8,9 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.stream.Stream;
 
 import static java.net.HttpURLConnection.HTTP_OK;
@@ -35,10 +37,23 @@ public class ASyncClientGet {
             CompletableFuture<HttpResponse<Stream<String>>> responseFuture =
                     client.sendAsync(request, HttpResponse.BodyHandlers.ofLines());
 
-            while(!responseFuture.isDone()) {
-                System.out.print(". ");
-                TimeUnit.SECONDS.sleep(1);
+//            while(!responseFuture.isDone()) {
+//            while((response = responseFuture.getNow(null)) == null) {
+//                System.out.print(". ");
+//                TimeUnit.SECONDS.sleep(1);
+//            }
+
+            while (true) {
+                try {
+                    response = responseFuture.get(1, TimeUnit.SECONDS);
+                    if (response != null) break;
+                } catch (ExecutionException e) {
+                    throw new RuntimeException(e);
+                } catch (TimeoutException e) {
+                    System.out.print(". ");
+                }
             }
+
             System.out.println();
 //            try {
 //                response = responseFuture.get();
@@ -46,7 +61,7 @@ public class ASyncClientGet {
 //                throw new RuntimeException(e);
 //            }
 
-            response = responseFuture.join();
+//            response = responseFuture.join();
             handleResponse(response);
 
         } catch (IOException | URISyntaxException | InterruptedException e) {
