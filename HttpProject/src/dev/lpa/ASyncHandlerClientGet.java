@@ -35,7 +35,7 @@ public class ASyncHandlerClientGet {
 
 //            responseFuture.thenAccept(r -> handleResponse(r));
             responseFuture.thenAccept(ASyncHandlerClientGet::handleResponse);
-            
+
             System.out.println(
                     "Ten Jobs to do besides handling the response.");
             int jobs = 0;
@@ -58,6 +58,17 @@ public class ASyncHandlerClientGet {
                     .forEach(System.out::println);
         } else {
             System.out.println("Error reading response " + response.uri());
+        }
+    }
+
+    private static Stream<String> filterResponse(HttpResponse<Stream<String>> response) {
+
+        System.out.println("Filtering Response...");
+        if (response.statusCode() == HTTP_OK) {
+            return response.body()
+                    .filter(s -> s.contains("<h1>"));
+        } else {
+            return Stream.empty();
         }
     }
 }
