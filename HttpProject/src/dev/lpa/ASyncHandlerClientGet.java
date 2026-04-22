@@ -34,7 +34,12 @@ public class ASyncHandlerClientGet {
                     client.sendAsync(request, HttpResponse.BodyHandlers.ofLines());
 
 //            responseFuture.thenAccept(r -> handleResponse(r));
-            responseFuture.thenAccept(ASyncHandlerClientGet::handleResponse);
+//            responseFuture.thenAccept(ASyncHandlerClientGet::filterResponse);
+            responseFuture.thenApply(ASyncHandlerClientGet::filterResponse)
+                    .thenApply(ASyncHandlerClientGet::transformResponse)
+                    .thenAccept(ASyncHandlerClientGet::printResponse)
+                    .thenRun(() -> {for (int i=0; i < 10; i++) System.out.print(i); })
+                    .thenRun(System.out::println);
 
             System.out.println(
                     "Ten Jobs to do besides handling the response.");
@@ -70,5 +75,17 @@ public class ASyncHandlerClientGet {
         } else {
             return Stream.empty();
         }
+    }
+
+    private static Stream<String> transformResponse(Stream<String> response) {
+
+        System.out.println("transforming Response ");
+        return response.map(s -> s.replaceAll("<[^>]*>", "").strip());
+    }
+
+    private static void printResponse(Stream<String> response) {
+
+        System.out.println("printing Response ");
+        response.forEach(System.out::println);
     }
 }
