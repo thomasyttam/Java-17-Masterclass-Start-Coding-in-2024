@@ -2,6 +2,8 @@ package dev.lpa;
 
 import java.net.URI;
 import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -27,5 +29,15 @@ public class ConcurrentRequests {
         )));
 
         HttpClient client = HttpClient.newHttpClient();
+    }
+
+    private static void sendGets(HttpClient client, List<URI> uris) {
+
+        var futures = uris.stream()
+                .map(uri -> HttpRequest.newBuilder(uri))
+                .map(HttpRequest.Builder::build)
+                .map(request -> client.sendAsync(
+                        request, HttpResponse.BodyHandlers.ofString()))
+                .toString();
     }
 }
