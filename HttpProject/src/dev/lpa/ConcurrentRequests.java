@@ -7,6 +7,7 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 public class ConcurrentRequests {
 
@@ -33,11 +34,23 @@ public class ConcurrentRequests {
 
     private static void sendGets(HttpClient client, List<URI> uris) {
 
+
+
         var futures = uris.stream()
                 .map(uri -> HttpRequest.newBuilder(uri))
                 .map(HttpRequest.Builder::build)
                 .map(request -> client.sendAsync(
                         request, HttpResponse.BodyHandlers.ofString()))
-                .toString();
+                .toList();
+
+        var allFutureRequests = CompletableFuture.allOf(
+                futures.toArray(new CompletableFuture<?>[0])
+        );
+
+        allFutureRequests.join();
+
+        futures.forEach(f -> {
+            System.out.println(f.join().body());
+        });
     }
 }
