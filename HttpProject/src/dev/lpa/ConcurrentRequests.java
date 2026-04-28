@@ -30,6 +30,7 @@ public class ConcurrentRequests {
         )));
 
         HttpClient client = HttpClient.newHttpClient();
+        sendGets(client, sites);
     }
 
     private static void sendGets(HttpClient client, List<URI> uris) {
