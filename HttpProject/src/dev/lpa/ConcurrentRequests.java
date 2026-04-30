@@ -7,6 +7,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -25,13 +26,13 @@ public class ConcurrentRequests {
                         "carrots", 2000,
                         "cantaloupes", 100 );
 
-        String urlparams = "product=%s&amount=%d";
+        String urlParams = "product=%s&amount=%d";
 
         String urlBase = "http://localhost:8080";
 
         List<URI> sites = new ArrayList<>();
         orderMap.forEach( (k,v) -> sites.add(URI.create(
-                urlBase + "?" + urlparams.formatted(k, v)
+                urlBase + "?" + urlParams.formatted(k, v)
         )));
 
         HttpClient client = HttpClient.newHttpClient();
@@ -44,6 +45,7 @@ public class ConcurrentRequests {
                 throw new RuntimeException(e);
             }
         }
+        sendPosts(client, urlBase, urlParams, orderMap);
     }
 
     private static void sendGets(HttpClient client, List<URI> uris) {
@@ -70,7 +72,10 @@ public class ConcurrentRequests {
                                   String paramString, Map<String,Integer> orders) {
 
         var futures = orders.entrySet().stream()
-                .map(uri -> HttpRequest.newBuilder(uri))
+                .map(e -> paramString.formatted(
+                        e.getKey(), e.getValue()))
+                .map(s -> HttpRequest.newBuilder(URI.create(baseURI))
+                        .POST(HttpRequest.BodyPublishers.ofString(s)))
                 .map(HttpRequest.Builder::build)
                 .map(request -> client.sendAsync(
                         request, HttpResponse.BodyHandlers.ofString()))
@@ -81,9 +86,16 @@ public class ConcurrentRequests {
         );
 
         allFutureRequests.join();
+        List<String> lines = new ArrayList<>();
 
         futures.forEach(f -> {
-            System.out.println(f.join().body());
+            lines.add(f.join().body());
         });
+
+        try {
+            Files.write(orderTracking, lines, StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
