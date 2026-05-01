@@ -12,8 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class ConcurrentRequests {
+
+    private static final Lock lock = new ReentrantLock();
 
     private static final Path orderTracking = Path.of("orderTracking.json");
 
@@ -45,9 +49,24 @@ public class ConcurrentRequests {
                 throw new RuntimeException(e);
             }
         }
-        sendPosts(client, urlBase, urlParams, orderMap);
+//        sendPosts(client, urlBase, urlParams, orderMap);
+        sendPostsWithFileResponse(client, urlBase, urlParams, orderMap);
+
     }
 
+    public static void writeToFile(String content) {
+
+        lock.lock();
+        try {
+            Files.writeString(orderTracking, content + "\r",
+                    StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            lock.unlock();
+        }
+    }
+    
     private static void sendGets(HttpClient client, List<URI> uris) {
 
         var futures = uris.stream()
@@ -97,5 +116,27 @@ public class ConcurrentRequests {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static void sendPostsWithFileResponse(HttpClient client, String baseURI,
+                                  String paramString, Map<String,Integer> orders) {
+
+        var futures = orders.entrySet().stream()
+                .map(e -> paramString.formatted(
+                        e.getKey(), e.getValue()))
+                .map(s -> HttpRequest.newBuilder(URI.create(baseURI))
+                        .POST(HttpRequest.BodyPublishers.ofString(s)))
+                .map(HttpRequest.Builder::build)
+                .map(request -> client.sendAsync(
+                        request, HttpResponse.BodyHandlers.ofFile(orderTracking,
+                                StandardOpenOption.APPEND)))
+                .toList();
+
+        var allFutureRequests = CompletableFuture.allOf(
+                futures.toArray(new CompletableFuture<?>[0])
+        );
+
+        allFutureRequests.join();
+
     }
 }
