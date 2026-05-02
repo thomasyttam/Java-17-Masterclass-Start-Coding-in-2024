@@ -40,7 +40,7 @@ public class ConcurrentRequests {
         )));
 
         HttpClient client = HttpClient.newHttpClient();
-        sendGets(client, sites);
+//        sendGets(client, sites);
 
         if (!Files.exists(orderTracking)) {
             try {
@@ -50,7 +50,8 @@ public class ConcurrentRequests {
             }
         }
 //        sendPosts(client, urlBase, urlParams, orderMap);
-        sendPostsWithFileResponse(client, urlBase, urlParams, orderMap);
+//        sendPostsWithFileResponse(client, urlBase, urlParams, orderMap);
+        sendPostsSafeFileWrite(client, urlBase, urlParams, orderMap);
 
     }
 
@@ -66,7 +67,7 @@ public class ConcurrentRequests {
             lock.unlock();
         }
     }
-    
+
     private static void sendGets(HttpClient client, List<URI> uris) {
 
         var futures = uris.stream()
@@ -137,6 +138,28 @@ public class ConcurrentRequests {
         );
 
         allFutureRequests.join();
+    }
 
+    private static void sendPostsSafeFileWrite(HttpClient client, String baseURI,
+                                               String paramString, Map<String,Integer> orders) {
+
+        var futures = orders.entrySet().stream()
+                .map(e -> paramString.formatted(
+                        e.getKey(), e.getValue()))
+                .map(s -> HttpRequest.newBuilder(URI.create(baseURI))
+                        .POST(HttpRequest.BodyPublishers.ofString(s)))
+                .map(HttpRequest.Builder::build)
+                .map(request -> client.sendAsync(
+                                request, HttpResponse.BodyHandlers.ofString())
+//                        .thenAccept(r -> writeToFile(r.body())))
+                        .thenAcceptAsync(r -> writeToFile(r.body())))
+
+                .toList();
+
+        var allFutureRequests = CompletableFuture.allOf(
+                futures.toArray(new CompletableFuture<?>[0])
+        );
+
+        allFutureRequests.join();
     }
 }
