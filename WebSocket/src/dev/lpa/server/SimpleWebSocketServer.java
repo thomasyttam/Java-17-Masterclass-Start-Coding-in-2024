@@ -5,10 +5,15 @@ import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
 import java.net.InetSocketAddress;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SimpleWebSocketServer extends WebSocketServer {
 
     public static final int SERVER_PORT = 8080;
+
+    private static Map<String, String> map = new HashMap<>();
 
     public SimpleWebSocketServer() {
         super(new InetSocketAddress(SERVER_PORT));
@@ -22,6 +27,10 @@ public class SimpleWebSocketServer extends WebSocketServer {
 
     @Override
     public void onOpen(WebSocket webSocket, ClientHandshake clientHandshake) {
+        var resource = webSocket.getResourceDescriptor();
+        String name = resource.split("=")[1];
+        map.put(webSocket.getRemoteSocketAddress().toString(),name);
+        System.out.println(map.values());
         System.out.println("Connection Opened " + webSocket.getRemoteSocketAddress());
     }
 
@@ -33,6 +42,13 @@ public class SimpleWebSocketServer extends WebSocketServer {
     @Override
     public void onMessage(WebSocket webSocket, String s) {
         System.out.println("Message Received " + webSocket.getRemoteSocketAddress());
+    }
+
+    private void broadcastAllButSender(WebSocket webSocket, String message) {
+
+        var connections = new ArrayList<>(getConnections());
+        connections.remove(webSocket); // remove sender in the connection arraylist
+        broadcast(message, connections);
     }
 
     @Override
