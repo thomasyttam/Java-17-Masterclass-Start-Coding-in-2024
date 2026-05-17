@@ -1,7 +1,5 @@
 package com.timbuchalka;
 
-import static org.junit.Assert.*;
-
 /**
  *
  */
@@ -18,4 +16,5 @@ public class BankAccountTest {
     @org.junit.Test
     public void getBalance() {
     }
+
 }
