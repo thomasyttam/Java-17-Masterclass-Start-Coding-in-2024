@@ -8,6 +8,12 @@ import static junit.framework.TestCase.*;
 public class BankAccountTest {
 
     private BankAccount account;
+    private static int count;
+
+    @org.junit.BeforeClass
+    public static void beforeClass() {
+        System.out.println("This executes before any test cases. Count = " + count++);
+    }
 
     @org.junit.Before
     public void setup() {
@@ -53,6 +59,17 @@ public class BankAccountTest {
 //        assertTrue(account.isChecking());
         assertTrue("The account is NOT a checking account", account.isChecking());
     }
+
+    @org.junit.AfterClass
+    public static void afterClass() {
+        System.out.println("This executes after any test cases. Count = " + count++);
+    }
+
+    @org.junit.After
+    public void teardown() {
+        System.out.println("Count = " + count++);
+    }
+
 //    @org.junit.Test
 //    public void dummyTest() {
 //        assertEquals(20, 21);
