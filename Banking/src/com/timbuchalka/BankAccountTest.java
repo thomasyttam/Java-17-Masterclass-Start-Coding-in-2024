@@ -32,10 +32,15 @@ public class BankAccountTest {
     }
 
     @org.junit.Test
-    public void withdraw() {
+    public void withdraw_branch() {
 //        fail("This test has yet to be implemented");
         double balance = account.withdraw(600.00, true);
         assertEquals(400.00, balance, 0);
+    }
+
+    @org.junit.Test
+    public void withdraw_notBranch() throws Exception {
+        
     }
 
     @org.junit.Test
