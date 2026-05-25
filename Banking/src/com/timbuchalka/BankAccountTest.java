@@ -33,7 +33,9 @@ public class BankAccountTest {
 
     @org.junit.Test
     public void withdraw() {
-        fail("This test has yet to be implemented");
+//        fail("This test has yet to be implemented");
+        double balance = account.withdraw(600.00, true);
+        assertEquals(400.00, balance, 0);
     }
 
     @org.junit.Test
