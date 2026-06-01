@@ -47,4 +47,18 @@ public class Utilities {
         }
         return sb.toString();
     }
+
+    // perform a conversion based on some internal
+    // business rule.
+    public int converter(int a, int b) {
+        return (a/b) + (a * 30) - 2;
+    }
+
+    public String nullIfOddLength(String source) {
+        if(source.length() % 2 == 0) {
+            return source;
+        }
+
+        return null;
+    }
 }
