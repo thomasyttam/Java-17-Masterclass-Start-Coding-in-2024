@@ -45,6 +45,11 @@ public class Utilities {
                 sb.append(string[i]);
             }
         }
+
+        System.out.println(string[string.length -1]);
+        // Add the final character, which is always safe
+        sb.append(string[string.length - 1]);
+
         return sb.toString();
     }
 

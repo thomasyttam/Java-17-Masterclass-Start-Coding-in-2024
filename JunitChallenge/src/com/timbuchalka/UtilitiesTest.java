@@ -13,7 +13,10 @@ public class UtilitiesTest {
 
     @Test
     public void removePairs() {
-        fail("This test has not been implemented");
+//        fail("This test has not been implemented");
+        Utilities util = new Utilities();
+        assertEquals("ABCDEF", util.removePairs("AABCDDEFF"));
+        assertEquals("ABCABDEF", util.removePairs("ABCCABDEEF"));
     }
 
     @Test
