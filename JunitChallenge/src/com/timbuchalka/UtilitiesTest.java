@@ -6,21 +6,28 @@ import static org.junit.Assert.*;
 
 public class UtilitiesTest {
 
+    private Utilities util;
+
+    @org.junit.Before
+    public void setup() {
+        util = new Utilities();
+    }
+
     @Test
-    public void everyNthChar() {
+    public void everyNthChar() throws Exception {
 //        fail("This test has not been implemented");
-        Utilities utils = new Utilities();
-        char[] output = utils.everyNthChar(new  char[] {'h', 'e', 'l', 'l', 'o'}, 2);
+//        Utilities utils = new Utilities();
+        char[] output = util.everyNthChar(new  char[] {'h', 'e', 'l', 'l', 'o'}, 2);
 //        assertEquals(new char[] { 'e', 'l'}, output); // assertEquals will fail as it check the same instance
         assertArrayEquals(new char[] { 'e', 'l'}, output);
-        char[] output2 = utils.everyNthChar(new  char[] {'h', 'e', 'l', 'l', 'o'}, 8);
+        char[] output2 = util.everyNthChar(new  char[] {'h', 'e', 'l', 'l', 'o'}, 8);
         assertArrayEquals(new char[] {'h', 'e', 'l', 'l', 'o'}, output2);
     }
 
     @Test
-    public void removePairs() {
+    public void removePairs() throws Exception {
 //        fail("This test has not been implemented");
-        Utilities util = new Utilities();
+//        Utilities util = new Utilities();
         assertEquals("ABCDEF", util.removePairs("AABCDDEFF"));
         assertEquals("ABCABDEF", util.removePairs("ABCCABDEEF"));
         assertNull("Did not get null returned when argument passed was null", util.removePairs(null));
@@ -29,14 +36,24 @@ public class UtilitiesTest {
     }
 
     @Test
-    public void converter() {
-        fail("This test has not been implemented");
+    public void converter() throws Exception {
+//        fail("This test has not been implemented");
+//        Utilities util = new Utilities();
+        assertEquals(300, util.converter(10, 5));
+
+    }
+
+    @org.junit.Test(expected = ArithmeticException.class)
+    public void converter_arithmeticException() throws Exception {
+//        Utilities util = new Utilities();
+        util.converter(10, 0);
+
     }
 
     @Test
-    public void nullIfOddLength() {
+    public void nullIfOddLength() throws Exception {
 //        fail("This test has not been implemented");
-        Utilities util = new Utilities();
+//        Utilities util = new Utilities();
         assertNull(util.nullIfOddLength("odd"));
         assertNotNull(util.nullIfOddLength("even"));
     }
