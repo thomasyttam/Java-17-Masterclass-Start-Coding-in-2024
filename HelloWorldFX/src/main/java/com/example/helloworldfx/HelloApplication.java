@@ -2,10 +2,7 @@ package com.example.helloworldfx;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class HelloApplication extends Application {
@@ -13,16 +10,18 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
 
-        GridPane root = new GridPane();
-        root.setAlignment(Pos.CENTER);
-        root.setVgap(10);
-        root.setHgap(10);
-        
-        Label greeting = new Label("Welcome to JavaFX!");
-        root.getChildren().add(greeting);
+//        GridPane root = new GridPane();
+//        root.setAlignment(Pos.CENTER);
+//        root.setVgap(10);
+//        root.setHgap(10);
+//
+//        Label greeting = new Label("Welcome to JavaFX!");
+//        greeting.setTextFill(Color.GREEN);
+//        greeting.setFont(Font.font("Times New Roman", FontWeight.BOLD, 70));
+//        root.getChildren().add(greeting);
+//        Scene scene = new Scene(root, 700, 240);
 
-//        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        Scene scene = new Scene(root, 320, 240);
+        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("Hello JavaFX!");
         stage.setScene(scene);
         stage.show();
