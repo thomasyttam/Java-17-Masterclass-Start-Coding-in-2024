@@ -12,7 +12,7 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
 
-    <Label fx:id="welcomeText" text="Welcome to JavaFX" textFill="green"/>
+    <Label fx:id="welcomeText" text="Welcome to JavaFX" textFill="green" style="-fx-font-family: 'Arial'; -fx-font-size: 70px;"/>
 
 <!--    <Button text="Hello!" onAction="#onHelloButtonClick"/>-->
 </VBox>

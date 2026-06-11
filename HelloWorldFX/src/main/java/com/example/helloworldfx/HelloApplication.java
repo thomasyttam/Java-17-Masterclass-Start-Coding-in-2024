@@ -21,7 +21,7 @@ public class HelloApplication extends Application {
 //        root.getChildren().add(greeting);
 //        Scene scene = new Scene(root, 700, 240);
 
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        Scene scene = new Scene(fxmlLoader.load(), 700, 240);
         stage.setTitle("Hello JavaFX!");
         stage.setScene(scene);
         stage.show();
