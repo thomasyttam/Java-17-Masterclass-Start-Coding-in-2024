@@ -1,16 +1,40 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+
+<!--<?import javafx.geometry.Insets?>-->
+<!--<?import javafx.scene.control.Label?>-->
+<!--<?import javafx.scene.layout.VBox?>-->
+
+<!--<?import javafx.scene.control.Button?>-->
+<!--<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"-->
+<!--      fx:controller="com.example.layout.HelloController">-->
+<!--    <padding>-->
+<!--        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>-->
+<!--    </padding>-->
+
+<!--    <Label fx:id="welcomeText"/>-->
+<!--    <Button text="Hello!" onAction="#onHelloButtonClick"/>-->
+<!--</VBox>-->
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
 
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.layout.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<?import javafx.scene.control.Label?>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<?import javafx.scene.layout.ColumnConstraints?>
+<GridPane fx:controller="com.example.layout.HelloController"
+          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10"
+          gridLinesVisible="true">
+    <!--<columnConstraints>-->
+    <!--<ColumnConstraints percentWidth="50.0"/>-->
+    <!--<ColumnConstraints percentWidth="50.0"/>-->
+    <!--</columnConstraints>-->
+
+
+
+<!--    <Button text="Button One" GridPane.rowIndex="0" GridPane.columnIndex="0"/>-->
+<!--    <Button text="Button Two" GridPane.rowIndex="0" GridPane.columnIndex="1"/>-->
+<!--    <Button text="Button Three" GridPane.rowIndex="1" GridPane.columnIndex="0"/>-->
+<!--    <Button text="Really Long Button Four more text more text more text more text more text more text " GridPane.rowIndex="1" GridPane.columnIndex="1"/>-->
+<!--    <Button text="Button Five" GridPane.rowIndex="2" GridPane.columnIndex="0"/>-->
+</GridPane>
