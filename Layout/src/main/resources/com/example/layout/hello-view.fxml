@@ -57,6 +57,15 @@
                BorderPane.alignment="center"
                style="-fx-border-color: blue; -fx-border-width: 3; -fx-border-style: dashed"/>
     </top>
+    <center>
+    <Label text="This label is in the center position and has really loooooooooooooooooooooooooooooong text"/>
+    </center>
+    <left>
+        <Label text="This label is in the left position" alignment="center"/>
+    </left>
+    <right>
+        <Label text="This label is in the right position"/>
+    </right>
     <bottom>
         <HBox spacing="10" alignment="bottom_right">
             <padding>
