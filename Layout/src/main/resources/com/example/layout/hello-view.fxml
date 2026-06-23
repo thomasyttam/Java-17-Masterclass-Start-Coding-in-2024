@@ -76,8 +76,41 @@
 <!--    </bottom>-->
 <!--</BorderPane>-->
 
+<!--<?import javafx.scene.layout.FlowPane?>-->
+<!--<FlowPane fx:controller="com.example.layout.HelloController"-->
+<!--          xmlns:fx="http://javafx.com/fxml" orientation="HORIZONTAL">-->
+<!--    <Button text="Button One"/>-->
+<!--    <Button text="Button Two"/>-->
+<!--    <Button text="Button Three"/>-->
+<!--    <Button text="Button Four"/>-->
+<!--    <Button text="Button Five"/>-->
+<!--    <Button text="Button Six"/>-->
+<!--    <Button text="Button Seven"/>-->
+<!--    <Button text="Button Eight"/>-->
+<!--    <Button text="Button Nine"/>-->
+<!--    <Button text="Button Ten"/>-->
+<!--</FlowPane>-->
 
-<?import javafx.scene.layout.FlowPane?>
-<FlowPane fx:controller="com.example.layout.HelloController"
-          xmlns:fx="http://javafx.com/fxml" orientation="HORIZONTAL">
-</FlowPane>
+<!--<?import javafx.scene.layout.TilePane?>-->
+<!--<TilePane fx:controller="com.example.layout.HelloController"-->
+<!--          xmlns:fx="http://javafx.com/fxml">-->
+<!--<Button text="Button One"/>-->
+<!--<Button text="Button Two"/>-->
+<!--<Button text="Button Three"/>-->
+<!--<Button text="Button Four"/>-->
+<!--<Button text="Button Five"/>-->
+<!--<Button text="Button Six"/>-->
+<!--<Button text="Button Seven"/>-->
+<!--<Button text="Button Eight"/>-->
+<!--<Button text="Button Nine"/>-->
+<!--<Button text="Button Ten"/>-->
+<!--</TilePane>-->
+
+
+<?import javafx.scene.layout.StackPane?>
+<StackPane fx:controller="com.example.layout.HelloController"
+               xmlns:fx="http://javafx.com/fxml">
+    <Label text="The label text" style="-fx-background-color: green"/>
+    <Button text="Button One" style="-fx-background-color: red"/>
+    <Label text="The second label text" style="-fx-background-color: blue"/>
+</StackPane>
