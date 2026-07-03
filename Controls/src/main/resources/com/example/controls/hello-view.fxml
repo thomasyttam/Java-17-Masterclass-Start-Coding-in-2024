@@ -36,6 +36,7 @@
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TitledPane?>
 <GridPane fx:controller="com.example.controls.HelloController"
           xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
     <Button GridPane.rowIndex="0" GridPane.columnIndex="0" text="Click me">
@@ -121,4 +122,9 @@
 
     <ColorPicker GridPane.rowIndex="3" GridPane.columnIndex="0"/>
     <DatePicker GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+    <TitledPane text="Title Pane" GridPane.rowIndex="3" GridPane.columnIndex="2">
+        <Label text="Label in title pane"/>
+    </TitledPane>
+
 </GridPane>
