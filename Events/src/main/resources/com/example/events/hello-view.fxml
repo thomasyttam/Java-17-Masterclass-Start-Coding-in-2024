@@ -16,8 +16,10 @@
 <!--    <Button text="Hello!" onAction="#onHelloButtonClick"/>-->
 <!--</VBox>-->
 
+<?import javafx.scene.control.TextField?>
 <GridPane fx:controller="com.example.events.HelloController"
           xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
+    <TextField fx:id="nameField" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
     <Button text="Say Hello" GridPane.rowIndex="1" GridPane.columnIndex="0"
         onAction="#onButtonClick"/>
 </GridPane>
