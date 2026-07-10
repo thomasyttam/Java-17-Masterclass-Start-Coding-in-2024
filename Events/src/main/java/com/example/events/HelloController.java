@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class HelloController {
@@ -22,6 +23,8 @@ public class HelloController {
     private Button byeButton;
     @FXML
     private CheckBox ourCheckBox;
+    @FXML
+    private Label ourLabel;
 //    @FXML
 //    public void onButtonClick() {
 //        System.out.println("Hello, " + nameField.getText());
@@ -41,6 +44,11 @@ public class HelloController {
             System.out.println("Hello, " + nameField.getText());
         } else if(e.getSource().equals(byeButton)) {
             System.out.println("Bye, " + nameField.getText());
+        }
+        try {
+            Thread.sleep(10000);
+        } catch(InterruptedException event) {
+            // we don't care about this
         }
         if(ourCheckBox.isSelected()) {
             nameField.clear();
