@@ -1,14 +1,17 @@
 package com.timbuchalka.todolist;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import com.timbuchalka.todolist.datamodel.TodoItem;
+
+import java.util.List;
 
 public class Controller {
-    @FXML
-    private Label welcomeText;
+//    @FXML
+//    private Label welcomeText;
+//
+//    @FXML
+//    protected void onHelloButtonClick() {
+//        welcomeText.setText("Welcome to JavaFX Application!");
+//    }
 
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
+    private List<TodoItem> todoItems;
 }
