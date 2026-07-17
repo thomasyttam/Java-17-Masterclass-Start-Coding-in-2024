@@ -1,6 +1,9 @@
 package com.timbuchalka.todolist;
 
 import com.timbuchalka.todolist.datamodel.TodoItem;
+import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -17,6 +20,8 @@ public class Controller {
 //    }
 
     private List<TodoItem> todoItems;
+    @FXML
+    private ListView todoListView;
 
     public void initialize() {
         TodoItem item1 = new TodoItem("Mail birthday card", "Buy a 30th birthday card for John",
@@ -36,5 +41,14 @@ public class Controller {
         todoItems.add(item3);
         todoItems.add(item4);
         todoItems.add(item5);
+
+        todoListView.getItems().setAll(todoItems);
+        todoListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+    }
+
+    @FXML
+    public void handleClickListView() {
+        TodoItem item = (TodoItem) todoListView.getSelectionModel().getSelectedItem();
+        System.out.println("The selected item is " + item);
     }
 }
