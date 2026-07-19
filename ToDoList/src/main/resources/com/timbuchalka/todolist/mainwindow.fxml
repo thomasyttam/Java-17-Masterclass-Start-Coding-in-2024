@@ -16,6 +16,6 @@
         </ListView>
     </left>
     <center>
-        <TextArea/>
+        <TextArea fx:id="itemDetailsTextArea"/>
     </center>
 </BorderPane>
