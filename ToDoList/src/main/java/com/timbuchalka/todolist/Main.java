@@ -1,5 +1,6 @@
 package com.timbuchalka.todolist;
 
+import com.timbuchalka.todolist.datamodel.TodoData;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,5 +20,16 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+
+    @Override
+    public void stop() throws Exception {
+//        super.stop();
+        try {
+            TodoData.getInstance().loadTodoItems();
+
+        } catch(IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
