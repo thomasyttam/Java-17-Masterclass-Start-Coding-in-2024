@@ -24,11 +24,11 @@ public class Main extends Application {
 
     @Override
     public void stop() throws Exception {
-//        super.stop();
         try {
             TodoData.getInstance().loadTodoItems();
 
         } catch(IOException e) {
+            System.out.println("hi");
             System.out.println(e.getMessage());
         }
     }
