@@ -12,4 +12,9 @@
     <headerText>
         We could put instruction here
     </headerText>
+    <content>
+        <GridPane vgap="10" hgap="10">
+            
+        </GridPane>
+    </content>
 </DialogPane>
