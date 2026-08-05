@@ -94,6 +94,8 @@ public class Controller {
 
         Optional<ButtonType> result = dialog.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK) {
+            DialogController controller = fxmlLoader.getController();
+            controller.processResults();
             System.out.println("OK pressed");
         } else {
             System.out.println("Cancel pressed");
