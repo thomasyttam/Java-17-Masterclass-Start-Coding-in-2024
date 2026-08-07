@@ -95,8 +95,10 @@ public class Controller {
         Optional<ButtonType> result = dialog.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK) {
             DialogController controller = fxmlLoader.getController();
-            controller.processResults();
-            todoListView.getItems().setAll(TodoData.getInstance().getTodoItems());
+//            controller.processResults();
+            TodoItem newItem = controller.processResults();
+            todoListView.getItems().setAll(TodoData.getInstance().getTodoItems()); // error when date is not selected
+            todoListView.getSelectionModel().select(newItem);
             System.out.println("OK pressed");
         } else {
             System.out.println("Cancel pressed");
