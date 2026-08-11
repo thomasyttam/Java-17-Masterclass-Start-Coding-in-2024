@@ -5,3 +5,4 @@ Pickup Doug at the train station	DOUG'S ARRIVING ON MARCH 23 ON THE 5:00 TRAIN	2
 Pick up dry cleaning	THE CLOTHES SHOULD BE READY BY WEDNESDAY	20-04-2016
 Tims item	THIS IS A TEST.	14-08-2026
 Yet another todo item	THIS IS A LONGER DISCRIPTION.	28-08-2026
+My ShortTest	This is a short test demo.	29-08-2026

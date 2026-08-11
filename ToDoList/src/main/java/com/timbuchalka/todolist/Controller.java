@@ -102,9 +102,9 @@ public class Controller {
             TodoItem newItem = controller.processResults();
 //            todoListView.getItems().setAll(TodoData.getInstance().getTodoItems()); // error when date is not selected
             todoListView.getSelectionModel().select(newItem);
-            System.out.println("OK pressed");
-        } else {
-            System.out.println("Cancel pressed");
+//            System.out.println("OK pressed");
+//        } else {
+//            System.out.println("Cancel pressed");
         }
     }
 
