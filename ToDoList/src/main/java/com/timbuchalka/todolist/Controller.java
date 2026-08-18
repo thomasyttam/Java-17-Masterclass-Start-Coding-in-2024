@@ -35,6 +35,8 @@ public class Controller {
     private Label deadlineLabel;
     @FXML
     private BorderPane mainBorderPane;
+    @FXML
+    private ContextMenu listContextMenu;
 
     public void initialize() {
 //        TodoItem item1 = new TodoItem("Mail birthday card", "Buy a 30th birthday card for John",
@@ -56,7 +58,9 @@ public class Controller {
 //        todoItems.add(item5);
 //
 //        TodoData.getInstance().setTodoItems(todoItems);
-
+        listContextMenu = new ContextMenu();
+        MenuItem deleteMenuItem = new MenuItem("Delete");
+        
         todoListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TodoItem>() {
             @Override
             public void changed(ObservableValue<? extends TodoItem> observable, TodoItem oldValue, TodoItem newValue) {
