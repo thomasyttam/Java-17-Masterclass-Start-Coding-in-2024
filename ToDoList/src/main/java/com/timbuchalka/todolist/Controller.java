@@ -65,7 +65,7 @@ public class Controller {
         deleteMenuItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-
+                TodoItem item = todoListView.getSelectionModel().getSelectedItem();
             }
         });
         todoListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TodoItem>() {
