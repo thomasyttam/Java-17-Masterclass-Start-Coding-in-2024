@@ -66,6 +66,7 @@ public class Controller {
             @Override
             public void handle(ActionEvent event) {
                 TodoItem item = todoListView.getSelectionModel().getSelectedItem();
+                deleteItem(item);
             }
         });
         todoListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TodoItem>() {
