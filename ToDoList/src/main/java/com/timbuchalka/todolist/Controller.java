@@ -69,6 +69,8 @@ public class Controller {
                 deleteItem(item);
             }
         });
+
+        listContextMenu.getItems().addAll(deleteMenuItem);
         todoListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TodoItem>() {
             @Override
             public void changed(ObservableValue<? extends TodoItem> observable, TodoItem oldValue, TodoItem newValue) {
