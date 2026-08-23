@@ -162,4 +162,8 @@ public class Controller {
         itemDetailsTextArea.setText(item.getDetails());
         deadlineLabel.setText(item.getDeadline().toString());
     }
+
+    public void deleteItem(TodoItem item) {
+        
+    }
 }
