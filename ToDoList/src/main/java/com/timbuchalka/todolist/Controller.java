@@ -164,6 +164,6 @@ public class Controller {
     }
 
     public void deleteItem(TodoItem item) {
-        
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     }
 }
