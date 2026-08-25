@@ -165,5 +165,6 @@ public class Controller {
 
     public void deleteItem(TodoItem item) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete Todo Item");
     }
 }
