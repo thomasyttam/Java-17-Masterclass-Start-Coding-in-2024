@@ -9,6 +9,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
@@ -157,6 +158,11 @@ public class Controller {
 //        } else {
 //            System.out.println("Cancel pressed");
         }
+    }
+
+    @FXML
+    public void handleKeyPressed(KeyEvent keyEvent) {
+
     }
 
     @FXML

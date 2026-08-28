@@ -27,7 +27,8 @@
     </top>
     <left>
 <!--        <ListView fx:id="todoListView" onMouseClicked="#handleClickListView">-->
-        <ListView fx:id="todoListView">
+        <ListView fx:id="todoListView" onKeyPressed="#handleKeyPressed">
+
         </ListView>
     </left>
     <center>
