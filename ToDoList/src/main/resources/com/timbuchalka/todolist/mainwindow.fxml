@@ -22,11 +22,14 @@
             <ToolBar>
                 <HBox>
                     <Button text="New..." onAction="#showNewItemDialog">
-                            <graphic>
-                                <ImageView>
-                                    <Image url="@/toolbarButtonGraphics/general/New24.gif"/>
-                                </ImageView>
-                            </graphic>
+                        <tooltip>
+                            <Tooltip text="Add a New Todo Item"/>
+                        </tooltip>
+                        <graphic>
+                            <ImageView>
+                                <Image url="@/toolbarButtonGraphics/general/New24.gif"/>
+                            </ImageView>
+                        </graphic>
                     </Button>
                 </HBox>
             </ToolBar>
