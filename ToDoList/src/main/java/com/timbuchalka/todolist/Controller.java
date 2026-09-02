@@ -91,7 +91,7 @@ public class Controller {
 //        todoListView.getItems().setAll(todoItems);
 //        todoListView.getItems().setAll(TodoData.getInstance().getTodoItems());
 
-        SortedList<TodoItem> sortedList = new SortedList<TodoItem>(TodoData.getInstance(),
+        SortedList<TodoItem> sortedList = new SortedList<TodoItem>(TodoData.getInstance().getTodoItems(),
                 new Comparator<TodoItem>() {
                     @Override
                     public int compare(TodoItem o1, TodoItem o2) {
@@ -99,7 +99,8 @@ public class Controller {
                     }
                 });
 
-        todoListView.setItems(TodoData.getInstance().getTodoItems());
+//        todoListView.setItems(TodoData.getInstance().getTodoItems());
+        todoListView.setItems(sortedList);
         todoListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         todoListView.getSelectionModel().selectFirst();
 

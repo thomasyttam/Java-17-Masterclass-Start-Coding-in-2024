@@ -8,3 +8,4 @@ A really long todo item	Lorem ipsum dolor sit amet, consectetuer adipiscing elit
 This is a record	This is test record	14-08-2026
 2021	2021	17-08-2026
 Due last week	Due last week	10-08-2026
+Early task	Very early task Jan 2016	20-01-2016
