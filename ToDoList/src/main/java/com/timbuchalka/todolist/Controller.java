@@ -43,6 +43,8 @@ public class Controller {
     private BorderPane mainBorderPane;
     @FXML
     private ContextMenu listContextMenu;
+    @FXML
+    private ToggleButton filterToggleButton;
 
     public void initialize() {
 //        TodoItem item1 = new TodoItem("Mail birthday card", "Buy a 30th birthday card for John",
@@ -208,5 +210,13 @@ public class Controller {
             TodoData.getInstance().deleteTodoItem(item);
         }
 
+    }
+
+    public void handleFilterButton() {
+        if(filterToggleButton.isSelected()) {
+
+        } else {
+
+        }
     }
 }
