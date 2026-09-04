@@ -46,6 +46,8 @@ public class Controller {
     @FXML
     private ToggleButton filterToggleButton;
 
+    private FilteredList<TodoItem> filteredList;
+
     public void initialize() {
 //        TodoItem item1 = new TodoItem("Mail birthday card", "Buy a 30th birthday card for John",
 //                LocalDate.of(2016, Month.APRIL, 25));
