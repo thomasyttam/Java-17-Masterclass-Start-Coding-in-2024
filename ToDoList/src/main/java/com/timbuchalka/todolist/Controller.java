@@ -4,6 +4,7 @@ import com.timbuchalka.todolist.datamodel.TodoData;
 import com.timbuchalka.todolist.datamodel.TodoItem;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,6 +23,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public class Controller {
 //    @FXML
@@ -94,6 +96,14 @@ public class Controller {
 
 //        todoListView.getItems().setAll(todoItems);
 //        todoListView.getItems().setAll(TodoData.getInstance().getTodoItems());
+
+        filteredList =new FilteredList<TodoItem>(TodoData.getInstance().getTodoItems(),
+                new Predicate<TodoItem>() {
+                    @Override
+                    public boolean test(TodoItem todoItem) {
+                        return true;
+                    }
+                });
 
         SortedList<TodoItem> sortedList = new SortedList<TodoItem>(TodoData.getInstance().getTodoItems(),
                 new Comparator<TodoItem>() {
