@@ -229,14 +229,15 @@ public class Controller {
             filteredList.setPredicate(new Predicate<TodoItem>() {
                 @Override
                 public boolean test(TodoItem todoItem) {
-                    return false;
+//                    return false;
+                    return (todoItem.getDeadline().equals(LocalDate.now()));
                 }
             });
         } else {
             filteredList.setPredicate(new Predicate<TodoItem>() {
                 @Override
                 public boolean test(TodoItem todoItem) {
-                    return false;
+                    return true;
                 }
             });
         }
