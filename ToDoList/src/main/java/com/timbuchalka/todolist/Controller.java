@@ -50,6 +50,8 @@ public class Controller {
 
     private FilteredList<TodoItem> filteredList;
 
+    private Predicate<TodoItem> wantAllItems;
+
     public void initialize() {
 //        TodoItem item1 = new TodoItem("Mail birthday card", "Buy a 30th birthday card for John",
 //                LocalDate.of(2016, Month.APRIL, 25));
