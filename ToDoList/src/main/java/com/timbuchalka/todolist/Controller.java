@@ -51,6 +51,7 @@ public class Controller {
     private FilteredList<TodoItem> filteredList;
 
     private Predicate<TodoItem> wantAllItems;
+    private Predicate<TodoItem> wantTodaysItems;
 
     public void initialize() {
 //        TodoItem item1 = new TodoItem("Mail birthday card", "Buy a 30th birthday card for John",
