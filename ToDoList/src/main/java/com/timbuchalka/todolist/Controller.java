@@ -100,6 +100,12 @@ public class Controller {
 //        todoListView.getItems().setAll(todoItems);
 //        todoListView.getItems().setAll(TodoData.getInstance().getTodoItems());
 
+        wantAllItems = new Predicate<TodoItem>() {
+            @Override
+            public boolean test(TodoItem todoItem) {
+                return false;
+            }
+        }
         filteredList =new FilteredList<TodoItem>(TodoData.getInstance().getTodoItems(),
                 new Predicate<TodoItem>() {
                     @Override
