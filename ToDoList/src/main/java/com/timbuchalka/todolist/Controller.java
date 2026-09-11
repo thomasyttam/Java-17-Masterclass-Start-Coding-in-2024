@@ -105,14 +105,23 @@ public class Controller {
             public boolean test(TodoItem todoItem) {
                 return false;
             }
-        }
+        };
+
+        wantTodaysItems = new Predicate<TodoItem>() {
+            @Override
+            public boolean test(TodoItem todoItem) {
+                return (todoItem.getDeadline().equals(LocalDate.now()));
+            }
+        };
+
         filteredList =new FilteredList<TodoItem>(TodoData.getInstance().getTodoItems(),
                 new Predicate<TodoItem>() {
                     @Override
                     public boolean test(TodoItem todoItem) {
                         return true;
                     }
-                });
+        });
+
 //        SortedList<TodoItem> sortedList = new SortedList<TodoItem>(TodoData.getInstance().getTodoItems(),
         SortedList<TodoItem> sortedList = new SortedList<TodoItem>(filteredList,
                 new Comparator<TodoItem>() {
