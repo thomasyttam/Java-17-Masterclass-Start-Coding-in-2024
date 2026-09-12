@@ -114,13 +114,15 @@ public class Controller {
             }
         };
 
-        filteredList =new FilteredList<TodoItem>(TodoData.getInstance().getTodoItems(),
-                new Predicate<TodoItem>() {
-                    @Override
-                    public boolean test(TodoItem todoItem) {
-                        return true;
-                    }
-        });
+//        filteredList =new FilteredList<TodoItem>(TodoData.getInstance().getTodoItems(),
+//                new Predicate<TodoItem>() {
+//                    @Override
+//                    public boolean test(TodoItem todoItem) {
+//                        return true;
+//                    }
+//        });
+
+        filteredList =new FilteredList<TodoItem>(TodoData.getInstance().getTodoItems(), wantAllItems);
 
 //        SortedList<TodoItem> sortedList = new SortedList<TodoItem>(TodoData.getInstance().getTodoItems(),
         SortedList<TodoItem> sortedList = new SortedList<TodoItem>(filteredList,
