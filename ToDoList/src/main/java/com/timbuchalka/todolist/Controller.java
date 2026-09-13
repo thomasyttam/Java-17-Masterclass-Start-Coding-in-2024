@@ -246,20 +246,22 @@ public class Controller {
 
     public void handleFilterButton() {
         if(filterToggleButton.isSelected()) {
-            filteredList.setPredicate(new Predicate<TodoItem>() {
-                @Override
-                public boolean test(TodoItem todoItem) {
-//                    return false;
-                    return (todoItem.getDeadline().equals(LocalDate.now()));
-                }
-            });
+//            filteredList.setPredicate(new Predicate<TodoItem>() {
+//                @Override
+//                public boolean test(TodoItem todoItem) {
+////                    return false;
+//                    return (todoItem.getDeadline().equals(LocalDate.now()));
+//                }
+//            });
+            filteredList.setPredicate(wantAllItems);
         } else {
-            filteredList.setPredicate(new Predicate<TodoItem>() {
-                @Override
-                public boolean test(TodoItem todoItem) {
-                    return true;
-                }
-            });
+//            filteredList.setPredicate(new Predicate<TodoItem>() {
+//                @Override
+//                public boolean test(TodoItem todoItem) {
+//                    return true;
+//                }
+//            });
+            filteredList.setPredicate(wantTodaysItems);
         }
     }
 }
