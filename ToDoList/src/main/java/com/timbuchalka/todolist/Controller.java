@@ -103,7 +103,7 @@ public class Controller {
         wantAllItems = new Predicate<TodoItem>() {
             @Override
             public boolean test(TodoItem todoItem) {
-                return false;
+                return true;
             }
         };
 
