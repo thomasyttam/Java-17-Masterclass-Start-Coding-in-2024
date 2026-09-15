@@ -245,6 +245,7 @@ public class Controller {
     }
 
     public void handleFilterButton() {
+        TodoItem selectedItem = todoListView.getSelectionModel().getSelectedItem();
         if(filterToggleButton.isSelected()) {
 //            filteredList.setPredicate(new Predicate<TodoItem>() {
 //                @Override
