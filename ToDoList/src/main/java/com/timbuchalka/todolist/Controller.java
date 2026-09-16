@@ -263,6 +263,7 @@ public class Controller {
 //                }
 //            });
             filteredList.setPredicate(wantTodaysItems);
+            todoListView.getSelectionModel().select(selectedItem);
         }
     }
 }
