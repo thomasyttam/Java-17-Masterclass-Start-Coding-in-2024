@@ -255,6 +255,10 @@ public class Controller {
 //                }
 //            });
             filteredList.setPredicate(wantAllItems);
+            if(filteredList.isEmpty()) {
+                itemDetailsTextArea.clear();
+                deadlineLabel.setText("");
+            }
         } else {
 //            filteredList.setPredicate(new Predicate<TodoItem>() {
 //                @Override
