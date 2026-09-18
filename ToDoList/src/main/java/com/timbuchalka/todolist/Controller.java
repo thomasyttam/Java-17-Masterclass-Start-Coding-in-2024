@@ -254,10 +254,14 @@ public class Controller {
 //                    return (todoItem.getDeadline().equals(LocalDate.now()));
 //                }
 //            });
-            filteredList.setPredicate(wantAllItems);
+            filteredList.setPredicate(wantTodaysItems);
             if(filteredList.isEmpty()) {
                 itemDetailsTextArea.clear();
                 deadlineLabel.setText("");
+            } else if (filteredList.contains(selectedItem)) {
+                todoListView.getSelectionModel().select(selectedItem);
+            } else {
+                todoListView.getSelectionModel().selectFirst();
             }
         } else {
 //            filteredList.setPredicate(new Predicate<TodoItem>() {
@@ -266,7 +270,7 @@ public class Controller {
 //                    return true;
 //                }
 //            });
-            filteredList.setPredicate(wantTodaysItems);
+            filteredList.setPredicate(wantAllItems);
             todoListView.getSelectionModel().select(selectedItem);
         }
     }
