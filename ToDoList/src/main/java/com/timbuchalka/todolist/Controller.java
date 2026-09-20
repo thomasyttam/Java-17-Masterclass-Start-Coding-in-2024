@@ -2,6 +2,7 @@ package com.timbuchalka.todolist;
 
 import com.timbuchalka.todolist.datamodel.TodoData;
 import com.timbuchalka.todolist.datamodel.TodoItem;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.transformation.FilteredList;
@@ -278,6 +279,6 @@ public class Controller {
 
     @FXML
     public void handleExit() {
-
+        Platform.exit();;
     }
 }
