@@ -33,10 +33,13 @@
 
     <Button text="Button Three" id="button_three" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
 <!--        style="-fx-background-color: blue; -fx-text-fill: white"/>-->
-    <Button text="Button Four" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+    <Button text="Button Four" GridPane.rowIndex="0" GridPane.columnIndex="3"
+            fx:id="button4"/>
+
     <Button text="Button Five" GridPane.rowIndex="0" GridPane.columnIndex="4"/>
 
     <RadioButton text="Choice 1" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
     <Label text="JavaFX Effects" fx:id="label" GridPane.rowIndex="1" GridPane.columnIndex="1"
-           onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit"/>
+           rotate="90" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit"/>
 </GridPane>

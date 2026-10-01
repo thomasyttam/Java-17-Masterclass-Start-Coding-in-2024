@@ -1,7 +1,9 @@
 package com.example.javafxapplication;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 
 public class HelloController {
 //    @FXML
@@ -14,9 +16,13 @@ public class HelloController {
     @FXML
     private Label label;
 
+    @FXML
+    private Button button4;
+
     public void initialize() {
 //        label.setScaleX(2.0);
 //        label.setScaleY(2.0);
+        button4.setEffect(new DropShadow());
     }
 
     @FXML
