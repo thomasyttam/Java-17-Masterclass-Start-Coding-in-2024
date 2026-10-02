@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 
 public class HelloController {
 //    @FXML
@@ -18,6 +20,9 @@ public class HelloController {
 
     @FXML
     private Button button4;
+
+    @FXML
+    private GridPane gridPane;
 
     public void initialize() {
 //        label.setScaleX(2.0);
@@ -35,5 +40,11 @@ public class HelloController {
     public void handleMouseExit() {
         label.setScaleX(1.0);
         label.setScaleY(1.0);
+    }
+
+    @FXML
+    public void handleClick() {
+        FileChooser chooser = new FileChooser();
+        chooser.showOpenDialog(null);
     }
 }
