@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.GridPane;
-import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 
 import java.io.File;
 
@@ -46,13 +46,14 @@ public class HelloController {
 
     @FXML
     public void handleClick() {
-//        FileChooser chooser = new FileChooser(); // FileChooser choose the file
+        FileChooser chooser = new FileChooser(); // FileChooser choose the file
 //        chooser.showOpenDialog(null); // can open new window but still can close the main java program
 //        chooser.showOpenDialog(gridPane.getScene().getWindow());
 
-        DirectoryChooser chooser = new DirectoryChooser(); // DirectoryChooser choose the folder
+//        DirectoryChooser chooser = new DirectoryChooser(); // DirectoryChooser choose the folder
 //        chooser.showDialog(gridPane.getScene().getWindow());
-        File file = chooser.showDialog(gridPane.getScene().getWindow());
+//        File file = chooser.showDialog(gridPane.getScene().getWindow());
+        File file = chooser.showSaveDialog(gridPane.getScene().getWindow()); // chooser new to be FIleChooser, not DirectoryChooser
         if(file != null) {
             System.out.println(file.getPath());
         } else {
