@@ -53,6 +53,12 @@ public class HelloController {
 //        DirectoryChooser chooser = new DirectoryChooser(); // DirectoryChooser choose the folder
 //        chooser.showDialog(gridPane.getScene().getWindow());
 //        File file = chooser.showDialog(gridPane.getScene().getWindow());
+        chooser.setTitle("Save Application File");
+        chooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Text", "*.txt"),
+                new FileChooser.ExtensionFilter("PDF", "*.pdf")
+        );
+
         File file = chooser.showSaveDialog(gridPane.getScene().getWindow()); // chooser new to be FIleChooser, not DirectoryChooser
         if(file != null) {
             System.out.println(file.getPath());
