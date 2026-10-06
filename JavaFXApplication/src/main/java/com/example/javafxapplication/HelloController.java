@@ -56,10 +56,12 @@ public class HelloController {
         chooser.setTitle("Save Application File");
         chooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Text", "*.txt"),
-                new FileChooser.ExtensionFilter("PDF", "*.pdf")
+                new FileChooser.ExtensionFilter("PDF", "*.pdf"),
+                new FileChooser.ExtensionFilter("All Files", "*.*")
         );
 
-        File file = chooser.showSaveDialog(gridPane.getScene().getWindow()); // chooser new to be FIleChooser, not DirectoryChooser
+//        File file = chooser.showSaveDialog(gridPane.getScene().getWindow()); // chooser new to be FIleChooser, not DirectoryChooser, save file
+        File file = chooser.showOpenDialog(gridPane.getScene().getWindow()); // open file
         if(file != null) {
             System.out.println(file.getPath());
         } else {
