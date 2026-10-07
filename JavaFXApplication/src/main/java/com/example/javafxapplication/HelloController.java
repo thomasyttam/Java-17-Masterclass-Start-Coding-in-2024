@@ -8,6 +8,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.util.List;
 
 public class HelloController {
 //    @FXML
@@ -61,9 +62,15 @@ public class HelloController {
         );
 
 //        File file = chooser.showSaveDialog(gridPane.getScene().getWindow()); // chooser new to be FIleChooser, not DirectoryChooser, save file
-        File file = chooser.showOpenDialog(gridPane.getScene().getWindow()); // open file
+//        File file = chooser.showOpenDialog(gridPane.getScene().getWindow()); // choose one file only
+        List<File> file = chooser.showOpenMultipleDialog(gridPane.getScene().getWindow()); // choose multi files
+
+//        if(file != null) {
+//            System.out.println(file.getPath());
         if(file != null) {
-            System.out.println(file.getPath());
+            for(int i = 0; i < file.size(); i++) {
+                System.out.println(file.get(i));
+            }
         } else {
             System.out.println("Chooser was cancelled");
         }
