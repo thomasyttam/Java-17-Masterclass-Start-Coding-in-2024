@@ -75,4 +75,9 @@ public class HelloController {
             System.out.println("Chooser was cancelled");
         }
     }
+
+    @FXML
+    public void handleLinkClick() {
+        System.out.println("The link was clicked");
+    }
 }
