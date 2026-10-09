@@ -7,7 +7,11 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 public class HelloController {
@@ -78,6 +82,13 @@ public class HelloController {
 
     @FXML
     public void handleLinkClick() {
-        System.out.println("The link was clicked");
+//        System.out.println("The link was clicked");
+        try {
+            Desktop.getDesktop().browse(new URI("http://www.javafx.com"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 }
