@@ -23,6 +23,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Hyperlink?>
+
 <?import javafx.scene.web.WebView?>
 
 <GridPane fx:controller="com.example.javafxapplication.HelloController"
@@ -47,8 +48,9 @@
     <Label text="JavaFX Effects" fx:id="label" GridPane.rowIndex="1" GridPane.columnIndex="1"
            rotate="90" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit"/>
 
-    <Hyperlink text="www.javafx.com" GridPane.rowIndex="3" GridPane.columnIndex="0" onAction="#handleLinkClick"/>
+    <Hyperlink text="openjfx.io" GridPane.rowIndex="3" GridPane.columnIndex="0" onAction="#handleLinkClick"/>
 
-    <WebView GridPane.rowIndex="4" GridPane.columnIndex="0" GridPane.columnSpan="5" GridPane.rowSpan="5"/>
+    <WebView fx:id="webView"  GridPane.rowIndex="4" GridPane.columnIndex="0" GridPane.columnSpan="5" GridPane.rowSpan="5"/>
+
 
 </GridPane>

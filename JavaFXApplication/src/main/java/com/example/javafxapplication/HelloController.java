@@ -5,6 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.GridPane;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 
 import java.awt.*;
@@ -30,6 +32,9 @@ public class HelloController {
 
     @FXML
     private GridPane gridPane;
+
+    @FXML
+    private WebView webView;
 
     public void initialize() {
 //        label.setScaleX(2.0);
@@ -84,11 +89,14 @@ public class HelloController {
     public void handleLinkClick() {
 //        System.out.println("The link was clicked");
         try {
-            Desktop.getDesktop().browse(new URI("http://www.javafx.com"));
+            Desktop.getDesktop().browse(new URI("https://openjfx.io/"));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+
+        WebEngine engine = webView.getEngine();
+        engine.load("https://openjfx.io/");
     }
 }
