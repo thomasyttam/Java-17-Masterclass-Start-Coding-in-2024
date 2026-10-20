@@ -17,7 +17,7 @@
 <!--            xmlns:fx="http://javafx.com/fxml">-->
 <!--</BorderPane>-->
 
-<GridPane alignment="center" vgap="10" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.scenebuilder.HelloController">
+<GridPane alignment="center" stylesheets="@style.css" vgap="10.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.scenebuilder.HelloController">
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints />
@@ -31,7 +31,7 @@
    <children>
       <HBox spacing="5.0" GridPane.rowIndex="1">
          <children>
-            <Button mnemonicParsing="false" onAction="#handleAction" text="OK">
+            <Button mnemonicParsing="false" onAction="#handleAction" style="-fx-text-fill: white;" text="OK">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
