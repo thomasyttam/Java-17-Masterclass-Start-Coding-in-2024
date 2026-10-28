@@ -1,7 +1,15 @@
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.mycontacts.HelloController">
     <center>
-
+        <TableView fx:id="contactsTable">
+            <columns>
+                <TableColumn text="First Name">
+                    
+                </TableColumn>
+            </columns>
+        </TableView>
     </center>
 </BorderPane>
