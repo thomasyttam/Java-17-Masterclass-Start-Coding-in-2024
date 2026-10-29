@@ -1,13 +1,16 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.mycontacts.HelloController">
     <center>
         <TableView fx:id="contactsTable">
             <columns>
                 <TableColumn text="First Name">
-                    
+                    <cellValueFactory>
+                        <PropertyValueFactory property="firstName"/>
+                    </cellValueFactory>
                 </TableColumn>
             </columns>
         </TableView>
