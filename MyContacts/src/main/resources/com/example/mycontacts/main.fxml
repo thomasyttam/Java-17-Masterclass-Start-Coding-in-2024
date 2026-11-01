@@ -12,7 +12,7 @@
             <menus>
                 <Menu text="Contacts">
                     <items>
-                        <MenuItem text="New..."/>
+                        <MenuItem text="Add..." onAction="#showAddContactDialog"/>
                     </items>
                 </Menu>
             </menus>
