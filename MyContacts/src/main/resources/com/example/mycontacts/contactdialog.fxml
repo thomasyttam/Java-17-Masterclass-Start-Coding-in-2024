@@ -1,0 +1,4 @@
+<?import javafx.scene.control.DialogPane?>
+<DialogPane fx:controller="com.example.mycontacts.ContactController" xmlns:fx="http://javafx.com/fxml">
+
+</DialogPane>
