@@ -1,4 +1,6 @@
 <?import javafx.scene.control.DialogPane?>
 <DialogPane fx:controller="com.example.mycontacts.ContactController" xmlns:fx="http://javafx.com/fxml">
-
+    <headerText>
+        Fill in the information for the new Contact
+    </headerText>
 </DialogPane>
