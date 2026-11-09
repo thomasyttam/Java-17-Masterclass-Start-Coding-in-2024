@@ -1,5 +1,6 @@
 package com.example.mycontacts;
 
+import com.example.datamodel.ContactData;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ButtonType;
@@ -20,6 +21,13 @@ public class HelloController {
 
     @FXML
     private BorderPane mainPanel;
+
+    private ContactData data;
+
+    public void initialize() {
+        data = new ContactData();
+        data.loadContacts();
+    }
 
     @FXML
     public void showAddContactDialog() {
