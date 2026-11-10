@@ -1,10 +1,12 @@
 package com.example.mycontacts;
 
+import com.example.datamodel.Contact;
 import com.example.datamodel.ContactData;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
@@ -22,11 +24,15 @@ public class HelloController {
     @FXML
     private BorderPane mainPanel;
 
+    @FXML
+    private TableView<Contact> contactsTable;
+
     private ContactData data;
 
     public void initialize() {
         data = new ContactData();
         data.loadContacts();
+        contactsTable.setItems(data.getContacts());
     }
 
     @FXML
