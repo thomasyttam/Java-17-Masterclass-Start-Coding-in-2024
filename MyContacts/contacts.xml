@@ -6,4 +6,10 @@
 	<phone_number>1234</phone_number>
 	<notes>my notes</notes>
 </contact>
+<contact>
+	<first_name>Brian</first_name>
+	<last_name>Johnson</last_name>
+	<phone_number>5678</phone_number>
+	<notes>notes</notes>
+</contact>
 </contacts>
