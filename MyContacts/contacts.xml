@@ -12,4 +12,16 @@
 	<phone_number>5678</phone_number>
 	<notes>notes</notes>
 </contact>
+<contact>
+	<first_name>Louise</first_name>
+	<last_name>Richer</last_name>
+	<phone_number>1290</phone_number>
+	<notes></notes>
+</contact>
+<contact>
+	<first_name>Zayn</first_name>
+	<last_name>Jones</last_name>
+	<phone_number>6321</phone_number>
+	<notes>more notes here.</notes>
+</contact>
 </contacts>
