@@ -61,4 +61,9 @@ public class HelloController {
             data.saveContacts();
         }
     }
+
+    @FXML
+    public void showEditContactDialog() {
+
+    }
 }
