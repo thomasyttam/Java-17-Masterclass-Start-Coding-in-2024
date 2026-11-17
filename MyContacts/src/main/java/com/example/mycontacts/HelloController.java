@@ -4,6 +4,7 @@ import com.example.datamodel.Contact;
 import com.example.datamodel.ContactData;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.TableView;
@@ -64,6 +65,14 @@ public class HelloController {
 
     @FXML
     public void showEditContactDialog() {
-
+        Contact selectedContact = contactsTable.getSelectionModel().getSelectedItem();
+        if(selectedContact == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("No Contact Selected");
+            alert.setHeaderText(null);
+            alert.setContentText("Please select the contact you want to edit.");
+            alert.showAndWait();
+            return;
+        }
     }
 }
