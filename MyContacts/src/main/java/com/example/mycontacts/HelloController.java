@@ -74,5 +74,11 @@ public class HelloController {
             alert.showAndWait();
             return;
         }
+
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.initOwner(mainPanel.getScene().getWindow());
+        dialog.setTitle("Edit Contact");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("contactdialog.fxml"));
     }
 }
