@@ -90,5 +90,8 @@ public class HelloController {
 
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+
+        ContactController contactController = fxmlLoader.getController();
+        contactController.editContact(selectedContact);
     }
 }
