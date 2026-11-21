@@ -93,5 +93,11 @@ public class HelloController {
 
         ContactController contactController = fxmlLoader.getController();
         contactController.editContact(selectedContact);
+
+        Optional<ButtonType> result = dialog.showAndWait();
+        if(result.isPresent() && result.get() == ButtonType.OK) {
+            contactController.updateContact(selectedContact);
+            data.saveContacts();
+        }
     }
 }
