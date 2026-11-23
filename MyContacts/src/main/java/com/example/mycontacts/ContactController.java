@@ -34,4 +34,8 @@ public class ContactController {
         phoneNumberField.setText(contact.getPhoneNumber());
         notesField.setText(contact.getNotes());
     }
+
+    public void updateContact(Contact contact) {
+        
+    }
 }
