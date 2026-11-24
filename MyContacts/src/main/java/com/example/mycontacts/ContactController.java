@@ -36,6 +36,9 @@ public class ContactController {
     }
 
     public void updateContact(Contact contact) {
-        
+        contact.setFirstName(firstNameField.getText());
+        contact.setLastName(lastNameField.getText());
+        contact.setPhoneNumber(phoneNumberField.getText());
+        contact.setNotes(notesField.getText());
     }
 }

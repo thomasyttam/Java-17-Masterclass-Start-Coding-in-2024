@@ -19,9 +19,9 @@
 	<notes>Some notes</notes>
 </contact>
 <contact>
-	<first_name>Zayn</first_name>
-	<last_name>Jones</last_name>
-	<phone_number>6321</phone_number>
-	<notes>more notes here.</notes>
+	<first_name>Bob</first_name>
+	<last_name>Smith</last_name>
+	<phone_number>9876</phone_number>
+	<notes>A few notes.</notes>
 </contact>
 </contacts>
