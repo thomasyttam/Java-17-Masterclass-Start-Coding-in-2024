@@ -100,4 +100,8 @@ public class HelloController {
             data.saveContacts();
         }
     }
+
+    public void deleteContact() {
+
+    }
 }
