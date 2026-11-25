@@ -41,4 +41,8 @@ public class ContactController {
         contact.setPhoneNumber(phoneNumberField.getText());
         contact.setNotes(notesField.getText());
     }
+
+    public void deleteContact() {
+
+    }
 }
