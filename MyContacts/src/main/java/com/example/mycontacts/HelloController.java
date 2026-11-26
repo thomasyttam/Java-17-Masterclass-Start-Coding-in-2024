@@ -102,6 +102,14 @@ public class HelloController {
     }
 
     public void deleteContact() {
-
+        Contact selectedContact = contactsTable.getSelectionModel().getSelectedItem();
+        if(selectedContact == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("No Contact Selected");
+            alert.setHeaderText(null);
+            alert.setContentText("PLease select the contact you want to delete.");
+            alert.showAndWait();
+            return;
+        }
     }
 }
