@@ -111,5 +111,14 @@ public class HelloController {
             alert.showAndWait();
             return;
         }
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete Contact");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to delete the selected contact: " +
+                selectedContact.getFirstName() + " " + selectedContact.getLastName());
+
+        Optional<ButtonType> result = alert.showAndWait();
+
     }
 }

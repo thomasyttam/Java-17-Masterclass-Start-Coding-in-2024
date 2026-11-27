@@ -2,7 +2,6 @@ package com.example.mycontacts;
 
 import com.example.datamodel.Contact;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
 public class ContactController {
@@ -42,6 +41,5 @@ public class ContactController {
         contact.setPhoneNumber(phoneNumberField.getText());
         contact.setNotes(notesField.getText());
     }
-
 
 }
